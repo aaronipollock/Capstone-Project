@@ -1,3 +1,76 @@
-.profile-dropdown {
+/* .profile-dropdown {
   position: absolute;
+} */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+html, body {
+  background-color: #F8F5ED;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  background-color: #F8F5ED;
+  color: #333;
+  border-bottom: 1px solid black;
+  height: 40px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.fas.fa-sticky-note {
+  font-size: 30px;
+  padding-left: 0px;
+}
+
+.nav-link {
+  font-size: 29px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  padding-left: 5px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 125px;
+}
+
+.nav-button {
+  background-color: #F8F5ED;
+  border: none;
+  padding: 10px 10px;
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.download-button {
+  border: 1px solid #333;
+  width: 140px;
+  height: 38px;
+}
+
+.log-in-button:hover {
+  background-color: white;
+}
+
+.download-button:hover {
+  transform: scale(1.1);
+  box-shadow: 5px 5px black;
 }
