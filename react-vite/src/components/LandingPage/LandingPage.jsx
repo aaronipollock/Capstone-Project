@@ -1,6 +1,5 @@
 import './LandingPage.css'
 import { NavLink } from 'react-router-dom'
-// import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 function LandingPage() {
