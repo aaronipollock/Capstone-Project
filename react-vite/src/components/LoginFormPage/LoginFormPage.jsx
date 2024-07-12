@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import "./LoginForm.css";
 import { NavLink } from "react-router-dom";
 
 function LoginFormPage() {
+  console.log("Rendering LoginFormPage component")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -13,10 +14,21 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  const demoLogIn = () => {
+    setEmail("demo@aa.io");
+    setPassword("password");
+    return null;
+  }
+
+  useEffect(() => {
+    console.log("Current session user:", sessionUser);
+  }, [sessionUser]);
+
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted with", { email, password });
 
     const serverResponse = await dispatch(
       thunkLogin({
@@ -25,15 +37,17 @@ function LoginFormPage() {
       })
     );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
+    console.log("Server response", serverResponse);
+
+    if (serverResponse.errors) {
+      setErrors(serverResponse.errors);
     } else {
       navigate("/");
     }
   };
 
   return (
-    <>
+    <body className="login-body">
       <div className="login-page">
         <i className="fas fa-sticky-note login-icon"></i>
         <h1 className="login-label">Log in</h1>
@@ -46,7 +60,9 @@ function LoginFormPage() {
             <input
               type="text"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                console.log("Email changed to:", e.target.value);
+                setEmail(e.target.value)}}
               required
             />
           </label>
@@ -56,7 +72,9 @@ function LoginFormPage() {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                console.log("Password changed to:", e.target.value);
+                setPassword(e.target.value)}}
               required
             />
           </label>
@@ -66,11 +84,11 @@ function LoginFormPage() {
             <p className="signup-from-login-text">Don&apos;t have an account?</p>
             <NavLink to="/signup" className="signup-link">Sign up</NavLink>
             <p className="signup-from-login-text">or</p>
-            <NavLink to='/' className="signup-link">Log in as Demo User</NavLink>
+            <NavLink to='/' className="signup-link" onClick={() => demoLogIn()}>Log in as Demo User</NavLink>
           </div>
         </form>
       </div>
-    </>
+    </body>
   );
 }
 

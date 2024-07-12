@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 
 function Navigation() {
+  console.log("Rendering Navigation compoent")
   return (
     <header className="navigation">
       <div className="nav-left">
@@ -13,7 +14,7 @@ function Navigation() {
         <NavLink to="/login">
           <button className="nav-button log-in-button">Log In</button>
         </NavLink>
-        <NavLink >
+        <NavLink>
           <button className="nav-button download-button">Download</button>
         </NavLink>
         {/* <ProfileButton /> */}

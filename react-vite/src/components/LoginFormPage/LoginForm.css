@@ -1,4 +1,12 @@
-.body {
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: white;
+}
+
+.login-body {
     background-color: white;
 }
 
@@ -35,6 +43,7 @@
     background-color: royalblue;
     color: white;
     margin-top: 20px;
+    margin-bottom: 20px;
     transition: transform 0.3s ease;
     width: 450px
 }
@@ -74,7 +83,8 @@
 }
 
 .signup-from-login-text {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     color: gray;
 }
 
