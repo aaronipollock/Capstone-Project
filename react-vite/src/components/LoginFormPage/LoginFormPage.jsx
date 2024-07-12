@@ -35,7 +35,7 @@ function LoginFormPage() {
   return (
     <>
       <div className="login-page">
-        <i className="fas fa-sticky-note"></i>
+        <i className="fas fa-sticky-note login-icon"></i>
         <h1 className="login-label">Log in</h1>
         <p className="sub-login-label">to continue to your Everclone account.</p>
         {errors.length > 0 &&

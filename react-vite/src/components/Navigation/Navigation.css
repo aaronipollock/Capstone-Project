@@ -16,7 +16,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px;
+  padding: 20px;
   background-color: #F8F5ED;
   color: #333;
   border-bottom: 1px solid black;
@@ -26,11 +26,12 @@ html, body {
 .nav-left {
   display: flex;
   align-items: center;
+  padding-left: 125px;
 }
 
-.fas.fa-sticky-note {
+.fas.fa-sticky-note.nav-icon.navigation-icon {
   font-size: 30px;
-  padding-left: 0px;
+  margin-right: 5px;
 }
 
 .nav-link {
@@ -38,7 +39,6 @@ html, body {
   font-weight: bold;
   color: #333;
   text-decoration: none;
-  padding-left: 5px;
 }
 
 .nav-right {

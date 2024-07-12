@@ -43,7 +43,7 @@
     background-color: blue;
 }
 
-.fas.fa-sticky-note::before {
+.fas.fa-sticky-note.login-icon {
     display: flex;
     flex-direction: column;
     justify-content: center;
