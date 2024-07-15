@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
 import './SignupForm.css'
 
@@ -21,7 +21,7 @@ function SignupFormPage() {
     console.log("Current session user:", sessionUser);
   }, [sessionUser]);
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  // if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

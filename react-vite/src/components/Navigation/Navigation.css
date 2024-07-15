@@ -35,6 +35,7 @@ html {
 }
 
 .nav-link {
+  font-family: 'Times New Roman', Times, serif;
   font-size: 29px;
   font-weight: bold;
   color: #333;

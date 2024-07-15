@@ -1,0 +1,16 @@
+.ready {
+    margin-top: 55px;
+    margin-left: 40px;
+    margin-bottom: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: gray;
+}
+
+.h1-user-page {
+    margin-top: 0px;
+    margin-left: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    /* align-self: center; */
+    font-weight: 100;
+}

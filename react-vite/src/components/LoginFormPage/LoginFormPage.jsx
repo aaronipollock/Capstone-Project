@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { NavLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function LoginFormPage() {
-  console.log("Rendering LoginFormPage component")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -14,21 +14,27 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  const demoLogIn = () => {
+  const demoLogIn = async () => {
     setEmail("demo@aa.io");
     setPassword("password");
-    return null;
+    await dispatch(
+      thunkLogin({
+        email: "demo@aa.io",
+        password: "password",
+      })
+    );
+    navigate("/user")
   }
 
   useEffect(() => {
     console.log("Current session user:", sessionUser);
   }, [sessionUser]);
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  if (sessionUser) return <Navigate to="/user" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with", { email, password });
+    // console.log("Form submitted with", { email, password });
 
     const serverResponse = await dispatch(
       thunkLogin({
@@ -37,7 +43,7 @@ function LoginFormPage() {
       })
     );
 
-    console.log("Server response", serverResponse);
+    // console.log("Server response", serverResponse);
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
@@ -60,9 +66,7 @@ function LoginFormPage() {
             <input
               type="text"
               value={email}
-              onChange={(e) => {
-                console.log("Email changed to:", e.target.value);
-                setEmail(e.target.value)}}
+              onChange={(e) => {setEmail(e.target.value)}}
               required
             />
           </label>
@@ -72,19 +76,17 @@ function LoginFormPage() {
             <input
               type="password"
               value={password}
-              onChange={(e) => {
-                console.log("Password changed to:", e.target.value);
-                setPassword(e.target.value)}}
+              onChange={(e) => {setPassword(e.target.value)}}
               required
             />
           </label>
           {errors.password && <p>{errors.password}</p>}
-          <button type="submit">Continue</button>
+          <button type="submit" onClick={handleSubmit}>Continue</button>
           <div className="signup-from-login">
             <p className="signup-from-login-text">Don&apos;t have an account?</p>
             <NavLink to="/signup" className="signup-link">Sign up</NavLink>
             <p className="signup-from-login-text">or</p>
-            <NavLink to='/' className="signup-link" onClick={() => demoLogIn()}>Log in as Demo User</NavLink>
+            <NavLink to='/user' className="signup-link" onClick={() => demoLogIn()}>Log in as Demo User</NavLink>
           </div>
         </form>
       </div>

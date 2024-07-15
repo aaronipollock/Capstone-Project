@@ -7,7 +7,7 @@ import Navigation from "../components/Navigation/Navigation";
 
 
 export default function Layout() {
-  console.log("Rendering Layout component")
+  // console.log("Rendering Layout component")
   const location = useLocation();
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

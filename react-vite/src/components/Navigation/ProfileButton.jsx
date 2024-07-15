@@ -5,11 +5,13 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { Navigate } from "react-router-dom";
 
-function ProfileButton() {
+function ProfileButton({ className }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -39,9 +41,12 @@ function ProfileButton() {
     closeMenu();
   };
 
+  if (!sessionUser) return <Navigate to="/" replace={true} />;
+
+
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} className={className}>
         <FaUserCircle />
       </button>
       {showMenu && (

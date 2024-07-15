@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-// import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
 function Navigation() {
@@ -17,7 +16,6 @@ function Navigation() {
         <NavLink>
           <button className="nav-button download-button">Download</button>
         </NavLink>
-        {/* <ProfileButton /> */}
       </div>
     </header>
   );

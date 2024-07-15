@@ -40,6 +40,8 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('title', sa.String(50), nullable=False, unique=True),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('users.id')),
+        sa.Column('created_at', sa.DateTime(), nullable=False),
+        sa.Column('updated_at', sa.DateTime(), nullable=True),
     )
 
     op.create_table(
