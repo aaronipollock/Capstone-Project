@@ -1,3 +1,4 @@
+from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Notebook(db.Model):
@@ -9,11 +10,13 @@ class Notebook(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
     user = db.relationship(
         'User',
         back_populates='notebooks')
-    
+
     notes= db.relationship(
         'Note',
         back_populates='notebook')
@@ -22,5 +25,7 @@ class Notebook(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
 import Navigation from "../components/Navigation/Navigation";
 
+
 export default function Layout() {
+  // console.log("Rendering Layout component")
+  const location = useLocation();
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(thunkAuthenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -15,7 +19,7 @@ export default function Layout() {
   return (
     <>
       <ModalProvider>
-        <Navigation />
+        {location.pathname === '/' && <Navigation />}
         {isLoaded && <Outlet />}
         <Modal />
       </ModalProvider>
