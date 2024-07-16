@@ -1,6 +1,12 @@
-/* .profile-dropdown {
+.profile-dropdown {
   position: absolute;
-} */
+  background-color: white;
+  padding: 20px;
+  margin-left: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 html {
   margin: 0;

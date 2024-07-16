@@ -14,7 +14,7 @@ function LandingPage() {
             </section>
             <section className="section2">
                 <NavLink to="/signup">
-                    <button className="nav-button sign-up-button">Start for free</button>
+                    <button className="start-for-free-button">Start for free</button>
                 </NavLink>
             </section>
             <section className="section3">

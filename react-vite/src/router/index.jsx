@@ -6,6 +6,7 @@ import LandingPage from '../components/LandingPage'
 import UserPage from '../components/UserPage'
 import Notebooks from '../components/Notebooks'
 import CreateNotebookModal from '../components/CreateNotebookModal'
+import DeleteNotebookModal from '../components/DeleteNotebookModal';
 
 export const router = createBrowserRouter([
   {
@@ -24,16 +25,20 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "user",
+        path: "users/current",
         element: <UserPage />
       },
       {
         path: "notebooks",
         element: <Notebooks />
-      }
+      },
       {
         path: "notebooks/create",
         element: <CreateNotebookModal />
+      },
+      {
+        path: "notebooks/:notebookId/delete",
+        element: <DeleteNotebookModal />
       }
     ],
   },

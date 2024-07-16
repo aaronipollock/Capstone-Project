@@ -15,22 +15,20 @@ function LoginFormPage() {
   const [errors, setErrors] = useState({});
 
   const demoLogIn = async () => {
-    setEmail("demo@aa.io");
-    setPassword("password");
     await dispatch(
       thunkLogin({
         email: "demo@aa.io",
         password: "password",
       })
     );
-    navigate("/user")
+    navigate("/users/current")
   }
 
   useEffect(() => {
     console.log("Current session user:", sessionUser);
   }, [sessionUser]);
 
-  if (sessionUser) return <Navigate to="/user" replace={true} />;
+  if (sessionUser) return <Navigate to="/users/current" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,13 +51,13 @@ function LoginFormPage() {
   };
 
   return (
-    <body className="login-body">
+    <div className="login-body">
       <div className="login-page">
         <i className="fas fa-sticky-note login-icon"></i>
         <h1 className="login-label">Log in</h1>
         <p className="sub-login-label">to continue to your Everclone account.</p>
-        {errors.length > 0 &&
-          errors.map((message) => <p key={message}>{message}</p>)}
+        {Object.values(errors).length > 0 &&
+          Object.values(errors).map((message, index) => <p key={index}>{message}</p>)}
         <form className="login-form" onSubmit={handleSubmit}>
           <label>
             Email
@@ -81,16 +79,16 @@ function LoginFormPage() {
             />
           </label>
           {errors.password && <p>{errors.password}</p>}
-          <button type="submit" onClick={handleSubmit}>Continue</button>
+          <button type="submit">Continue</button>
           <div className="signup-from-login">
             <p className="signup-from-login-text">Don&apos;t have an account?</p>
             <NavLink to="/signup" className="signup-link">Sign up</NavLink>
             <p className="signup-from-login-text">or</p>
-            <NavLink to='/user' className="signup-link" onClick={() => demoLogIn()}>Log in as Demo User</NavLink>
+            <NavLink to='/users/current' className="signup-link" onClick={demoLogIn}>Log in as Demo User</NavLink>
           </div>
         </form>
       </div>
-    </body>
+    </div>
   );
 }
 

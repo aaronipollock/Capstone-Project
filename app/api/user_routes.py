@@ -28,5 +28,4 @@ def user(id):
 @login_required
 def current_user_info():
     """Returns the current user's info"""
-
     return current_user.to_dict()
