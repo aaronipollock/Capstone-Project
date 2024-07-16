@@ -1,0 +1,58 @@
+.update-notebook-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    padding: 20px;
+    padding-left: 30px;
+    margin: auto;
+    height: 270px;
+    width: 510px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.main-update-text {
+    margin-top: 5px;
+    font-weight: 550;
+}
+
+.update-title-text {
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+.update-notebook-title-text {
+    margin-top: 5px;
+    height: 20px;
+}
+
+input {
+    height: 38px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    width: 97%;
+    padding-left: 10px;
+}
+
+.update-button-container {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px
+}
+
+.update-cancel-button {
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.update-continue-button {
+    height: 40px;
+    width: 100px;
+    color: white;
+    background-color: gray;
+}

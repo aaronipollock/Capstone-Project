@@ -7,6 +7,7 @@ import UserPage from '../components/UserPage'
 import Notebooks from '../components/Notebooks'
 import CreateNotebookModal from '../components/CreateNotebookModal'
 import DeleteNotebookModal from '../components/DeleteNotebookModal';
+import UpdateNotebookModal from '../components/UpdateNotebookModal';
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "notebooks/create",
         element: <CreateNotebookModal />
+      },
+      {
+        path: "notebooks/:notebookId/edit",
+        element: <UpdateNotebookModal />
       },
       {
         path: "notebooks/:notebookId/delete",

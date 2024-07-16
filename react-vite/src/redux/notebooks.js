@@ -1,8 +1,11 @@
+//Action types
 const CURRENT_USERS_NOTEBOOKS = 'notebooks';
 const CREATE_NEW_NOTEBOOK = 'notebooks/new';
+const UPDATE_NOTEBOOK = 'notebooks/:notebookId/edit';
 const DELETE_NOTEBOOK = 'notebooks/:notebookId/delete'
 
-const currentUsersNotebooks = (notebooks) =>({
+//Action creators
+const currentUsersNotebooks = (notebooks) => ({
     type: CURRENT_USERS_NOTEBOOKS,
     notebooks,
 })
@@ -12,25 +15,27 @@ const createNewNotebook = (notebook) => ({
     notebook,
 });
 
+const updateNotebook = (notebook) => ({
+    type: UPDATE_NOTEBOOK,
+    notebook,
+})
+
 const deleteNotebook = (notebookId) => ({
     type: DELETE_NOTEBOOK,
     notebookId,
 })
 
+//Thunks
 export const thunkGetCurrentUsersNotebooks = () => async (dispatch) => {
-    try {
-        const res = await fetch('/api/notebooks');
-        if (res.ok) {
-            const usersNotebooks = await res.json();
-            console.log('Fetched Notebooks: ', usersNotebooks);
-            dispatch(currentUsersNotebooks(usersNotebooks.notebooks));
-        } else {
-            const error = await res.json();
-            console.error('Failed to fetch notebooks:', error);
-            return error;
-        }
-    } catch (err) {
-        console.error('Network error:', err);
+    const res = await fetch('/api/notebooks/');
+    if (res.ok) {
+        const usersNotebooks = await res.json();
+        console.log('Fetched Notebooks: ', usersNotebooks);
+        dispatch(currentUsersNotebooks(usersNotebooks.notebooks));
+    } else {
+        const error = await res.json();
+        console.error('Failed to fetch notebooks:', error);
+        return error;
     }
 };
 
@@ -45,13 +50,33 @@ export const thunkCreateNewNotebook = (notebook) => async (dispatch) => {
 
     if (res.ok) {
         const newNotebook = await res.json();
-        dispatch(createNewNotebook(newNotebook));
-        return { notebook: newNotebook };
+        dispatch(createNewNotebook(newNotebook.notebook));
+        dispatch(thunkGetCurrentUsersNotebooks());
+        return { notebook: newNotebook.notebook };
     } else {
         const error = await res.json();
         return { errors: error };
     }
 };
+
+export const thunkUpdateNotebooks = (notebook) => async (dispatch) => {
+    const res = await fetch(`/api/notebooks/${notebook.id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(notebook),
+    });
+    if (res.ok) {
+        const updatedNotebook = await res.json();
+        dispatch(updateNotebook(updatedNotebook));
+        dispatch(thunkGetCurrentUsersNotebooks());
+        return updatedNotebook;
+    } else {
+        const error = await res.json()
+        return error;
+    }
+}
 
 export const thunkDeleteNotebook = (notebookId) => async (dispatch) => {
     const res = await fetch(`/api/notebooks/${notebookId}`, {
@@ -59,6 +84,7 @@ export const thunkDeleteNotebook = (notebookId) => async (dispatch) => {
     });
     if (res.ok) {
         dispatch(deleteNotebook(notebookId));
+        dispatch(thunkGetCurrentUsersNotebooks());
         return {};
     } else {
         const error = await res.json()
@@ -66,10 +92,12 @@ export const thunkDeleteNotebook = (notebookId) => async (dispatch) => {
     }
 }
 
+//Inital state
 const initialState = {
     userNotebooks: [],
-}
+};
 
+//Reducer
 export default function notebookReducer(state = initialState, action) {
     switch (action.type) {
         case CURRENT_USERS_NOTEBOOKS:
@@ -83,6 +111,14 @@ export default function notebookReducer(state = initialState, action) {
                 ...state,
                 userNotebooks: [...state.userNotebooks, action.notebook],
             }
+        case UPDATE_NOTEBOOK: {
+            const updatedNotebook = action.notebook;
+            return {
+                ...state,
+                userNotebooks: state.userNotebooks.map(notebook =>
+                    notebook.id === updatedNotebook.id ? updatedNotebook : notebook),
+            };
+        }
         case DELETE_NOTEBOOK:
             return {
                 ...state,

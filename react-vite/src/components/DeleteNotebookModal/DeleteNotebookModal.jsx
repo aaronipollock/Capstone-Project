@@ -9,7 +9,7 @@ function DeleteNotebookModal({ notebookId }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const notebook = useSelector((state) =>
-        state.notebooks.userNotebooks.find((notebook) => notebook.id === notebookId))
+        state.notebooks.userNotebooks.find((nb) => nb.id === notebookId))
     const [errors, setErrors] = useState({});
     const currentUser = useSelector((state) => state.session.user);
     const { closeModal } = useModal();
