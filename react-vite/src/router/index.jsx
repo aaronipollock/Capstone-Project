@@ -6,8 +6,9 @@ import LandingPage from '../components/LandingPage'
 import UserPage from '../components/UserPage'
 import Notebooks from '../components/Notebooks'
 import CreateNotebookModal from '../components/CreateNotebookModal'
-import DeleteNotebookModal from '../components/DeleteNotebookModal';
 import UpdateNotebookModal from '../components/UpdateNotebookModal';
+import DeleteNotebookModal from '../components/DeleteNotebookModal';
+import Notes from '../components/Notes'
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "notebooks/:notebookId/delete",
         element: <DeleteNotebookModal />
+      },
+      {
+        path: "notes",
+        element: <Notes />
       }
     ],
   },
