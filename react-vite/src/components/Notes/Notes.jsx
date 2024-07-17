@@ -41,13 +41,36 @@ function Notes() {
                     <section className='notes-section3'>
                         {notes.map((note) => (
                             <div key={note.id} className="note-container">
-                                <div className="note-item">{note.title}</div>
-                                <div className="note-item">{note.content}</div>
+                                <div className="note-item-title">{note.title}</div>
+                                <div className="note-item-content">{note.content}</div>
+                                {/* <div className="note-item-action">
+                                    <button
+                                        className="action-button"
+                                        onClick={() => toggleDropdown(index)}
+                                    >
+                                        <strong>...</strong>
+                                    </button>
+                                    <div className={`dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
+                                        <div className="dropdown-item">
+                                            <OpenModalButton
+                                                className="edit-note-button"
+                                                buttonText="Edit note"
+                                                modalComponent={<UpdateNoteModal notebookId={notebook.id} />}
+                                            />
+                                            <OpenModalButton
+                                                className="delete-note-button"
+                                                buttonText="Delete note"
+                                                modalComponent={<DeleteNoteModal notebookId={notebook.id} />}
+                                            />
+                                        </div>
+                                    </div>
+                                </div> */}
+                            </div>
                             </div>
                         ))}
-                    </section>
-                </div>
-            </div>
+            </section>
+        </div >
+            </div >
         </>
     )
 

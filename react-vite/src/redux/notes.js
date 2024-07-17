@@ -1,6 +1,7 @@
 //Action types
 const CURRENT_USERS_NOTES = 'notes';
 const CREATE_NEW_NOTE = 'notes/create';
+const UPDATE_NOTE = 'notes/noteId/edit';
 
 //Action creators
 const currentUsersNotes = (notes) => ({
@@ -10,6 +11,11 @@ const currentUsersNotes = (notes) => ({
 
 const createNewNote = (note) => ({
     type: CREATE_NEW_NOTE,
+    note,
+})
+
+const updateNote = (note) => ({
+    type: UPDATE_NOTE,
     note,
 })
 
@@ -45,6 +51,25 @@ export const thunkCreateNewNote = (note) => async (dispatch) => {
         const error = await res.json();
         return { errors: error };
     }
+};
+
+export const thunkUpdateNotes = (note) => async (dispatch) => {
+    const res = await fetch(`/api/notes/${note.id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(note),
+    });
+    if (res.ok) {
+        const updatedNote = await res.json();
+        dispatch(updateNote(updatedNote));
+        dispatch(thunkGetCurrentUsersNotes())
+        return updatedNote;
+    } else {
+        const error = await res.json()
+        return error;
+    }
 }
 
 // Initial state
@@ -65,6 +90,14 @@ export default function noteReducer(state = initialState, action) {
                 ...state,
                 userNotes: [...state.userNotes, action.note],
             }
+        case UPDATE_NOTE: {
+            const updatedNote = action.note;
+            return {
+                ...state,
+                userNote: state.userNote.map(note =>
+                    note.id === updatedNote.id ? updatedNote : note),
+            }
+        }
         default:
             return state;
     }

@@ -1,0 +1,49 @@
+.create-note-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    padding: 20px;
+    padding-left: 30px;
+    margin: auto;
+    height: 540px;
+    width: 1020px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.note-main-text {
+    margin-top: 5px;
+    font-weight: 550;
+}
+
+.note-title-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.note-text {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.note-content {
+    width: 600px;
+}
+
+textarea {
+    height: 330px;
+    border-radius: 5px;
+    /* border: 1px solid lightgray; */
+    width: 990px;
+    padding: 10px;
+}
+
+.note-button-container {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px
+}

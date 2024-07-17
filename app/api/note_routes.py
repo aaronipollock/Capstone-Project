@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models.note import Note
 from app.models import db
 from ..forms.note_creator import CreateNote
-from datetime import datetime
+# from datetime import datetime
 
 note_routes = Blueprint('notes', __name__)
 
@@ -26,9 +26,9 @@ def post_note():
 
     if form.validate_on_submit():
         new_note = Note(
-            title = form.data['title'],
-            content = form.data['content'],
-            user_id = current_user.id,
+            title=form.data['title'],
+            content=form.data['content'],
+            user_id=current_user.id,
             # notebook_id = notebook.id,
             # created_at = datetime.utcnow(),
             # updated_at = datetime.utcnow()
@@ -40,3 +40,32 @@ def post_note():
         return jsonify({"message": "New note created", "note": new_note.to_dict()}), 201
 
     return jsonify({"errors": form.errors}), 400
+
+@note_routes.route('/<int:note_id>', methods=['GET', 'PUT'])
+@login_required
+def update_note(note_id):
+    """Update a note by ID"""
+
+    note = Note.query.get(note_id)
+    if note is None:
+        return {'errors': {'message': 'Note not found'}}, 404
+    if note.user_id != current_user.id:
+        return {'errors': {'message': 'You are not authorized'}}, 403
+    if request.method == 'GET':
+        return note.to_dict()
+
+    form = CreateNote()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        note.title = form.data['title']
+        note.content = form.data['content']
+        db.session.commit()
+        return note.to_dict()
+
+    if form.errors:
+        return {'errors': form.errors}, 400
+
+    return "Successful edit!"
+
+

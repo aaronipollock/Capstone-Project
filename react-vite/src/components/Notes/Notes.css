@@ -22,3 +22,24 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+.notes-section2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 30px;
+    color: darkgray;
+}
+
+.note-container {
+    border-bottom: 1px solid lightgray;
+    width: 450px;
+}
+
+.note-item-title {
+    padding: 20px;
+}
+
+.note-item-content {
+    padding: 20px;
+}
