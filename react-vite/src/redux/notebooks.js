@@ -1,6 +1,6 @@
 //Action types
 const CURRENT_USERS_NOTEBOOKS = 'notebooks';
-const CREATE_NEW_NOTEBOOK = 'notebooks/new';
+const CREATE_NEW_NOTEBOOK = 'notebooks/create';
 const UPDATE_NOTEBOOK = 'notebooks/:notebookId/edit';
 const DELETE_NOTEBOOK = 'notebooks/:notebookId/delete'
 

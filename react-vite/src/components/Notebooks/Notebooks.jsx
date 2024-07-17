@@ -4,14 +4,13 @@ import { thunkGetCurrentUsersNotebooks } from '../../redux/notebooks';
 import Sidebar from '../Sidebar';
 import OpenModalButton from "../OpenModalButton";
 import CreateNotebookModal from '../CreateNotebookModal';
+import UpdateNotebookModal from '../UpdateNotebookModal/UpdateNotebookModal';
 import DeleteNotebookModal from '../DeleteNotebookModal';
 import './Notebooks.css';
-import UpdateNotebookModal from '../UpdateNotebookModal/UpdateNotebookModal';
 
 function Notebooks() {
     const dispatch = useDispatch();
     const notebooks = useSelector(state => state.notebooks.userNotebooks);
-    // const [notebooks, setNotebooks] = useState([])
     const [user, setUser] = useState(null);
     const [dropdownIndex, setDropdownIndex] = useState(null);
 
@@ -28,7 +27,6 @@ function Notebooks() {
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: "numeric" };
         return new Date(dateString).toLocaleDateString(undefined, options);
-
     }
 
     //Only one dropdown open at a time
