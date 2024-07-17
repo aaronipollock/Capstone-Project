@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models.note import Note
 from app.models import db
 from ..forms.note_creator import CreateNote
+from ..forms.note_update import UpdateNote
 # from datetime import datetime
 
 note_routes = Blueprint('notes', __name__)
@@ -41,7 +42,7 @@ def post_note():
 
     return jsonify({"errors": form.errors}), 400
 
-@note_routes.route('/<int:note_id>', methods=['GET', 'PUT'])
+@note_routes.route('/<int:note_id>/edit', methods=['GET', 'PUT'])
 @login_required
 def update_note(note_id):
     """Update a note by ID"""
@@ -54,7 +55,7 @@ def update_note(note_id):
     if request.method == 'GET':
         return note.to_dict()
 
-    form = CreateNote()
+    form = UpdateNote()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -67,5 +68,3 @@ def update_note(note_id):
         return {'errors': form.errors}, 400
 
     return "Successful edit!"
-
-

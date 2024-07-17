@@ -16,6 +16,8 @@ function UpdateNotebookModal({ notebookId }) {
     const currentUser = useSelector((state) => state.session.user);
     const { closeModal } = useModal();
 
+    //need to validate form?
+
     useEffect(() => {
         if (notebook) {
             setTitle(notebook.title);
