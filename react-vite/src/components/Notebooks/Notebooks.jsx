@@ -80,7 +80,7 @@ function Notebooks() {
                     <section className='section4'>
                         {notebooks.map((notebook, index) => (
                             <div key={notebook.id} className="notebook-container">
-                                <NavLink to={`/notes/${notebook.id}`}>
+                                <NavLink to={`/notebooks/${notebook.id}`}>
                                     <div className="notebook-item">{notebook.title}</div>
                                 </NavLink>
                                 <div className="notebook-item">{user ? user.email : 'Loading...'}</div>

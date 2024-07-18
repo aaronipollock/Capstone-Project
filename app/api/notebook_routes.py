@@ -86,8 +86,12 @@ def delete_notebook(notebook_id):
 
 @notebook_routes.route('/<int:notebook_id>', methods=['GET'])
 @login_required
-def get_notebook(notebook_id):
+def get_notebook_details(notebook_id):
     notebook = Notebook.query.get(notebook_id)
     if not notebook or notebook.user_id != current_user.id:
-        return {'error': 'Notebook not found'}, 404
-    return notebook.to_dict()
+        return jsonify({'error': 'Notebook not found'}), 404
+    # return jsonify(notebook.to_dict())
+    return jsonify({
+        **notebook.to_dict(),
+        'notes': [note.to_dict() for note in notebook.notes]
+    })

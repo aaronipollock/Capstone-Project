@@ -51,6 +51,8 @@ def upgrade():
         sa.Column('content', sa.Text),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('users.id')),
         sa.Column('notebook_id', sa.Integer, sa.ForeignKey('notebooks.id')),
+        sa.Column('created_at', sa.DateTime(), nullable=False),
+        sa.Column('updated_at', sa.DateTime(), nullable=True),
     )
 
     if environment == "production":

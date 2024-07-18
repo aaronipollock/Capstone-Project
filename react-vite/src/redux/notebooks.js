@@ -3,6 +3,7 @@ const CURRENT_USERS_NOTEBOOKS = 'notebooks';
 const CREATE_NEW_NOTEBOOK = 'notebooks/create';
 const UPDATE_NOTEBOOK = 'notebooks/:notebookId/edit';
 const DELETE_NOTEBOOK = 'notebooks/:notebookId/delete';
+const NOTEBOOK_DETAILS = 'notebook/:notebookId';
 
 //Action creators
 const currentUsersNotebooks = (notebooks) => ({
@@ -23,6 +24,11 @@ const updateNotebook = (notebook) => ({
 const deleteNotebook = (notebookId) => ({
     type: DELETE_NOTEBOOK,
     notebookId,
+})
+
+const notebookDetails = (notebook) => ({
+    type: NOTEBOOK_DETAILS,
+    notebook,
 })
 
 //Thunks
@@ -92,9 +98,30 @@ export const thunkDeleteNotebook = (notebookId) => async (dispatch) => {
     }
 }
 
+export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
+    const res = await fetch(`/api/notebooks/${notebookId}`, {
+        method: 'GET',
+    });
+    if (res.ok) {
+        const notebook = await res.json();
+        console.log('Fetched Notebook:', notebook);
+        dispatch(notebookDetails(notebook));
+        return notebook;
+    } else {
+        const error = await res.json()
+        return { errors: error };
+    }
+}
+// export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
+//     const response = await fetch(`/api/notebooks/${notebookId}`);
+//     const notebook = await response.json();
+//     dispatch({ type: 'notebook/:notebookId', notebook });
+// };
+
 //Inital state
 const initialState = {
     userNotebooks: [],
+    notebookDetails: {},
 };
 
 //Reducer
@@ -123,6 +150,14 @@ export default function notebookReducer(state = initialState, action) {
             return {
                 ...state,
                 userNotebooks: state.userNotebooks.filter(notebook => notebook.id !== action.notebookId)
+            }
+        case NOTEBOOK_DETAILS:
+            return {
+                ...state,
+                notebookDetails: {
+                    ...state.notebookDetails,
+                    [action.notebook.id]: action.notebook,
+                },
             }
         default:
             return state;

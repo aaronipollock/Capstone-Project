@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-# from datetime import datetime
+from datetime import datetime
 
 class Note(db.Model):
     __tablename__ = 'notes'
@@ -10,10 +10,11 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False, unique=True)
     content = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     notebook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("notebooks.id")))
-    # created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    # updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    # make notebook_id nullable=False at later date after creating default notebook
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship(
         'User',
@@ -30,6 +31,6 @@ class Note(db.Model):
             'content': self.content,
             'user_id': self.user_id,
             'notebook_id': self.notebook_id,
-            # 'created_at': self.created_at,
-            # 'updated_at': self.updated_at,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }

@@ -4,25 +4,25 @@ from sqlalchemy.sql import text
 
 def seed_notebooks():
     notebook1 = Notebook(
-        title='title1', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook1', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook2 = Notebook(
-        title='title2', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook2', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook3 = Notebook(
-        title='title3', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook3', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook4 = Notebook(
-        title='title4', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook4', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook5 = Notebook(
-        title='title5', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook5', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook6 = Notebook(
-        title='title6', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook6', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook7 = Notebook(
-        title='title7', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook7', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook8 = Notebook(
-        title='title8', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook8', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook9 = Notebook(
-        title='title9', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook9', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     notebook10 = Notebook(
-        title='title10', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='notebook10', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
 
     db.session.add(notebook1)
     db.session.add(notebook2)
