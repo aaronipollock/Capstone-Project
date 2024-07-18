@@ -130,7 +130,7 @@ import './NotebookDetails.css';
 function NotebookDetails() {
     const { notebookId } = useParams();
     const dispatch = useDispatch();
-    const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
+    const notes = useSelector(state => state.notebooks.notebookDetails[notebookId]);
     const [dropdownIndex, setDropdownIndex] = useState(null);
     const [error, setError] = useState(null);
 
@@ -148,12 +148,12 @@ function NotebookDetails() {
             }
         };
 
-        if (!notebook) {
+        if (!notes) {
             fetchNotebookDetails();
         } else {
-            console.log('Notebook already in state:', notebook);
+            console.log('Notebook already in state:', notes);
         }
-    }, [dispatch, notebookId, notebook]);
+    }, [dispatch, notebookId, notes]);
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
@@ -174,28 +174,28 @@ function NotebookDetails() {
         };
     }, []);
 
-    console.log('Notebook:', notebook);
-    if (notebook && notebook.notes) {
-        console.log('Notes:', notebook.notes);
+    console.log('Notes:', notes);
+    if (notes) {
+        console.log('Notes:', notes);
     }
 
     if (error) return <p>{error}</p>;
-    if (!notebook) return <p>Notebook not found</p>;
+    if (!notes) return <p>Notebook not found</p>;
 
     return (
         <div className="details-page-container">
             <Sidebar />
             <div className="details-main-content">
                 <section className='details-section1'>
-                    <p className="text-details">{`${notebook.title} > Notes`}</p>
+                    <p className="text-details">{`Notebook ${notebookId} > Notes`}</p>
                 </section>
                 <section className="details-section2">
                     <p># notes</p>
                 </section>
                 <section className='details-section3'>
-                    {notebook.notes && notebook.notes.length > 0 ? (
+                    {notes.length > 0 ? (
                         <ul>
-                            {notebook.notes.map((note, index) => (
+                            {notes.map((note, index) => (
                                 <div key={note.id} className="details-container">
                                     <div className="details-item-title">{note.title}</div>
                                     <div className="details-item-content">{note.content}</div>
@@ -234,4 +234,3 @@ function NotebookDetails() {
 }
 
 export default NotebookDetails;
-

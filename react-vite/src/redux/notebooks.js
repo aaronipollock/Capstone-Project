@@ -3,7 +3,7 @@ const CURRENT_USERS_NOTEBOOKS = 'notebooks';
 const CREATE_NEW_NOTEBOOK = 'notebooks/create';
 const UPDATE_NOTEBOOK = 'notebooks/:notebookId/edit';
 const DELETE_NOTEBOOK = 'notebooks/:notebookId/delete';
-const NOTEBOOK_DETAILS = 'notebook/:notebookId';
+const NOTEBOOK_DETAILS = 'notebook/notes';
 
 //Action creators
 const currentUsersNotebooks = (notebooks) => ({
@@ -26,9 +26,10 @@ const deleteNotebook = (notebookId) => ({
     notebookId,
 })
 
-const notebookDetails = (notebook) => ({
+const notebookDetails = (notebookId, notes) => ({
     type: NOTEBOOK_DETAILS,
-    notebook,
+    notebookId,
+    notes
 })
 
 //Thunks
@@ -99,14 +100,14 @@ export const thunkDeleteNotebook = (notebookId) => async (dispatch) => {
 }
 
 export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
-    const res = await fetch(`/api/notebooks/${notebookId}`, {
+    const res = await fetch(`/api/notebooks/${notebookId}/notes`, {
         method: 'GET',
     });
     if (res.ok) {
-        const notebook = await res.json();
-        console.log('Fetched Notebook:', notebook);
-        dispatch(notebookDetails(notebook));
-        return notebook;
+        const data = await res.json();
+        console.log('Fetched Notebook Details:', data);
+        dispatch(notebookDetails(notebookId, data.notes));
+        return data;
     } else {
         const error = await res.json()
         return { errors: error };
@@ -121,7 +122,9 @@ export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
 //Inital state
 const initialState = {
     userNotebooks: [],
-    notebookDetails: {},
+    notebookDetails: {
+        // notes: [],
+    },
 };
 
 //Reducer
@@ -156,9 +159,12 @@ export default function notebookReducer(state = initialState, action) {
                 ...state,
                 notebookDetails: {
                     ...state.notebookDetails,
-                    [action.notebook.id]: action.notebook,
+                    [action.notebookId]: action.notes,
+                    // notes: state.notebookDetails.notes
+                    //     ? [...state.notebookDetails.notes, action.note]
+                    //     : [action.note]
                 },
-            }
+            };
         default:
             return state;
     }
