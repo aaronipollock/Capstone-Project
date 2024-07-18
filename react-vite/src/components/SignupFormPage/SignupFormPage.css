@@ -3,6 +3,14 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: white;
+}
+
+.error-message {
+    color: red;
+}
+.signup-page-container {
+    background-color: white;
 }
 
 .signup-page-left {

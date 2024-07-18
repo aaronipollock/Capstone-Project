@@ -68,7 +68,7 @@ function LoginFormPage() {
               required
             />
           </label>
-          {errors.email && <p>{errors.email}</p>}
+          {errors.email && <p className="error-message">{errors.email}</p>}
           <label>
             Password
             <input
@@ -78,7 +78,7 @@ function LoginFormPage() {
               required
             />
           </label>
-          {errors.password && <p>{errors.password}</p>}
+          {errors.password && <p className="error-message">{errors.password}</p>}
           <button type="submit">Continue</button>
           <div className="signup-from-login">
             <p className="signup-from-login-text">Don&apos;t have an account?</p>
