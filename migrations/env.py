@@ -9,8 +9,10 @@ from sqlalchemy import pool
 from alembic import context
 
 import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
+environment = os.getenv("FLASK_ENV", "development")
+SCHEMA = os.getenv("SCHEMA", "public")
+# environment = os.getenv("FLASK_ENV")
+# SCHEMA = os.environ.get("SCHEMA")
 
 
 # this is the Alembic Config object, which provides
@@ -52,7 +54,9 @@ def run_migrations_offline():
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=target_metadata, literal_binds=True
+        url=url, target_metadata=target_metadata, literal_binds=True,
+        version_table_schema=SCHEMA, #Added for render
+        include_schemas=True #Added for render
     )
 
     with context.begin_transaction():
