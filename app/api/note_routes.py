@@ -4,6 +4,7 @@ from app.models.note import Note
 from app.models import db
 from ..forms.note_creator import CreateNote
 from ..forms.note_update import UpdateNote
+# from app.models.notebook import Notebook
 # from datetime import datetime
 
 note_routes = Blueprint('notes', __name__)
@@ -68,3 +69,19 @@ def update_note(note_id):
         return {'errors': form.errors}, 400
 
     return "Successful edit!"
+
+@note_routes.route('/<int:note_id>/delete', methods=['DELETE'])
+@login_required
+def delete_note(note_id):
+    """Delete a note by ID"""
+
+    note = Note.query.get(note_id)
+    if note is None:
+        return {'errors': {'message': 'Note not found'}}, 404
+
+    if note.user_id != current_user.id:
+        return {'errors': {'message': 'You are not authorized'}}, 403
+
+    db.session.delete(note)
+    db.session.commit()
+    return {'message': 'Note successfully delted'}

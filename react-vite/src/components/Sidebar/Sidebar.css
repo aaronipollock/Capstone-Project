@@ -23,23 +23,27 @@
     cursor: pointer;
 }
 
-.search-bar{
-    border: 1px solid black;
-    margin: 10px;
-    height: 45px;
-    border-radius: 5px;
-    background-color: rgb(222, 220, 220);
-    border: none;
-    font-family: Arial, Helvetica, sans-serif;
-    justify-content: center;
-    align-items: center;
-}
-
 .button {
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
     border: none;
     cursor: pointer
+}
+
+.button.notebook {
+    margin-top: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 230px;
+    margin-bottom: 5px;
+    height: 45px;
+    background-color: blue;
+    border-radius: 5px;
+    color: white;
+}
+
+.button.notebook:hover {
+    background-color: rgb(0, 0, 181);
 }
 
 .button.note {

@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { thunkGetCurrentUsersNotebooks } from '../../redux/notebooks';
+import { NavLink } from 'react-router-dom'
 import Sidebar from '../Sidebar';
 import OpenModalButton from "../OpenModalButton";
 import CreateNotebookModal from '../CreateNotebookModal';
 import UpdateNotebookModal from '../UpdateNotebookModal/UpdateNotebookModal';
 import DeleteNotebookModal from '../DeleteNotebookModal';
+// import NotesByNotebook from '../NotesByNotebooks/NotesByNotebook';
 import './Notebooks.css';
 
 function Notebooks() {
@@ -31,7 +33,7 @@ function Notebooks() {
 
     //Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log(`Toggling dropdown for index: ${index}`);
+        // console.log(`Toggling dropdown for index: ${index}`);
         setDropdownIndex(dropdownIndex == index ? null : index);
     };
 
@@ -39,7 +41,7 @@ function Notebooks() {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.dropdown-menu') && !event.target.closest('.action-button')) {
-                console.log('Clicked outside, closing dropdown')
+                // console.log('Clicked outside, closing dropdown')
                 setDropdownIndex(null);
             }
         };
@@ -49,35 +51,6 @@ function Notebooks() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
-
-    // const notebooksArr = notebooks.map(notebook => ({
-    //     user_id: notebook.user_id,
-    //     title: notebook.title,
-    //     id: notebook.id,
-    //     updated_at: formatDate(notebook.updated_at),
-    // }));
-
-
-    // useEffect(() => {
-    //     const fetchNotebooks = async () => {
-    //         try {
-    //             const response = await fetch('/api/notebooks/')
-    //             const data = await response.json()
-    //             if (data.notebooks && Array.isArray(data.notebooks)) {
-    //                 setNotebooks(data.notebooks)
-    //             } else {
-    //                 console.error('Fetched data in not an array:', data);
-    //             }
-    //         } catch (err) {
-    //             console.error('Request Error:', err);
-    //         }
-    //     }
-    //     fetchNotebooks()
-    // }, [dispatch])
-
-    // useEffect(() => {
-    //     console.log('REDUX NOTEBOOKS STATE: ', notebooksState)
-    // }, [notebooksState]);
 
     if (!notebooks.length) return <p>No notebooks available</p>;
 
@@ -107,7 +80,9 @@ function Notebooks() {
                     <section className='section4'>
                         {notebooks.map((notebook, index) => (
                             <div key={notebook.id} className="notebook-container">
-                                <div className="notebook-item">{notebook.title}</div>
+                                <NavLink to={`/notes/${notebook.id}`}>
+                                    <div className="notebook-item">{notebook.title}</div>
+                                </NavLink>
                                 <div className="notebook-item">{user ? user.email : 'Loading...'}</div>
                                 <div className="notebook-item">{formatDate(notebook.updated_at)}</div>
                                 <div className="notebook-item">—</div>

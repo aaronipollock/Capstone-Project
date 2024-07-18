@@ -39,6 +39,7 @@ def post_notebook():
 
     return jsonify({"errors": form.errors}), 400
 
+# not '/<int:notebook_id>/update'?
 @notebook_routes.route('/<int:notebook_id>', methods=['GET', 'PUT'])
 @login_required
 def update_notebook(notebook_id):
@@ -66,6 +67,7 @@ def update_notebook(notebook_id):
 
     return "Successful edit!"
 
+# not '/<int:notebook_id>/delete'?
 @notebook_routes.route('/<int:notebook_id>', methods=['DELETE'])
 @login_required
 def delete_notebook(notebook_id):
@@ -81,3 +83,11 @@ def delete_notebook(notebook_id):
     db.session.delete(notebook)
     db.session.commit()
     return {'message': 'Notebook successfully deleted'}
+
+@notebook_routes.route('/<int:notebook_id>', methods=['GET'])
+@login_required
+def get_notebook(notebook_id):
+    notebook = Notebook.query.get(notebook_id)
+    if not notebook or notebook.user_id != current_user.id:
+        return {'error': 'Notebook not found'}, 404
+    return notebook.to_dict()

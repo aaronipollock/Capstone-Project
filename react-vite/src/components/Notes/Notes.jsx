@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { thunkGetCurrentUsersNotes } from '../../redux/notes';
 import Sidebar from '../Sidebar';
 import OpenModalButton from "../OpenModalButton";
-import UpdateNoteModal from "../UpdateNoteModal"
+import UpdateNoteModal from "../UpdateNoteModal";
+import DeleteNoteModal from "../DeleteNoteModal"
 import './Notes.css';
 
 function Notes() {
@@ -38,7 +39,7 @@ function Notes() {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.dropdown-menu') && !event.target.closest('.action-button')) {
-                console.log('Clicked outside, closing dropdown')
+                // console.log('Clicked outside, closing dropdown')
                 setDropdownIndex(null);
             }
         };
@@ -78,14 +79,14 @@ function Notes() {
                                         <div className="note-dropdown-item">
                                             <OpenModalButton
                                                 className="edit-note-button"
-                                                buttonText="Edit note"
+                                                buttonText="Edit"
                                                 modalComponent={<UpdateNoteModal noteId={note.id} />}
                                             />
-                                            {/* <OpenModalButton
+                                            <OpenModalButton
                                                 className="delete-note-button"
-                                                buttonText="Delete note"
+                                                buttonText="Delete"
                                                 modalComponent={<DeleteNoteModal noteId={note.id} />}
-                                            /> */}
+                                            />
                                         </div>
                                     </div>
                                 </div>

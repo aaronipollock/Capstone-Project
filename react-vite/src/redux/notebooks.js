@@ -30,7 +30,7 @@ export const thunkGetCurrentUsersNotebooks = () => async (dispatch) => {
     const res = await fetch('/api/notebooks/');
     if (res.ok) {
         const usersNotebooks = await res.json();
-        console.log('Fetched Notebooks: ', usersNotebooks);
+        // console.log('Fetched Notebooks: ', usersNotebooks);
         dispatch(currentUsersNotebooks(usersNotebooks.notebooks));
     } else {
         const error = await res.json();
@@ -101,7 +101,7 @@ const initialState = {
 export default function notebookReducer(state = initialState, action) {
     switch (action.type) {
         case CURRENT_USERS_NOTEBOOKS:
-            console.log('Reducing CURRENT_USERS_NOTEBOOKS action:', action);
+            // console.log('Reducing CURRENT_USERS_NOTEBOOKS action:', action);
             return {
                 ...state,
                 userNotebooks: action.notebooks,

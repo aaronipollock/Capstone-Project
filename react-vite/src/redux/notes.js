@@ -2,6 +2,7 @@
 const CURRENT_USERS_NOTES = 'notes';
 const CREATE_NEW_NOTE = 'notes/create';
 const UPDATE_NOTE = 'notes/:noteId/edit';
+const DELETE_NOTE = 'notes/:noteId/delete';
 
 //Action creators
 const currentUsersNotes = (notes) => ({
@@ -19,12 +20,17 @@ const updateNote = (note) => ({
     note,
 })
 
+const deleteNote = (noteId) => ({
+    type: DELETE_NOTE,
+    noteId,
+})
+
 //Thunks
 export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
     const res =await fetch('/api/notes/');
     if (res.ok) {
         const usersNotes = await res.json();
-        console.log('Fetched Notes: ', usersNotes);
+        // console.log('Fetched Notes: ', usersNotes);
         dispatch(currentUsersNotes(usersNotes.notes));
     } else {
         const error = await res.json();
@@ -72,6 +78,20 @@ export const thunkUpdateNote = (note) => async (dispatch) => {
     }
 }
 
+export const thunkDeleteNote = (noteId) => async (dispatch) => {
+    const res = await fetch(`/api/notes/${noteId}/delete`, {
+        method: 'DELETE',
+    });
+    if (res.ok) {
+        dispatch(deleteNote(noteId));
+        dispatch(thunkGetCurrentUsersNotes());
+        return {};
+    } else {
+        const error = await res.json()
+        return {errors: error };
+    }
+}
+
 // Initial state
 const initialState = {
     userNotes: [],
@@ -98,6 +118,11 @@ export default function noteReducer(state = initialState, action) {
                     note.id === updatedNote.id ? updatedNote : note),
             }
         }
+        case DELETE_NOTE:
+            return {
+                ...state,
+                userNotes: state.userNotes.filter(note => note.id !== action.noteId)
+            }
         default:
             return state;
     }

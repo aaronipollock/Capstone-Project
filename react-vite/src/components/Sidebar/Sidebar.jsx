@@ -2,6 +2,7 @@ import ProfileButton from '../Navigation/ProfileButton'
 import { Link } from 'react-router-dom'
 import './Sidebar.css';
 import OpenModalButton from '../OpenModalButton';
+import CreateNotebookModal from '../CreateNotebookModal'
 import CreateNoteModal from '../CreateNoteModal';
 
 function Sidebar() {
@@ -9,7 +10,13 @@ function Sidebar() {
         <div className="side-bar-container">
             <ProfileButton className="profile-button" />
             <div className="user-profile"></div>
-            <div className="search-bar">Search</div>
+            <div>
+                <OpenModalButton
+                    className="button notebook"
+                    buttonText="+Notebook"
+                    modalComponent={<CreateNotebookModal />}
+                />
+            </div>
             <div>
                 <div>
                     <OpenModalButton

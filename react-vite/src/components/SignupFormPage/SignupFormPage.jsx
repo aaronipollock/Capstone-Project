@@ -25,7 +25,7 @@ function SignupFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with", { email, username, password, confirmPassword });
+    console.log("Form submitted with", { first_name, last_name, email, username, password, confirmPassword });
 
     if (password !== confirmPassword) {
       return setErrors({
@@ -49,7 +49,7 @@ function SignupFormPage() {
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
-      navigate("/");
+      navigate("/users/current");
     }
   };
 
