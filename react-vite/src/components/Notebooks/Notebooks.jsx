@@ -52,7 +52,7 @@ function Notebooks() {
         };
     }, []);
 
-    if (!notebooks.length) return <p>No notebooks available</p>;
+    // if (!notebooks.length) return <p>No notebooks available</p>;
 
     return (
         <>
@@ -63,7 +63,17 @@ function Notebooks() {
                         <p className="text-notebooks">Notebooks</p>
                     </section>
                     <section className='section2'>
-                        <p># notebooks</p>
+                        {!notebooks.length ? (
+                            <p>No notebooks available</p>
+                        ) : (
+                            <>
+                                {notebooks.length > 1 ? (
+                                    <p>{notebooks.length} notebooks</p>
+                                ) : (
+                                    <p>1 notebook</p>
+                                )}
+                            </>
+                        )}
                         <OpenModalButton
                             className="new-notebook-button"
                             buttonText="New Notebook"

@@ -5,9 +5,10 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function ProfileButton({ className }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
@@ -39,9 +40,10 @@ function ProfileButton({ className }) {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate("/")
   };
+  if (!sessionUser) return <Navigate to="/login" replace={true} />;
 
-  if (!sessionUser) return <Navigate to="/" replace={true} />;
 
 
   return (
@@ -56,7 +58,7 @@ function ProfileButton({ className }) {
               <p>{user.username}</p>
               <p>{user.email}</p>
               <div>
-                <button onClick={logout}>Log Out</button>
+                <button className="logout-button" onClick={logout}>Log Out</button>
               </div>
             </>
           ) : (

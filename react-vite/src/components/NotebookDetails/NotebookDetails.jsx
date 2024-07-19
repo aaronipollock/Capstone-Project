@@ -37,9 +37,9 @@ function NotebookDetails() {
     }, [dispatch, notebookId, notes]);
 
     // Only one dropdown open at a time
-    const toggleDropdown = (index) => {
-        setDropdownIndex(dropdownIndex === index ? null : index);
-    };
+    // const toggleDropdown = (index) => {
+    //     setDropdownIndex(dropdownIndex === index ? null : index);
+    // };
 
     // Detect clicks outside dropdown and close menu
     useEffect(() => {

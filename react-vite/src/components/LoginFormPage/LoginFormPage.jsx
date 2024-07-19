@@ -28,8 +28,6 @@ function LoginFormPage() {
     console.log("Current session user:", sessionUser);
   }, [sessionUser]);
 
-  if (sessionUser) return <Navigate to="/users/current" replace={true} />;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted with", { email, password });
@@ -50,14 +48,17 @@ function LoginFormPage() {
     }
   };
 
+  if (sessionUser) return <Navigate to="/users/current" replace={true} />;
+
   return (
     <div className="login-body">
       <div className="login-page">
         <i className="fas fa-sticky-note login-icon"></i>
         <h1 className="login-label">Log in</h1>
         <p className="sub-login-label">to continue to your Everclone account.</p>
-        {Object.values(errors).length > 0 &&
-          Object.values(errors).map((message, index) => <p key={index} className="error-message">{message}</p>)}
+        {/* {Object.values(errors).length > 0 &&
+          Object.values(errors).map((message, index) => <p key={index} className="error-message">{message}</p>)} */}
+        {errors.server && <p className="error-message">{errors.server}</p>}
         <form className="login-form" onSubmit={handleSubmit}>
           <label>
             Email

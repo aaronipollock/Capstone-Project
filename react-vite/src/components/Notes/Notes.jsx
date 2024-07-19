@@ -50,7 +50,7 @@ function Notes() {
         };
     }, []);
 
-    if (!notes.length) return <p>No notes available</p>;
+    // if (!notes.length) return <p>No notes available</p>;
 
     return (
         <>
@@ -61,7 +61,17 @@ function Notes() {
                         <p className="text-notes">Notes</p>
                     </section>
                     <section className="notes-section2">
-                        <p># notes</p>
+                        {!notes.length ? (
+                            <p>No notes available</p>
+                        ) : (
+                            <>
+                                {notes.length > 1 ? (
+                                    <p>{notes.length} notes</p>
+                                ) : (
+                                    <p>1 note</p>
+                                )}
+                            </>
+                        )}
                     </section>
                     <section className='notes-section3'>
                         {notes.map((note, index) => (
