@@ -15,7 +15,7 @@ function CreateNotebookModal() {
 
     const validateForm = () => {
         const newErrors = {};
-        if (title.length < 2 || title.length > 50) newErrors.title = "Title must be between 1 and 50 characters."
+        if (title.length < 2 || title.length > 50) newErrors.title = "Title must be between 2 and 50 characters."
         return newErrors;
     };
 
