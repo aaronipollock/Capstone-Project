@@ -94,6 +94,7 @@
 
 .dropdown-menu.active{
     display: block !important;
+    width: 135px;
 }
 
 .dropdown-item {
@@ -101,6 +102,29 @@
     cursor: pointer;
 }
 
-.dropdown-item:hover {
-    background-color: #f0f0f0;
+.retitle-notebook-button {
+    background-color: white;
+    border: none;
+}
+
+.delete-notebook-button {
+    background-color: white;
+    border: none;
+}
+
+.retitle-notebook-button:hover {
+    background-color: lightgray;
+}
+
+.delete-notebook-button:hover {
+    background-color: lightgray;
+}
+
+.title-link {
+    text-decoration: none;
+    color: black;
+}
+
+.title-link:hover {
+    text-decoration: underline;
 }

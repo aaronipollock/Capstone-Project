@@ -31,20 +31,20 @@ function Sidebar() {
                 </div>
             </div>
             <div>
-                <Link to="/users/current">
+                <Link to="/users/current" className="link-menu-button">
                     <button className="menu-button home">Home</button>
                 </Link>
-                <button className="menu-button">Shortcuts</button>
-                <Link to="/notes">
+                {/* <button className="menu-button">Shortcuts</button> */}
+                <Link to="/notes" className="link-menu-button">
                     <button className="menu-button">Notes</button>
                 </Link>
-                <button className="menu-button">Tasks</button>
-                <Link to="/notebooks">
+                {/* <button className="menu-button">Tasks</button> */}
+                <Link to="/notebooks" className="link-menu-button">
                     <button className="menu-button notebooks">Notebooks</button>
                 </Link>
-                <button className="menu-button">Tags</button>
-                <button className="menu-button trash">Trash</button>
-                <button className="menu-button upgrade"><strong>Upgrade</strong></button>
+                {/* <button className="menu-button">Tags</button> */}
+                {/* <button className="menu-button trash">Trash</button> */}
+                {/* <button className="menu-button upgrade"><strong>Upgrade</strong></button> */}
             </div>
         </div>
     )

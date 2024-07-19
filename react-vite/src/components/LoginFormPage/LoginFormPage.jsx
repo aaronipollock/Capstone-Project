@@ -32,7 +32,7 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Form submitted with", { email, password });
+    console.log("Form submitted with", { email, password });
 
     const serverResponse = await dispatch(
       thunkLogin({
@@ -41,12 +41,12 @@ function LoginFormPage() {
       })
     );
 
-    // console.log("Server response", serverResponse);
+    console.log("Server response", serverResponse);
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
     } else {
-      navigate("/");
+      navigate("/users/current");
     }
   };
 
@@ -57,7 +57,7 @@ function LoginFormPage() {
         <h1 className="login-label">Log in</h1>
         <p className="sub-login-label">to continue to your Everclone account.</p>
         {Object.values(errors).length > 0 &&
-          Object.values(errors).map((message, index) => <p key={index}>{message}</p>)}
+          Object.values(errors).map((message, index) => <p key={index} className="error-message">{message}</p>)}
         <form className="login-form" onSubmit={handleSubmit}>
           <label>
             Email
