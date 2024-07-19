@@ -10,12 +10,16 @@ function Navigation() {
         <div className="nav-link">Everclone</div>
       </div>
       <div className="nav-right">
-        <NavLink to="/login">
-          <button className="nav-button log-in-button">Log In</button>
-        </NavLink>
-        <NavLink>
-          <button className="nav-button download-button">Download</button>
-        </NavLink>
+        <div>
+          <NavLink to="/login">
+            <button className="nav-button log-in-button">Log In</button>
+          </NavLink>
+        </div>
+        <div>
+          <NavLink to="/signup">
+            <button className="nav-button download-button">Sign Up</button>
+          </NavLink>
+        </div>
       </div>
     </header>
   );
