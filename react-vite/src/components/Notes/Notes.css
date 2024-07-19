@@ -43,3 +43,23 @@
 .note-item-content {
     padding: 20px;
 }
+
+
+
+.edit-note-button {
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.delete-note-button {
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+    border-radius: 5px;
+}

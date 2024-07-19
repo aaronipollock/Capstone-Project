@@ -81,12 +81,12 @@ function NotebookDetails() {
                                     <div className="details-item-title">{note.title}</div>
                                     <div className="details-item-content">{note.content}</div>
                                     <div className="details-item-action">
-                                        <button
+                                        {/* <button
                                             className="note-action-button"
                                             onClick={() => toggleDropdown(index)}
                                         >
                                             <strong>...</strong>
-                                        </button>
+                                        </button> */}
                                         <div className={`note-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
                                             <div className="note-dropdown-item">
                                                 <OpenModalButton
