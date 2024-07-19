@@ -6,7 +6,7 @@
     padding: 20px;
     padding-left: 30px;
     margin: auto;
-    height: 270px;
+    min-height: 320px;
     width: 510px;
     border-radius: 5px;
     position: relative;
@@ -58,7 +58,20 @@ input {
     border: 1px solid black;
 }
 
+.button.cancel:hover {
+    background-color: lightgray;
+}
+
 .button.create {
     color: white;
     background-color: gray;
+}
+
+.button.create:hover {
+    background-color: blue;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
 }

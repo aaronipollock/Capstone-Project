@@ -17,7 +17,12 @@ function UpdateNoteModal({ noteId }) {
     const currentUser = useSelector((state) => state.session.user);
     const { closeModal } = useModal();
 
-    //need to validate form?
+    const validateForm = () => {
+        const newErrors = {};
+        if (title.length < 2 || title.length > 50) newErrors.title = "Title must be between 2 and 50 characters."
+        if (content.length < 2 || content.length > 2000) newErrors.content = "Content must be between 2 and 2000 characters."
+        return newErrors;
+    }
 
     useEffect(() => {
         if (note) {
@@ -33,6 +38,12 @@ function UpdateNoteModal({ noteId }) {
 
     const handleUpdateClick = async (e) => {
         e.preventDefault();
+
+        const newErrors = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
         if (!note) {
             setErrors({ note: "Note not found." });

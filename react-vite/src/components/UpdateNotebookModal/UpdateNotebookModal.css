@@ -48,6 +48,11 @@ input {
     width: 100px;
     background-color: white;
     border: 1px solid black;
+    border-radius: 5px;
+}
+
+.update-cancel-button:hover {
+    background-color: lightgray;
 }
 
 .update-continue-button {
@@ -55,4 +60,13 @@ input {
     width: 100px;
     color: white;
     background-color: gray;
+    border-radius: 5px;
+}
+
+.update-continue-button:hover {
+    background-color: blue;
+}
+.update-error-message {
+    color: red;
+    margin-top: 40px;
 }

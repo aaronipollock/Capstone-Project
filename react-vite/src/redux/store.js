@@ -9,11 +9,21 @@ import sessionReducer from "./session";
 import notebookReducer from "./notebooks";
 import noteReducer from "./notes";
 
-const rootReducer = combineReducers({
+const LOG_OUT = 'session/logout';
+
+const appReducer = combineReducers({
   session: sessionReducer,
   notebooks: notebookReducer,
   notes: noteReducer
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === LOG_OUT) {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+}
 
 let enhancer;
 if (import.meta.env.MODE === "production") {
@@ -28,5 +38,7 @@ if (import.meta.env.MODE === "production") {
 const configureStore = (preloadedState) => {
   return createStore(rootReducer, preloadedState, enhancer);
 };
+
+export const logout = () => ({ type: LOG_OUT });
 
 export default configureStore;

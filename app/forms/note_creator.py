@@ -12,4 +12,4 @@ def title_exists(form, field):
 
 class CreateNote(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=1, max=50, message='Title must be between 1 and 50 characters'), title_exists])
-    content = TextAreaField('Content', validators=[DataRequired(), Length(min=1, max=5000, message='Note must be between 1 and 5000 characters')])
+    content = TextAreaField('Content', validators=[DataRequired(), Length(min=1, max=2000, message='Note must be between 1 and 2000 characters')])

@@ -42,9 +42,8 @@ function ProfileButton({ className }) {
     closeMenu();
     navigate("/")
   };
+  
   if (!sessionUser) return <Navigate to="/login" replace={true} />;
-
-
 
   return (
     <>

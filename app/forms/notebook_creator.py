@@ -10,4 +10,4 @@ def title_exists(form, field):
         raise ValidationError('Notebook title is already in use.')
 
 class CreateNotebook(FlaskForm):
-    title = StringField('title', validators=[DataRequired(), Length(min=1, max=50, message='Title must be between 1 and 50 characters'), title_exists])
+    title = StringField('title', validators=[DataRequired(), Length(min=2, max=50, message='Title must be between 2 and 50 characters'), title_exists])

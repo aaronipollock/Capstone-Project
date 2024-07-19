@@ -15,30 +15,39 @@ function CreateNotebookModal() {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!title || title.length > 50) newErrors.title = "Title must be between 1 and 50 characters."
+        if (title.length < 2 || title.length > 50) newErrors.title = "Title must be between 1 and 50 characters."
         return newErrors;
     };
 
     const handleCreateClick = async (e) => {
         e.preventDefault();
+        console.log("Create button clicked");
 
         const newErrors = validateForm();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
+            console.log("Validation errors:", newErrors);
             return;
         }
 
-        const serverResponse = await dispatch(
-            thunkCreateNewNotebook({
-                title,
-            })
-        );
+        try {
 
-        if (serverResponse.errors) {
-            setErrors(serverResponse.errors);
-        } else {
-            closeModal();
-            navigate('/notebooks');
+            const serverResponse = await dispatch(
+                thunkCreateNewNotebook({
+                    title,
+                })
+            );
+
+            console.log("Server response:", serverResponse);
+
+            if (serverResponse) {
+                setErrors(serverResponse);
+            } else {
+                closeModal();
+                navigate('/notebooks');
+            }
+        } catch (error) {
+            console.error("Error in handleCreateClick:", error);
         }
     };
 
@@ -60,7 +69,10 @@ function CreateNotebookModal() {
                             type="text"
                             value={title}
                             placeholder="Notebook title"
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e) => {
+                                setTitle(e.target.value);
+                                console.log("Title input changed:", e.target.value);
+                            }}
                             required
                         />
                     </div>

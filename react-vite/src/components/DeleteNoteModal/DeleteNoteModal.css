@@ -46,12 +46,13 @@ input {
 .cancel-delete-notebook-button {
     height: 40px;
     width: 100px;
-    background-color: lightgray;
+    background-color: white;
     border: 1px solid black;
     border-radius: 5px;
 }
 
 .cancel-delete-notebook-button:hover {
+    background-color: lightgray;
     cursor: pointer;
 }
 
@@ -64,6 +65,7 @@ input {
 }
 
 .confirm-delete-notebook-button:hover {
+    background-color: rgb(185, 0, 0);
     cursor: pointer;
 }
 .trash-text {

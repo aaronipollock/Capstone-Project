@@ -4,6 +4,8 @@ const CREATE_NEW_NOTEBOOK = 'notebooks/create';
 const UPDATE_NOTEBOOK = 'notebooks/:notebookId/edit';
 const DELETE_NOTEBOOK = 'notebooks/:notebookId/delete';
 const NOTEBOOK_DETAILS = 'notebook/notes';
+const SET_NOTEBOOK_ERRORS = 'notebooks/SET_NOTEBOOK_ERRORS';
+
 
 //Action creators
 const currentUsersNotebooks = (notebooks) => ({
@@ -31,6 +33,11 @@ const notebookDetails = (notebookId, notes) => ({
     notebookId,
     notes
 })
+
+const setNotebookErrors = (errors) => ({
+    type: SET_NOTEBOOK_ERRORS,
+    errors,
+});
 
 //Thunks
 export const thunkGetCurrentUsersNotebooks = () => async (dispatch) => {
@@ -62,6 +69,7 @@ export const thunkCreateNewNotebook = (notebook) => async (dispatch) => {
         return { notebook: newNotebook.notebook };
     } else {
         const error = await res.json();
+        dispatch(setNotebookErrors(error));
         return { errors: error };
     }
 };
