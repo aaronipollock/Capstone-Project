@@ -15,5 +15,5 @@ const notesSlice = createSlice({
     }
 })
 
-export const { setNotes, dumpNotes } = notesSlice.action;
+export const { setNotes, dumpNotes } = notesSlice.actions;
 export default notesSlice.reducer;

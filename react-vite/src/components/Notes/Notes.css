@@ -55,6 +55,11 @@
     border-radius: 5px;
 }
 
+.edit-note-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
 .delete-note-button {
     height: 40px;
     width: 100px;
@@ -62,4 +67,9 @@
     border: 1px solid black;
     margin: 5px;
     border-radius: 5px;
+}
+
+.delete-note-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
 }

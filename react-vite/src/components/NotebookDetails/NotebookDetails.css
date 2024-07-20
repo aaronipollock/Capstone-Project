@@ -61,3 +61,13 @@
     margin: 5px;
     border-radius: 5px;
 }
+
+.edit-details-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.delete-details-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
