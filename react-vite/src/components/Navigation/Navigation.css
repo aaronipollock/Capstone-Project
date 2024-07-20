@@ -81,3 +81,14 @@
   transform: scale(1.1);
   box-shadow: 5px 5px black;
 }
+
+.logout-button {
+  border: none;
+  background-color: white;
+  width: 110px;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: lightgray;
+}
