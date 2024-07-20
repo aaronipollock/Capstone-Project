@@ -1,5 +1,6 @@
 import { dumpNotebooks } from "./notebooksSlice";
 import { dumpNotes } from "./notesSlice";
+import { logout } from './store';
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
@@ -9,9 +10,9 @@ const setUser = (user) => ({
   payload: user
 });
 
-const removeUser = () => ({
-  type: REMOVE_USER
-});
+// const removeUser = () => ({
+//   type: REMOVE_USER
+// });
 
 export const thunkAuthenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/");
@@ -64,7 +65,8 @@ export const thunkSignup = (user) => async (dispatch) => {
 
 export const thunkLogout = () => async (dispatch) => {
   await fetch("/api/auth/logout");
-  dispatch(removeUser());
+  // dispatch(removeUser());
+  dispatch(logout());
   dispatch(dumpNotes());
   dispatch(dumpNotebooks())
 };

@@ -25,10 +25,10 @@ function Sidebar() {
                         modalComponent={<CreateNoteModal />}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <button className="button task">+Task</button>
                     <button className="button event">+Event</button>
-                </div>
+                </div> */}
             </div>
             <div>
                 <Link to="/users/current" className="link-menu-button">

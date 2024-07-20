@@ -4,12 +4,8 @@ const notebooksSlice = createSlice({
     name: 'notebooks',
     initialState: [],
     reducers: {
-        setNotebooks: (state, action) => {
-            return action.payload;
-        },
-        dumpNotebook: () => {
-            return [];
-        }
+        setNotebooks: (state, action) => action.payload,
+        dumpNotebooks: () => []
     }
 });
 

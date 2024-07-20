@@ -52,7 +52,6 @@ function Notebooks() {
         };
     }, []);
 
-    // if (!notebooks.length) return <p>No notebooks available</p>;
 
     return (
         <>

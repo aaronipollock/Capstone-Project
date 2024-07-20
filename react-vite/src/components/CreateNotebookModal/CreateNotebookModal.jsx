@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
-// import CreateNotebook from "./CreateNotebook";
 import { useNavigate } from "react-router-dom";
 import { thunkCreateNewNotebook } from "../../redux/notebooks";
 import './CreateNotebookModal.css'
@@ -33,21 +32,20 @@ function CreateNotebookModal() {
         try {
 
             const serverResponse = await dispatch(
-                thunkCreateNewNotebook({
-                    title,
-                })
+                thunkCreateNewNotebook({ title })
             );
 
             console.log("Server response:", serverResponse);
 
-            if (serverResponse) {
-                setErrors(serverResponse);
+            if (serverResponse.errors) {
+                setErrors(serverResponse.errors);
             } else {
                 closeModal();
                 navigate('/notebooks');
             }
         } catch (error) {
             console.error("Error in handleCreateClick:", error);
+            setErrors({ server: "Something went wrong. Please try again." })
         }
     };
 

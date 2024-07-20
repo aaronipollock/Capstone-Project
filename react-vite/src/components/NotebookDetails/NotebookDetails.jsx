@@ -56,12 +56,9 @@ function NotebookDetails() {
     }, []);
 
     console.log('Notes:', notes);
-    if (notes) {
-        console.log('Notes:', notes);
-    }
 
     if (error) return <p>{error}</p>;
-    if (!notes) return <p>Notebook not found</p>;
+    // if (!notes) return <p>Notebook not found</p>;
 
     return (
         <div className="details-page-container">
@@ -71,7 +68,17 @@ function NotebookDetails() {
                     <p className="text-details">{`Notebook ${notebookId} > Notes`}</p>
                 </section>
                 <section className="details-section2">
-                    <p># notes</p>
+                    {!notes.length ? (
+                        <p>No notes available</p>
+                    ) : (
+                        <>
+                            {notes.length > 1 ? (
+                                <p>{notes.length} notes</p>
+                            ) : (
+                                <p>1 note</p>
+                            )}
+                        </>
+                    )}
                 </section>
                 <section className='details-section3'>
                     {notes.length > 0 ? (

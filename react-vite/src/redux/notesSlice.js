@@ -4,14 +4,8 @@ const notesSlice = createSlice({
     name: 'notes',
     initialState: [],
     reducers: {
-        setNotes: {
-            setNotes: (state, action) => {
-                return action.payload;
-            },
-            dumpNotes: () => {
-                return [];
-            }
-        }
+        setNotes: (state, action) => action.payload,
+        dumpNotes: () => []
     }
 })
 
