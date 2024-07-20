@@ -16,7 +16,7 @@ function CreateNoteModal() {
     const validateForm = () => {
         const newErrors = {};
         if (title.length < 2 || title.length > 50) newErrors.title = "Title must be between 2 and 50 characters."
-        if (content.length < 2 || content.length > 2000) newErrors.content = "Content must be between 2 and 2000 characters."
+        if (content.length < 2 || content.length > 800) newErrors.content = "Content must be between 2 and 800 characters."
         return newErrors;
     }
 
