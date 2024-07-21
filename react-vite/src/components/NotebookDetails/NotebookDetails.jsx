@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { thunkGetNotebookDetails } from "../../redux/notebooks";
+import { thunkGetCurrentUsersNotes } from "../../redux/notes";
 import Sidebar from "../Sidebar";
 import OpenModalButton from "../OpenModalButton";
-import UpdateNoteModal from "../UpdateNoteModal";
-import DeleteNoteModal from "../DeleteNoteModal";
+import DeleteNotebookDetailModal from "../DeleteNotebookDetailModal";
 import './NotebookDetails.css';
 
 function NotebookDetails() {
@@ -29,8 +29,15 @@ function NotebookDetails() {
             }
         };
 
+
         fetchNotebookDetails();
     }, [dispatch, notebookId]);
+
+    useEffect(() => {
+        if (!notes) {
+            dispatch(thunkGetCurrentUsersNotes());
+        }
+    }, [dispatch, notes])
 
     // Only one dropdown open at a time
     // const toggleDropdown = (index) => {
@@ -51,9 +58,9 @@ function NotebookDetails() {
         };
     }, []);
 
-    // const handleModalClose = () => {
-    //     dispatch(thunkGetNotebookDetails(notebookId))
-    // }
+    const handleModalClose = () => {
+        dispatch(thunkGetNotebookDetails(notebookId))
+    }
 
     console.log('Notes:', notes);
     if (notes) {
@@ -90,14 +97,9 @@ function NotebookDetails() {
                                         <div className={`note-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
                                             <div className="note-dropdown-item">
                                                 <OpenModalButton
-                                                    className="edit-details-button"
-                                                    buttonText="Edit"
-                                                    modalComponent={<UpdateNoteModal noteId={note.id} />}
-                                                />
-                                                <OpenModalButton
                                                     className="delete-details-button"
-                                                    buttonText="Delete"
-                                                    modalComponent={<DeleteNoteModal noteId={note.id} />}
+                                                    buttonText="Remove"
+                                                    modalComponent={<DeleteNotebookDetailModal noteId={note.id} onClose={handleModalClose} />}
                                                 />
                                             </div>
                                         </div>
@@ -106,7 +108,7 @@ function NotebookDetails() {
                             ))}
                         </ul>
                     ) : (
-                        <p>No notes found</p>
+                        <p className="no-notes-text">No notes found in this notebook</p>
                     )}
                 </section>
             </div>

@@ -25,6 +25,11 @@ const deleteNote = (noteId) => ({
     noteId,
 })
 
+const updateNoteIdInStore = (note) => ({
+    type: 'UPDATE_NOTE_ID',
+    note
+})
+
 //Thunks
 export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
     const res =await fetch('/api/notes/');
@@ -92,6 +97,25 @@ export const thunkDeleteNote = (noteId) => async (dispatch) => {
     }
 }
 
+export const thunkUpdateNoteId = (noteId, notebookId) => async (dispatch) => {
+    const response = await fetch(`/api/notes/${noteId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ notebook_id: notebookId })
+    });
+
+    if (response.ok) {
+        const updatedNoteId = await response.json();
+        dispatch(updateNoteIdInStore(updatedNoteId));
+        return updatedNoteId;
+    } else {
+        const errors = await response.json();
+        return { errors };
+    }
+};
+
 // Initial state
 const initialState = {
     userNotes: [],
@@ -123,6 +147,13 @@ export default function noteReducer(state = initialState, action) {
                 ...state,
                 userNotes: state.userNotes.filter(note => note.id !== action.noteId)
             }
+        case 'UPDATE_NOTE_ID':
+            return {
+                ...state,
+                userNotes: state.userNotes.map(note =>
+                    note.id === action.note.id ? action.note : note
+                )
+            };
         default:
             return state;
     }

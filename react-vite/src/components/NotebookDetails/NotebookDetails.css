@@ -23,6 +23,10 @@
     align-items: center;
 }
 
+.no-notes-text {
+    color: darkgray;
+}
+
 .details-section2 {
     display: flex;
     justify-content: space-between;

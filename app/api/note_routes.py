@@ -85,3 +85,17 @@ def delete_note(note_id):
     db.session.delete(note)
     db.session.commit()
     return {'message': 'Note successfully delted'}
+
+@note_routes.route('/<int:note_id>', methods=['PUT'])
+def update_note_id(note_id):
+    data = request.get_json()
+    notebook_id = data.get('notebook_id')
+
+    note = Note.query.get(note_id)
+    if not note:
+        return jsonify({"error": "Note not found"}), 404
+
+    note.notebook_id = notebook_id
+    db.session.commit()
+
+    return jsonify(note.to_dict())
