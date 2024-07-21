@@ -1,11 +1,13 @@
 .user-page-wrapper {
     display: flex;
+    height: 100vh;
+    background-color: rgb(241, 237, 237);
 }
 
 .user-page-container {
     flex: 1;
+    height: 100vh;
     padding: 20px;
-    background-color: rgb(241, 237, 237);
 }
 
 .ready {
