@@ -29,12 +29,8 @@ function NotebookDetails() {
             }
         };
 
-        if (!notes) {
-            fetchNotebookDetails();
-        } else {
-            console.log('Notebook already in state:', notes);
-        }
-    }, [dispatch, notebookId, notes]);
+        fetchNotebookDetails();
+    }, [dispatch, notebookId]);
 
     // Only one dropdown open at a time
     // const toggleDropdown = (index) => {
@@ -55,10 +51,17 @@ function NotebookDetails() {
         };
     }, []);
 
+    // const handleModalClose = () => {
+    //     dispatch(thunkGetNotebookDetails(notebookId))
+    // }
+
     console.log('Notes:', notes);
+    if (notes) {
+        console.log('Notes:', notes);
+    }
 
     if (error) return <p>{error}</p>;
-    // if (!notes) return <p>Notebook not found</p>;
+    if (!notes) return <p>Notebook not found</p>;
 
     return (
         <div className="details-page-container">
@@ -67,19 +70,9 @@ function NotebookDetails() {
                 <section className='details-section1'>
                     <p className="text-details">{`Notebook ${notebookId} > Notes`}</p>
                 </section>
-                <section className="details-section2">
-                    {!notes.length ? (
-                        <p>No notes available</p>
-                    ) : (
-                        <>
-                            {notes.length > 1 ? (
-                                <p>{notes.length} notes</p>
-                            ) : (
-                                <p>1 note</p>
-                            )}
-                        </>
-                    )}
-                </section>
+                {/* <section className="details-section2">
+                    <p># notes</p>
+                </section> */}
                 <section className='details-section3'>
                     {notes.length > 0 ? (
                         <ul>
