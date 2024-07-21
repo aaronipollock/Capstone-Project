@@ -44,6 +44,7 @@
 
 .notebook-container {
     display: contents;
+    height: 100vh;
     background-color: rgb(241, 237, 237);
 }
 

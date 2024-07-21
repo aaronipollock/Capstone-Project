@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 function LandingPage() {
     return (
-        <div className="body-container">
+        <div className="landing-body-container">
             <section className="section1">
                 <p className="h1-text-container">Tame your work, <br />organize your life</p>
             </section>
@@ -12,12 +12,12 @@ function LandingPage() {
                 <p className="sub-text-container">Remember everything and tackle any project with your notes, <br />
                     tasks, and schedule all in one place.</p>
             </section>
-            <section className="section2">
+            <section className="landing-section2">
                 <NavLink to="/signup">
                     <button className="start-for-free-button">Start for free</button>
                 </NavLink>
             </section>
-            <section className="section3">
+            <section className="landing-section3">
                 <div className="column">
                     <i className="fas fa-map-marker-alt"></i>
                     <p className="column-text">Work<br /> anywhere</p>

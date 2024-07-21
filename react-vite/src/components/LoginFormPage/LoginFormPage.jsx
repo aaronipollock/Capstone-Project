@@ -51,7 +51,6 @@ function LoginFormPage() {
   if (sessionUser) return <Navigate to="/users/current" replace={true} />;
 
   return (
-    <div className="login-body">
       <div className="login-page">
         <i className="fas fa-sticky-note login-icon"></i>
         <h1 className="login-label">Log in</h1>
@@ -89,7 +88,6 @@ function LoginFormPage() {
           </div>
         </form>
       </div>
-    </div>
   );
 }
 

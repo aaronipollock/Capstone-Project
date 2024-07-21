@@ -37,6 +37,11 @@ function Notebooks() {
         setDropdownIndex(dropdownIndex == index ? null : index);
     };
 
+    // Close dropdown
+    const closeDropdown = () => {
+        setDropdownIndex(null);
+    }
+
     //Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -108,11 +113,13 @@ function Notebooks() {
                                                 className="retitle-notebook-button"
                                                 buttonText="Retitle notebook"
                                                 modalComponent={<UpdateNotebookModal notebookId={notebook.id} />}
-                                            />
+                                                onButtonClick={closeDropdown}
+                                                />
                                             <OpenModalButton
                                                 className="delete-notebook-button"
                                                 buttonText="Delete notebook"
                                                 modalComponent={<DeleteNotebookModal notebookId={notebook.id} />}
+                                                onButtonClick={closeDropdown}
                                             />
                                         </div>
                                     </div>

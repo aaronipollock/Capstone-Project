@@ -1,16 +1,17 @@
 .user-page-container {
     display: flex;
     background-color: rgb(241, 237, 237);
+    height: 100vh;
 }
 .side-bar-container {
     border: 1px solid lightgray;
     border-radius: 5px;
     width: 250px;
-    height: 100vh;
+    height: 98vh;
     margin-left: 5px;
     margin-top: 10px;
     background-color: rgb(241, 237, 237);
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 .profile-button {
@@ -109,6 +110,10 @@
 }
 
 .menu-button.trash {
+    margin-top: 20px;
+}
+
+.menu-button.notes {
     margin-top: 20px;
 }
 

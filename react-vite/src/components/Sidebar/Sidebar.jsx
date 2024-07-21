@@ -36,7 +36,7 @@ function Sidebar() {
                 </Link>
                 {/* <button className="menu-button">Shortcuts</button> */}
                 <Link to="/notes" className="link-menu-button">
-                    <button className="menu-button">Notes</button>
+                    <button className="menu-button notes">Notes</button>
                 </Link>
                 {/* <button className="menu-button">Tasks</button> */}
                 <Link to="/notebooks" className="link-menu-button">
