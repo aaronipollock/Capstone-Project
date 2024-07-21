@@ -5,7 +5,7 @@ import { thunkGetNotebookDetails } from "../../redux/notebooks";
 import Sidebar from "../Sidebar";
 import OpenModalButton from "../OpenModalButton";
 import UpdateNoteModal from "../UpdateNoteModal";
-import DeleteNoteModal from "../DeleteNoteModal";
+import DeleteNotebookDetailModal from "../DeleteNoteModal";
 import './NotebookDetails.css';
 
 function NotebookDetails() {
@@ -97,7 +97,7 @@ function NotebookDetails() {
                                                 <OpenModalButton
                                                     className="delete-details-button"
                                                     buttonText="Delete"
-                                                    modalComponent={<DeleteNoteModal noteId={note.id} />}
+                                                    modalComponent={<DeleteNotebookDetailModal noteId={note.id} />}
                                                 />
                                             </div>
                                         </div>

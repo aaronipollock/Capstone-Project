@@ -91,12 +91,3 @@ def get_notebook_details(notebook_id):
     """Get notes by notebok ID"""
     notes = Note.query.filter_by(notebook_id=notebook_id).all()
     return {"notes": [note.to_dict() for note in notes]}
-
-    # notebook = Notebook.query.get(notebook_id)
-    # if not notebook or notebook.user_id != current_user.id:
-    #     return jsonify({'error': 'Notebook not found'}), 404
-    # # return jsonify(notebook.to_dict())
-    # return jsonify({
-    #     **notebook.to_dict(),
-    #     'notes': [note.to_dict() for note in notebook.notes]
-    # })
