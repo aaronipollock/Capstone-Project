@@ -68,7 +68,7 @@ function NotebookDetails() {
     }
 
     if (error) return <p>{error}</p>;
-    if (!notes) return <p>Notebook not found</p>;
+    if (!notes) return <div className="blank-page"></div>;
 
     return (
         <div className="details-page-container">

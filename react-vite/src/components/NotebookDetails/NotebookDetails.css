@@ -75,3 +75,7 @@
     cursor: pointer;
     background-color: lightgray;
 }
+
+.blank-page {
+    background-color: rgb(241, 237, 237);
+}
