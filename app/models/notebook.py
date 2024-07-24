@@ -1,5 +1,11 @@
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from sqlalchemy import Table, Column, Integer, ForeignKey
+
+notebook_notes = Table('notebook_notes', db.Model.metadata,
+    Column('notebook_id', Integer, ForeignKey(add_prefix_for_prod('notebooks.id')), primary_key=True),
+    Column('note_id', Integer, ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True)
+)
 
 class Notebook(db.Model):
     __tablename__ = 'notebooks'
@@ -13,26 +19,17 @@ class Notebook(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    user = db.relationship(
-        'User',
-        back_populates='notebooks')
+    user = db.relationship('User', back_populates='notebooks')
+    notes = db.relationship('Note', secondary=notebook_notes, back_populates='notebooks')
 
-    notes= db.relationship(
-        'Note',
-        back_populates='notebook',
-        cascade="all, delete-orphan")
-
-    def to_dict(self):
-        return {
+    def to_dict(self, include_notes=False):
+        notebook_dict = {
             'id': self.id,
             'title': self.title,
             'user_id': self.user_id,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
-
-    def to_dict_with_notes(self):
-        return {
-            **self.to_dict(),
-            'notes': [note.to_dict() for note in self.notes]
-        }
+        if include_notes:
+            notebook_dict['notes'] = [note.to_dict(include_notebooks=False) for note in self.notes]
+        return notebook_dict
