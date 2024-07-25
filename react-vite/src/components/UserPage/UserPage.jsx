@@ -32,7 +32,10 @@ function UserPage() {
                     </div>
                 </section>
                 <section className='home-page-section2'>
-                    <div>Recent Notes</div>
+                    <div className='home-page-section2-top'>
+                        <span>Recent Notes</span>
+                        <span>Scratch Pad</span>
+                    </div>
                     <div className="home-page-notes-container">
                         {recentNotes.map(note => (
                             <div key={note.id} className="home-page-note-card">

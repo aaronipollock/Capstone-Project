@@ -75,5 +75,9 @@
     border: none;
     padding: 20px;
     background-color: #fff9b1;
-    width: 250px;
+    width: 300px;
+}
+
+.home-page-section2-top span {
+    justify-content: end;
 }
