@@ -1,8 +1,11 @@
+/* oldbg = rgb(241, 237, 237) */
+
 .user-page-container {
     display: flex;
     background-color: rgb(241, 237, 237);
     height: 100vh;
 }
+
 .side-bar-container {
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -12,6 +15,7 @@
     margin-top: 10px;
     background-color: rgb(241, 237, 237);
     box-sizing: border-box;
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
 }
 
 .profile-button {
@@ -76,7 +80,7 @@
 }
 
 .button.event {
-    width: 112px;
+    width: 111px;
     margin-right: 10px;
     height: 45px;
     color: white;

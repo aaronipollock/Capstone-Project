@@ -25,25 +25,25 @@ function Sidebar() {
                         modalComponent={<CreateNoteModal />}
                     />
                 </div>
-                {/* <div>
+                <div>
                     <button className="button task">+Task</button>
                     <button className="button event">+Event</button>
-                </div> */}
+                </div>
             </div>
             <div>
                 <Link to="/users/current" className="link-menu-button">
                     <button className="menu-button home">Home</button>
                 </Link>
-                {/* <button className="menu-button">Shortcuts</button> */}
+                <button className="menu-button">Shortcuts</button>
                 <Link to="/notes" className="link-menu-button">
                     <button className="menu-button notes">Notes</button>
                 </Link>
-                {/* <button className="menu-button">Tasks</button> */}
+                <button className="menu-button">Tasks</button>
                 <Link to="/notebooks" className="link-menu-button">
                     <button className="menu-button notebooks">Notebooks</button>
                 </Link>
-                {/* <button className="menu-button">Tags</button> */}
-                {/* <button className="menu-button trash">Trash</button> */}
+                <button className="menu-button">Tags</button>
+                {/* <button className="menu-button trash">Trash</button>
                 {/* <button className="menu-button upgrade"><strong>Upgrade</strong></button> */}
             </div>
         </div>

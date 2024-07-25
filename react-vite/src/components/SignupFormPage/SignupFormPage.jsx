@@ -3,6 +3,13 @@ import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
 import './SignupFormPage.css'
+import { FaStickyNote } from "react-icons/fa";
+import { FaShapes, FaHeart, FaHourglass } from "react-icons/fa";
+import { IoBusiness } from "react-icons/io5";
+import { IoMdSchool } from "react-icons/io";
+import { IoIosChatbubbles } from "react-icons/io";
+
+
 
 function SignupFormPage() {
   console.log("Rendering SignupFormPage component");
@@ -60,7 +67,7 @@ function SignupFormPage() {
   return (
     <div className="signup-page-container">
       <div className="signup-page-left">
-        <i className="fas fa-sticky-note signup-icon"></i>
+        <FaStickyNote className="signup-sticky-note-icon" />
         <h1 className="signup-label">Welcome to Everclone!</h1>
         <p className="sub-signup-label">Sign up and start taking notes.</p>
         {errors.server && <p>{errors.server}</p>}
@@ -148,8 +155,22 @@ function SignupFormPage() {
           </div>
         </form>
       </div>
+      <div className="signup-page-right">
+        <div className="top-icons">
+          <FaShapes className="shapes-icon" />
+          <FaHourglass className="hourglass-icon" />
+          <IoBusiness className="business-icon" />
+        </div>
+        <div className="signup-page-right-text1">Work. School. Life.</div>
+        <div className="signup-page-right-text2">Remember everything</div>
+        <div className="bottom-icons">
+          <FaHeart className="heart-icon" />
+          <IoMdSchool className="school-icon" />
+          <IoIosChatbubbles className="chat-icon" />
+        </div>
+      </div>
     </div>
-      );
-  }
+  );
+}
 
 export default SignupFormPage;

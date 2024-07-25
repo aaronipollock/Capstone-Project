@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { NavLink } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { FaStickyNote } from "react-icons/fa";
+import { FaAsterisk } from "react-icons/fa";
+import { FaCloud } from "react-icons/fa";
 
 function LoginFormPage() {
   const navigate = useNavigate();
@@ -51,8 +54,11 @@ function LoginFormPage() {
   if (sessionUser) return <Navigate to="/users/current" replace={true} />;
 
   return (
+    <div className="login-page-wrapper">
       <div className="login-page">
-        <i className="fas fa-sticky-note login-icon"></i>
+      <FaAsterisk className="asterisk-icon" />
+      <div className="login-form-container">
+        <FaStickyNote className="sticky-note-icon" />
         <h1 className="login-label">Log in</h1>
         <p className="sub-login-label">to continue to your Everclone account.</p>
         {/* {Object.values(errors).length > 0 &&
@@ -88,6 +94,9 @@ function LoginFormPage() {
           </div>
         </form>
       </div>
+      <FaCloud className="cloud-icon" />
+      </div>
+    </div>
   );
 }
 

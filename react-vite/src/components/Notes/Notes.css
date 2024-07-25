@@ -15,7 +15,12 @@ html, body {
 }
 
 .notes-main-content {
+    display: flex;
     padding-left: 30px;
+}
+
+.notes-left {
+    width: 50%;
 }
 
 .notes-section1 {
@@ -41,7 +46,12 @@ html, body {
 
 .note-container {
     border-bottom: 1px solid lightgray;
-    width: 450px;
+    width: 550px;
+}
+
+.note-container:hover {
+    background-color: white;
+
 }
 
 .note-item-title {
@@ -80,4 +90,10 @@ html, body {
 .delete-note-button:hover {
     cursor: pointer;
     background-color: rgb(184, 90, 47);
+
+}
+.notes-textarea {
+    width: 450px;
+    margin: 20px;
+    height: 90vh;
 }
