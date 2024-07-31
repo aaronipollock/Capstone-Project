@@ -81,3 +81,10 @@
 .home-page-section2-top span {
     justify-content: end;
 }
+
+.home-page-section2-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 300px;
+}

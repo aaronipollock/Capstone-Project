@@ -4,7 +4,7 @@ from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Length, ValidationError
 from app.models import Note
 
-def title_exists(form, field):
+def title_exists(_, field):
     title = field.data
     note = Note.query.filter(Note.title == title).first()
     if note:

@@ -33,7 +33,6 @@ function Notebooks() {
 
     //Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        // console.log(`Toggling dropdown for index: ${index}`);
         setDropdownIndex(dropdownIndex == index ? null : index);
     };
 
@@ -45,8 +44,7 @@ function Notebooks() {
     //Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.action-button')) {
-                // console.log('Clicked outside, closing dropdown')
+            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.notebook-action-button')) {
                 setDropdownIndex(null);
             }
         };
@@ -102,7 +100,7 @@ function Notebooks() {
                                 <div className="notebook-item">—</div>
                                 <div className="notebook-item">
                                     <button
-                                        className="action-button"
+                                        className="notebook-action-button"
                                         onClick={() => toggleDropdown(index)}
                                     >
                                         <strong>...</strong>

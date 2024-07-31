@@ -1,6 +1,7 @@
 from flask import Blueprint, Flask, request, jsonify
 from flask_login import login_required, current_user
 from app.models.note import Note
+from app.models.notebook import Notebook
 from app.models import db
 from ..forms.note_creator import CreateNote
 from ..forms.note_update import UpdateNote
@@ -26,6 +27,14 @@ def post_note():
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    data = request.get_json()
+    # title = data.get('title')
+    # content = data.get('content')
+    notebook_id = data.get('notebookId')
+    # user_id = current_user.id
+    print(f"Received data: {data}")
+    print(f"Notebook ID: {notebook_id}")
+
     if form.validate_on_submit():
         new_note = Note(
             title=form.data['title'],
@@ -36,11 +45,21 @@ def post_note():
             # updated_at = datetime.utcnow()
         )
 
+        if notebook_id:
+            notebook = Notebook.query.get(notebook_id)
+            if notebook:
+                print(f"Notebook found: {notebook}")
+                new_note.notebooks.append(notebook)
+            else:
+                print("Notebook not found") 
+                return jsonify({"errors": "Notebook not found"}), 404
+
         db.session.add(new_note)
         db.session.commit()
 
         return jsonify({"message": "New note created", "note": new_note.to_dict()}), 201
 
+    print("Form validation errors:", form.errors)
     return jsonify({"errors": form.errors}), 400
 
 @note_routes.route('/<int:note_id>/edit', methods=['GET', 'PUT'])
@@ -64,11 +83,11 @@ def update_note(note_id):
         note.content = form.data['content']
         db.session.commit()
         return note.to_dict()
-
+    #might want to use else
     if form.errors:
         return {'errors': form.errors}, 400
 
-    return "Successful edit!"
+    return "Successful edit!" #never hit?
 
 @note_routes.route('/<int:note_id>/delete', methods=['DELETE'])
 @login_required

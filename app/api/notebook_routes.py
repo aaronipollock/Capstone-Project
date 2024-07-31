@@ -89,9 +89,6 @@ def delete_notebook(notebook_id):
 def get_notebook_details(notebook_id):
     """Get notes by notebok ID"""
     notebook = Notebook.query.get(notebook_id)
-    if notebook is None:
-        return {'errors': {'message': 'Notebook not found'}}, 404
-    if notebook.user_id != current_user.id:
-        return {'errors': {'message': 'You are not authorized'}}, 403
-
-    return {"notes": [note.to_dict() for note in notebook.notes]}
+    if notebook:
+        return jsonify(notebook.to_dict(include_notes=True))
+    return jsonify({'error': 'Notebook not found'}), 404

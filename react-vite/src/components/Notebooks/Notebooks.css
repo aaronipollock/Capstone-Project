@@ -70,13 +70,14 @@
     margin-right: 50px;
 }
 
-.action-button {
+.notebook-action-button {
     border: none;
     background: none;
     position: relative;
+    font-size: 25px;
 }
 
-.action-button:hover {
+.notebook-action-button:hover {
     background-color: lightgray;
     border-radius: 5px;
     cursor: pointer;

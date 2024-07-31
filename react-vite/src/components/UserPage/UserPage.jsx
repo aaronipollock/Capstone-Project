@@ -33,8 +33,8 @@ function UserPage() {
                 </section>
                 <section className='home-page-section2'>
                     <div className='home-page-section2-top'>
-                        <span>Recent Notes</span>
-                        <span>Scratch Pad</span>
+                        <div>Recent Notes</div>
+                        <div>Scratch Pad</div>
                     </div>
                     <div className="home-page-notes-container">
                         {recentNotes.map(note => (

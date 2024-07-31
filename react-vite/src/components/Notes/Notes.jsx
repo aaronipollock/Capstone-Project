@@ -19,7 +19,7 @@ function Notes() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.action-button')) {
+            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.note-action-button')) {
                 setDropdownIndex(null);
             }
         };

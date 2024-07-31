@@ -27,7 +27,7 @@ class Note(db.Model):
             'user_id': self.user_id,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'notebooks': [notebook.to_dict() for notebook in self.notebooks]
+            # 'notebooks': [notebook.to_dict() for notebook in self.notebooks]
         }
         if include_notebooks:
             note_dict['notebook'] = [notebook.to_dict(include_notes=False) for notebook in self.notebooks]

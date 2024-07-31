@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { thunkCreateNewNote } from "../../redux/notes";
 import './CreateNoteModal.css'
 
-function CreateNoteModal() {
+function CreateNoteModal({ notebookId }) {
+    console.log("Notebook ID in CreateNoteModal:", notebookId);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
@@ -23,18 +25,24 @@ function CreateNoteModal() {
     const handleCreateClick = async (e) => {
         e.preventDefault();
 
+        console.log("Creating note with notebookId:", notebookId);
+
+
         const newErrors = validateForm();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             return;
         }
 
+
         const serverResponse = await dispatch(
             thunkCreateNewNote({
                 title,
                 content,
+                notebookId,
             })
         );
+        console.log("Server response: ", serverResponse)
 
         if (serverResponse.errors) {
             setErrors(serverResponse.errors);

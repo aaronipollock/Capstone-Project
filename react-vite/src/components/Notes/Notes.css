@@ -55,13 +55,14 @@ html, body {
 }
 
 .note-item-title {
-    padding: 20px;
+    padding: 10px;
 }
 
 .note-item-content {
-    padding: 20px;
+    padding: 10px;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    color: gray;
 }
 
 .edit-note-button {
@@ -93,7 +94,7 @@ html, body {
 
 }
 .notes-textarea {
-    width: 450px;
-    margin: 20px;
-    height: 90vh;
+    width: 615px;
+    margin-top: 10px;
+    height: 95vh;
 }

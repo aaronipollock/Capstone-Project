@@ -30,7 +30,7 @@ def create_fake_user():
     return user
 
 def create_fake_notebook(user_id):
-    title = fake.unique.sentence(nb_words=3)
+    title = fake.unique.sentence(nb_words=3).rstrip('.')
 
     notebook = Notebook(
         title=title,
@@ -42,7 +42,7 @@ def create_fake_notebook(user_id):
     return notebook
 
 def create_fake_note(user_id):
-    title = fake.unique.sentence(nb_words=3)
+    title = fake.unique.sentence(nb_words=3).rstrip('.')
     content = fake.paragraph(nb_sentences=5)
 
     note = Note(

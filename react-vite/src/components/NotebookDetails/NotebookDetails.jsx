@@ -5,23 +5,26 @@ import { thunkGetNotebookDetails } from "../../redux/notebooks";
 import { thunkGetCurrentUsersNotes } from "../../redux/notes";
 import Sidebar from "../Sidebar";
 import OpenModalButton from "../OpenModalButton";
-import DeleteNotebookDetailModal from "../DeleteNotebookDetailModal";
+// import DeleteNotebookDetailModal from "../DeleteNotebookDetailModal";
+import CreateNoteModal from "../CreateNoteModal";
+// import DeleteNoteModal  from "../DeleteNoteModal";
+import UpdateNotebookModal from "../UpdateNotebookModal";
+import DeleteNotebookModal from "../DeleteNotebookModal"
 import './NotebookDetails.css';
 
 function NotebookDetails() {
     const { notebookId } = useParams();
     const dispatch = useDispatch();
-    const notes = useSelector(state => state.notebooks.notebookDetails[notebookId]);
     const [dropdownIndex, setDropdownIndex] = useState(null);
+    const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
     const [error, setError] = useState(null);
+    const [selectedNoteId, setSelectedNoteId] = useState(null);
 
     useEffect(() => {
+        console.log('NotebookID from useParams: ', notebookId);
         const fetchNotebookDetails = async () => {
             try {
                 const response = await dispatch(thunkGetNotebookDetails(notebookId));
-                if (response.errors) {
-                    throw new Error(response.errors);
-                }
                 console.log('Fetched Notebook Details:', response);
             } catch (err) {
                 setError(err.message);
@@ -34,20 +37,32 @@ function NotebookDetails() {
     }, [dispatch, notebookId]);
 
     useEffect(() => {
-        if (!notes) {
+        console.log('NOTEBOOK FROM STATE: ', notebook, notebookId);
+    }, [notebook, notebookId])
+
+    useEffect(() => {
+        if (!notebook || !notebook.notes) {
             dispatch(thunkGetCurrentUsersNotes());
         }
-    }, [dispatch, notes])
+    }, [dispatch, notebook]);
 
     // Only one dropdown open at a time
-    // const toggleDropdown = (index) => {
-    //     setDropdownIndex(dropdownIndex === index ? null : index);
-    // };
+    const toggleDropdown = (index) => {
+        setDropdownIndex(dropdownIndex === index ? null : index);
+    };
+
+    const closeDropdown = () => {
+        setDropdownIndex(null);
+    }
+
+    const handleNoteClick = (noteId) => {
+        setSelectedNoteId(noteId);
+    }
 
     // Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.action-button')) {
+            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.details-action-button')) {
                 setDropdownIndex(null);
             }
         };
@@ -58,50 +73,103 @@ function NotebookDetails() {
         };
     }, []);
 
-    const handleModalClose = () => {
-        dispatch(thunkGetNotebookDetails(notebookId))
-    }
+    // const handleModalClose = () => {
+    //     dispatch(thunkGetNotebookDetails(notebookId))
+    // }
 
-    console.log('Notes:', notes);
+    if (error) return <p>{error}</p>;
+    if (!notebook) return <div className="blank-page"></div>;
+
+    const notes = notebook.notes;
+
+    console.log('NOTEBOOK: ', notebook.title, notebookId)
+
     if (notes) {
         console.log('Notes:', notes);
     }
-
-    if (error) return <p>{error}</p>;
-    if (!notes) return <div className="blank-page"></div>;
 
     return (
         <div className="details-page-container">
             <Sidebar />
             <div className="details-main-content">
                 <section className='details-section1'>
-                    <p className="text-details">{`Notebook ${notebookId} > Notes`}</p>
+                    <p className="text-details">{`${notebook.title}`}</p>
                 </section>
-                {/* <section className="details-section2">
-                    <p># notes</p>
-                </section> */}
+                <section className="details-section2">
+                    {!notes.length ? (
+                        <p>No notes available</p>
+                    ) : (
+                        <>
+                            {notes.length > 1 ? (
+                                <p>{notes.length} notes</p>
+                            ) : (
+                                <p>1 note</p>
+                            )}
+                        </>
+                    )}
+                    <div className="details-dropdown">
+                        <button
+                            className="details-action-button"
+                            onClick={() => toggleDropdown('notebook')}
+                        >
+                            <strong>...</strong>
+                        </button>
+                        <div className={`dropdown-menu ${dropdownIndex === 'notebook' ? 'active' : ''}`}>
+                            <div className="dropdown-item">
+                                {notebook && (
+                                    <OpenModalButton
+                                        className="details-add-note-button"
+                                        buttonText="Add new note"
+                                        modalComponent={<CreateNoteModal notebookId={notebookId} />}
+                                        onButtonClick={closeDropdown}
+                                    />
+                                )}
+                                {notebook && (
+                                    <OpenModalButton
+                                        className="details-rename-notebook-button"
+                                        buttonText="Rename notebook"
+                                        modalComponent={<UpdateNotebookModal notebookId={notebookId} />}
+                                        onButtonClick={closeDropdown}
+                                    />
+                                )}
+                                {notebook && (
+                                    <OpenModalButton
+                                        className="details-delete-notebook-button"
+                                        buttonText="Delete notebook"
+                                        modalComponent={<DeleteNotebookModal notebookId={notebookId} />}
+                                        onButtonClick={closeDropdown}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <section className='details-section3'>
-                    {notes.length > 0 ? (
+                    {notes ? (
                         <ul>
                             {notes.map((note, index) => (
-                                <div key={note.id} className="details-container">
+                                <div
+                                    key={note.id}
+                                    className={`details-container ${selectedNoteId === note.id ? 'selected' : ''}`}
+                                    onClick={() => handleNoteClick(note.id)}
+                                >
                                     <div className="details-item-title">{note.title}</div>
                                     <div className="details-item-content">{note.content}</div>
                                     <div className="details-item-action">
                                         {/* <button
-                                            className="note-action-button"
+                                            className="details-action-button"
                                             onClick={() => toggleDropdown(index)}
                                         >
                                             <strong>...</strong>
                                         </button> */}
                                         <div className={`note-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
-                                            <div className="note-dropdown-item">
+                                            {/* <div className="note-dropdown-item">
                                                 <OpenModalButton
                                                     className="delete-details-button"
                                                     buttonText="Remove"
                                                     modalComponent={<DeleteNotebookDetailModal noteId={note.id} onClose={handleModalClose} />}
                                                 />
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -111,6 +179,9 @@ function NotebookDetails() {
                         <p className="no-notes-text">No notes found in this notebook</p>
                     )}
                 </section>
+            </div>
+            <div className="details-right">
+                <textarea className="details-textarea"></textarea>
             </div>
         </div>
     );

@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import { thunkUpdateNotebooks } from "../../redux/notebooks";
+import { thunkGetNotebookDetails, thunkUpdateNotebooks } from "../../redux/notebooks";
 import { thunkGetCurrentUsersNotebooks } from "../../redux/notebooks";
 import './UpdateNotebookModal.css'
 
 function UpdateNotebookModal({ notebookId }) {
+
     const dispatch = useDispatch();
     // const navigate = useNavigate();
-    const notebook = useSelector((state) =>
-        state.notebooks.userNotebooks.find((nb) => nb.id === notebookId))
+    const notebook = useSelector((state) => state.notebooks.notebookDetails[notebookId]);
     const [title, setTitle] = useState(notebook ? notebook.title : "");
     const [errors, setErrors] = useState({});
     const currentUser = useSelector((state) => state.session.user);
@@ -19,7 +19,17 @@ function UpdateNotebookModal({ notebookId }) {
     //need to validate form?
 
     useEffect(() => {
+        if(!notebook) {
+            console.log('Fetching notebook details for: ', notebookId)
+            dispatch(thunkGetNotebookDetails(notebookId));
+        } else {
+            setTitle(notebook.title);
+        }
+    }, [dispatch, notebookId, notebook])
+
+    useEffect(() => {
         if (notebook) {
+            console.log('Notebook fetch: ', notebook);
             setTitle(notebook.title);
         }
     }, [notebook]);
@@ -37,7 +47,10 @@ function UpdateNotebookModal({ notebookId }) {
             return;
         }
 
+        console.log("Notebook before update: ", notebook);
+
         if (notebook.user_id !== currentUser.id) {
+            console.log('Unauthorized user: ', currentUser.id, 'Expected user: ', notebook.user_id)
             setErrors({ user: "You are not authorized." });
             return
         }
@@ -61,7 +74,7 @@ function UpdateNotebookModal({ notebookId }) {
 
     return (
         <form className="update-notebook-modal-container" onSubmit={handleContinueClick}>
-            <div className="main-update-text">Retitle notebook</div>
+            <div className="main-update-text">Rename notebook</div>
             {errors.notebook && <div className="update-error-text">{errors.notebook}</div>}
             {errors.user && <div className="update-error-text">{errors.user}</div>}
             <label className="update-title-text">

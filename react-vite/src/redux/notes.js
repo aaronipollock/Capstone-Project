@@ -32,7 +32,7 @@ const updateNoteIdInStore = (note) => ({
 
 //Thunks
 export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
-    const res =await fetch('/api/notes/');
+    const res = await fetch('/api/notes/');
     if (res.ok) {
         const usersNotes = await res.json();
         // console.log('Fetched Notes: ', usersNotes);
@@ -44,24 +44,30 @@ export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
     }
 };
 
-export const thunkCreateNewNote = (note) => async (dispatch) => {
+export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dispatch) => {
+    console.log("Dispatching thunkCreateNewNote with:", { title, content, notebookId });
+    
     const res = await fetch('/api/notes/create', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(note)
+        body: JSON.stringify({ title, content, notebookId })
     });
 
-    if (res.ok) {
-        const newNote = await res.json();
-        dispatch(createNewNote(newNote.note));
-        dispatch(thunkGetCurrentUsersNotes());
-        return { note: newNote.note };
-    } else {
+    if (!res.ok) {
         const error = await res.json();
+        console.error("Error creating note:", error);
         return { errors: error };
     }
+
+    const newNote = await res.json();
+    console.log("Note created:", newNote);
+
+    dispatch(createNewNote(newNote.note));
+    dispatch(thunkGetCurrentUsersNotes());
+    return { note: newNote.note };
+
 };
 
 export const thunkUpdateNote = (note) => async (dispatch) => {
@@ -93,7 +99,7 @@ export const thunkDeleteNote = (noteId) => async (dispatch) => {
         return {};
     } else {
         const error = await res.json()
-        return {errors: error };
+        return { errors: error };
     }
 }
 
