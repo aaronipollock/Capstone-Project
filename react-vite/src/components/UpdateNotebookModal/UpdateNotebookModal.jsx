@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { thunkGetNotebookDetails, thunkUpdateNotebooks } from "../../redux/notebooks";
-import { thunkGetCurrentUsersNotebooks } from "../../redux/notebooks";
+// import { thunkGetCurrentUsersNotebooks } from "../../redux/notebooks";
 import './UpdateNotebookModal.css'
 
 function UpdateNotebookModal({ notebookId }) {
@@ -58,13 +58,18 @@ function UpdateNotebookModal({ notebookId }) {
         const updatedNotebook = { ...notebook, title };
 
         try {
-            const serverResponse = await dispatch(thunkUpdateNotebooks(updatedNotebook));
+            if (updatedNotebook.id) {
+                const serverResponse = await dispatch(thunkUpdateNotebooks(updatedNotebook));
 
-            if (serverResponse.errors) {
-                setErrors(serverResponse.errors);
+                if (serverResponse.errors) {
+                    setErrors(serverResponse.errors);
+                } else {
+                    dispatch(thunkGetNotebookDetails(notebookId));
+                    closeModal();
+                }
             } else {
-                dispatch(thunkGetCurrentUsersNotebooks());
-                closeModal();
+                console.error('Notebook ID is undefined');
+                setErrors({ notebook: "Notebook ID is undefined." })
             }
         } catch (error) {
             console.error('Failed to update notebook:', error);
