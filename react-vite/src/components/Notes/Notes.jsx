@@ -6,12 +6,17 @@ import Sidebar from '../Sidebar';
 import OpenModalButton from "../OpenModalButton";
 import UpdateNoteModal from "../UpdateNoteModal";
 import DeleteNoteModal from "../DeleteNoteModal"
+import QuillEditor from '../QuillEditor';
+import 'quill/dist/quill.snow.css';
 import './Notes.css';
 
 function Notes() {
     const dispatch = useDispatch();
     const notes = useSelector(state => state.notes.userNotes);
     const [dropdownIndex, setDropdownIndex] = useState(null);
+    const [currentContent, setCurrentContent] = useState("")
+    // const editorRef = useRef(null);
+    // const quillRef = useRef(null);
 
     useEffect(() => {
         dispatch(thunkGetCurrentUsersNotes());
@@ -29,6 +34,47 @@ function Notes() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+
+    // useEffect(() => {
+    //     if (quillRef.current) return; // Do nothing if Quill is already initialized
+
+    //     const quill = new Quill(editorRef.current, {
+    //         theme: 'snow',
+    //         modules: {
+    //             toolbar: [
+    //                 [{ header: '1' }, { header: '2' }, { font: [] }],
+    //                 [{ list: 'ordered' }, { list: 'bullet' }],
+    //                 ['bold', 'italic', 'underline'],
+    //                 [{ color: [] }, { background: [] }],
+    //                 [{ align: [] }],
+    //                 ['clean']
+    //             ]
+    //         }
+    //     })
+    //     quillRef.current = quill;
+
+    //     // Load content form local storage
+    //     const content = localStorage.getItem('content');
+    //     if (content) {
+    //         quill.root.innerHTML = content;
+    //     }
+
+    //     // Save content on text change
+    //     quill.on('text-change', () => {
+    //         localStorage.setItem('content', quill.root.innerHTML);
+    //     })
+    // }, []);
+    const handleContentChange = (content) => {
+        setCurrentContent(content);
+        localStorage.setItem('content', content);
+    }
+    useEffect(() => {
+        // Local content from local storage
+        const content = localStorage.getItem('content');
+        if (content) {
+            setCurrentContent(content)
+        }
+    }, [])
 
     return (
         <>
@@ -83,15 +129,27 @@ function Notes() {
                             ))}
                         </section>
                     </div>
-                    <div className="notes-right">
-                        <textarea className="notes-textarea"></textarea>
+                    <div className="editor-section">
+                        {/* <div id="toolbar"> */}
+                        {/* <select className="ql-header">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option selected></option>
+                            </select>
+                            <button className="ql-bold"></button>
+                            <button className="ql-italic"></button>
+                            <button className="ql-underline"></button>
+                            <button className="ql-strike"></button>
+                            <select className="ql-color"></select>
+                            <select className="ql-background"></select>
+                            <button className="ql-clean"></button> */}
+                        {/* </div> */}
+                        <QuillEditor initialContent={currentContent} onChange={handleContentChange} />
                     </div>
                 </div >
             </div >
         </>
     )
-
-
 }
 
 export default Notes;

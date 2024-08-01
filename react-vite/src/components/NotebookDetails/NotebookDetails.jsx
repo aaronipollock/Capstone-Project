@@ -9,7 +9,9 @@ import OpenModalButton from "../OpenModalButton";
 import CreateNoteModal from "../CreateNoteModal";
 // import DeleteNoteModal  from "../DeleteNoteModal";
 import UpdateNotebookModal from "../UpdateNotebookModal";
-import DeleteNotebookModal from "../DeleteNotebookModal"
+import DeleteNotebookModal from "../DeleteNotebookModal";
+import QuillEditor from '../QuillEditor';
+import 'quill/dist/quill.snow.css';
 import './NotebookDetails.css';
 
 function NotebookDetails() {
@@ -19,6 +21,7 @@ function NotebookDetails() {
     const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
     const [error, setError] = useState(null);
     const [selectedNoteId, setSelectedNoteId] = useState(null);
+    const [currentContent, setCurrentContent] = useState("")
 
     useEffect(() => {
         console.log('NotebookID from useParams: ', notebookId);
@@ -72,6 +75,18 @@ function NotebookDetails() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+
+    const handleContentChange = (content) => {
+        setCurrentContent(content);
+        localStorage.setItem('content', content);
+    }
+    useEffect(() => {
+        // Local content from local storage
+        const content = localStorage.getItem('content');
+        if (content) {
+            setCurrentContent(content)
+        }
+    }, [])
 
     // const handleModalClose = () => {
     //     dispatch(thunkGetNotebookDetails(notebookId))
@@ -180,8 +195,8 @@ function NotebookDetails() {
                     )}
                 </section>
             </div>
-            <div className="details-right">
-                <textarea className="details-textarea"></textarea>
+            <div className="editor-section">
+                <QuillEditor initialContent={currentContent} onChange={handleContentChange} />
             </div>
         </div>
     );
