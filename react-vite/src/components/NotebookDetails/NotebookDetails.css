@@ -37,7 +37,7 @@
     color: darkgray;
     margin-top: -20px;
     position: relative;
-    max-width: 825px;
+    max-width: 525px;
 }
 
 .details-container {
@@ -63,6 +63,8 @@
 
 .details-item-content {
     padding: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     color: gray;
 }
 
@@ -181,4 +183,26 @@
     background-color: lightgray;
     width: 150px;
     text-align: left;
+}
+
+.editor-section {
+    width: 525px;
+    margin-top: 10px;
+    height: 95vh;
+    background-color: white;
+}
+
+#toolbar {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px
+}
+
+.editor-container {
+    height: calc(95vh - 40px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

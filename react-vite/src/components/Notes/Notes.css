@@ -17,6 +17,9 @@ html, body {
 .notes-main-content {
     display: flex;
     padding-left: 30px;
+    padding-right: 10px;
+    position: relative;
+    margin-right: 10px;
 }
 
 .notes-left {
@@ -42,16 +45,27 @@ html, body {
     align-items: center;
     margin-right: 30px;
     color: darkgray;
+    margin-top: -20px;
+    position: relative;
+    max-width: 525px;
 }
 
 .note-container {
     border-bottom: 1px solid lightgray;
-    width: 550px;
+    width: 100%;
+    cursor: pointer;
+    max-width: 525px;
+    margin-right: 10px;
 }
 
 .note-container:hover {
     background-color: white;
+}
 
+.note-container.selected {
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 5px;
 }
 
 .note-item-title {
@@ -100,10 +114,10 @@ html, body {
 }
 
 .editor-section {
-    width: 615px;
+    width: 525px;
     margin-top: 10px;
     height: 95vh;
-    background-color: red;
+    background-color: white;
 }
 
 #toolbar {
@@ -115,8 +129,8 @@ html, body {
     padding: 8px
 }
 
-/* .editor-container {
+.editor-container {
     height: calc(95vh - 40px);
     border: 1px solid #ccc;
     border-radius: 5px;
-} */
+}

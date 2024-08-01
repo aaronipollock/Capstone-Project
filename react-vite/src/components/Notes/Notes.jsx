@@ -3,25 +3,40 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkGetCurrentUsersNotes } from '../../redux/notes';
 import Sidebar from '../Sidebar';
-import OpenModalButton from "../OpenModalButton";
-import UpdateNoteModal from "../UpdateNoteModal";
-import DeleteNoteModal from "../DeleteNoteModal"
+// import OpenModalButton from "../OpenModalButton";
+// import UpdateNoteModal from "../UpdateNoteModal";
+// import DeleteNoteModal from "../DeleteNoteModal"
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './Notes.css';
+// import CreateNoteModal from '../CreateNoteModal';
 
 function Notes() {
     const dispatch = useDispatch();
     const notes = useSelector(state => state.notes.userNotes);
     const [dropdownIndex, setDropdownIndex] = useState(null);
     const [currentContent, setCurrentContent] = useState("")
-    // const editorRef = useRef(null);
-    // const quillRef = useRef(null);
+    const [selectedNoteId, setSelectedNoteId] = useState(null);
+
 
     useEffect(() => {
         dispatch(thunkGetCurrentUsersNotes());
     }, [dispatch]);
 
+    // Only one dropdown open at a time
+    //    const toggleDropdown = (index) => {
+    //     setDropdownIndex(dropdownIndex === index ? null : index);
+    // };
+
+    // const closeDropdown = () => {
+    //     setDropdownIndex(null);
+    // }
+
+    const handleNoteClick = (noteId) => {
+        setSelectedNoteId(noteId);
+    }
+
+    // Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.dropdown-menu') && !event.target.closest('.note-action-button')) {
@@ -97,20 +112,45 @@ function Notes() {
                                     )}
                                 </>
                             )}
+                            {/* <div className='notes-dropdown'>
+                                <button
+                                    className='notes-action-button'
+                                    onClick={() => toggleDropdown('notes')}
+                                >
+                                    <strong>...</strong>
+                                </button>
+                                <div className={`dropdown-menu ${dropdownIndex === 'note' ? 'active' : ''}`}></div>
+                                    <div className="dropdown-item">
+                                        {note && (
+                                            <OpenModalButton
+                                                className="details-note-button"
+                                                buttonText="Add new note"
+                                                modalComponent={<CreateNoteModal />}
+                                                onButtonClick={closeDropdown}
+                                            />
+                                        )}
+                                    </div>
+                            </div> */}
                         </section>
                         <section className='notes-section3'>
-                            {notes.map((note, index) => (
-                                <div key={note.id} className="note-container">
+                            {notes.map((note,
+                                // index
+                            ) => (
+                                <div
+                                    key={note.id}
+                                    className={`note-container ${selectedNoteId === note.id ? 'selected' : ''}`}
+                                    onClick={() => handleNoteClick(note.id)}
+                                >
                                     <div className="note-item-title">{note.title}</div>
                                     <div className="note-item-content">{note.content}</div>
                                     <div className="note-item-action">
                                         {/* <button
                                         className="note-action-button"
                                         onClick={() => toggleDropdown(index)}
-                                    >
+                                        >
                                         <strong>...</strong>
-                                    </button> */}
-                                        <div className={`note-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
+                                        </button>
+                                        {/* <div className={`note-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
                                             <div className="note-dropdown-item">
                                                 <OpenModalButton
                                                     className="edit-note-button"
@@ -123,7 +163,7 @@ function Notes() {
                                                     modalComponent={<DeleteNoteModal noteId={note.id} />}
                                                 />
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             ))}

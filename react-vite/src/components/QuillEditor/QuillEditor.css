@@ -3,21 +3,21 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+
 }
 
 /* #toolbar {
     border: 1px solid #ccc;
     border-bottom: none;
-    background-color: #f3f3f3;
+    background-color: red;
     padding: 8px;
     display: flex;
     justify-content: space-between;
 } */
 
 .editor-container {
-    flex-grow: 1;
-    width: 615px;
-    margin-top: 10px;
+    /* flex-grow: 1; */
+    width: 525px;
     margin-right: 10px;
     /* height: 95vh; */
     background-color: white;
