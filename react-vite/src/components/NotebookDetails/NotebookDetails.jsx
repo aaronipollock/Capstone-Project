@@ -130,7 +130,7 @@ function NotebookDetails() {
                     <div className="details-dropdown">
                         <button
                             className="details-action-button"
-                            onClick={() => toggleDropdown('notebookDetails')}
+                            onClick={() => toggleDropdown('notebook')}
                         >
                             <strong>...</strong>
                         </button>
