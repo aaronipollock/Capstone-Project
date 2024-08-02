@@ -18,7 +18,7 @@
 .editor-container {
     /* flex-grow: 1; */
     width: 525px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     /* height: 95vh; */
     background-color: white;
     height: calc(100vh - 40px);

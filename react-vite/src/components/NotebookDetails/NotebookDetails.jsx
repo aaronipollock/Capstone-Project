@@ -51,8 +51,13 @@ function NotebookDetails() {
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
+        console.log('Toggling Dropdown:', index);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
+
+    useEffect(() => {
+        console.log('Dropdown Index:', dropdownIndex);
+    }, [dropdownIndex]);
 
     const closeDropdown = () => {
         setDropdownIndex(null);
@@ -195,7 +200,7 @@ function NotebookDetails() {
                     )}
                 </section>
             </div>
-            <div className="editor-section">
+            <div className="details-editor-section">
                 <QuillEditor initialContent={currentContent} onChange={handleContentChange} />
             </div>
         </div>

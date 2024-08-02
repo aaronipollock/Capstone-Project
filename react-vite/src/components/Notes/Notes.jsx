@@ -14,7 +14,7 @@ import './Notes.css';
 function Notes() {
     const dispatch = useDispatch();
     const notes = useSelector(state => state.notes.userNotes);
-    const [dropdownIndex, setDropdownIndex] = useState(null);
+    // const [dropdownIndex, setDropdownIndex] = useState(null);
     const [currentContent, setCurrentContent] = useState("")
     const [selectedNoteId, setSelectedNoteId] = useState(null);
 
@@ -40,7 +40,7 @@ function Notes() {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.dropdown-menu') && !event.target.closest('.note-action-button')) {
-                setDropdownIndex(null);
+                // setDropdownIndex(null);
             }
         };
 
@@ -169,7 +169,7 @@ function Notes() {
                             ))}
                         </section>
                     </div>
-                    <div className="editor-section">
+                    <div className="notes-editor-section">
                         {/* <div id="toolbar"> */}
                         {/* <select className="ql-header">
                                 <option value="1"></option>
