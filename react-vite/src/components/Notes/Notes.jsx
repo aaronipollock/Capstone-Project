@@ -37,18 +37,18 @@ function Notes() {
     }
 
     // Detect clicks outside dropdown and close menu
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.note-action-button')) {
-                // setDropdownIndex(null);
-            }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (!event.target.closest('.dropdown-menu') && !event.target.closest('.note-action-button')) {
+    //             setDropdownIndex(null);
+    //         }
+    //     };
 
-        document.addEventListener('click', handleClickOutside);
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, []);
+    //     document.addEventListener('click', handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside);
+    //     };
+    // }, []);
 
     // useEffect(() => {
     //     if (quillRef.current) return; // Do nothing if Quill is already initialized
@@ -143,7 +143,7 @@ function Notes() {
                                 >
                                     <div className="note-item-title">{note.title}</div>
                                     <div className="note-item-content">{note.content}</div>
-                                    <div className="note-item-action">
+                                    {/* <div className="note-item-action"> */}
                                         {/* <button
                                         className="note-action-button"
                                         onClick={() => toggleDropdown(index)}
@@ -164,7 +164,7 @@ function Notes() {
                                                 />
                                             </div>
                                         </div> */}
-                                    </div>
+                                    {/* </div> */}
                                 </div>
                             ))}
                         </section>

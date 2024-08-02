@@ -53,7 +53,7 @@
 
 .notebook-item {
     padding: 10px 0;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid lightgray;
 }
 
 .text-notebooks {
@@ -77,8 +77,7 @@
     border: none;
     background: none;
     position: relative;
-    font-size: 20px;
-
+    /* font-size: 20px; */
 }
 
 .notebook-action-button:hover {
