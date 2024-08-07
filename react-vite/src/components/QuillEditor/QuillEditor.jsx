@@ -71,13 +71,6 @@ const QuillEditor = ({
   useEffect(() => {
     if (quillRef.current && note) {
       const quill = quillRef.current;
-      // const currentContent = quill.root.innerHTML;
-
-      // Update content if it differs
-      // if (currentContent !== note.content) {
-      //   const delta = quill.clipboard.convert(note.content);
-      //   quill.setContents(delta);
-      // }
 
       if (quill.root.innerHTML !== note.content) {
         quill.clipboard.dangerouslyPasteHTML(note.content);  // Use clipboard to set HTML content
