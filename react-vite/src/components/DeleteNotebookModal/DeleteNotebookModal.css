@@ -1,15 +1,16 @@
 .delete-notebook-modal-container {
     display: flex;
     flex-direction: column;
-    align-items: left;
     justify-content: left;
+    /* align-items: left; */
     padding: 20px;
-    padding-left: 30px;
     margin: auto;
+    /* padding-left: 30px; */
     height: 270px;
     width: 510px;
     border-radius: 5px;
     position: relative;
+    box-sizing: border-box;
 }
 
 .main-delete-text {
@@ -36,11 +37,12 @@ input {
 }
 
 .delete-notebook-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
     position: absolute;
     bottom: 20px;
     right: 30px;
-    display: flex;
-    gap: 10px
 }
 
 .cancel-delete-notebook-button {
@@ -59,10 +61,13 @@ input {
     height: 40px;
     width: 100px;
     color: white;
+    background-color: red;
+    border: none;
 }
 
 .confirm-delete-notebook-button:hover {
     cursor: pointer;
+    background-color: darkred;
 }
 .trash-text {
     margin-top: 80px;

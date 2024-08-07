@@ -46,7 +46,7 @@ export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
 
 export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dispatch) => {
     console.log("Dispatching thunkCreateNewNote with:", { title, content, notebookId });
-    
+
     const res = await fetch('/api/notes/create', {
         method: 'POST',
         headers: {
@@ -71,23 +71,34 @@ export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dis
 };
 
 export const thunkUpdateNote = (note) => async (dispatch) => {
-    const res = await fetch(`/api/notes/${note.id}/edit`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(note),
-    });
-    if (res.ok) {
+    try {
+        console.log('Sending update request to server: ', note);
+
+        const res = await fetch(`/api/notes/${note.id}/edit`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(note),
+        });
+        if (!res.ok) {
+            const errorData = await res.json();
+            console.log('Server responded with an error: ', errorData);
+            throw new Error(errorData.message || 'Failed to update note');
+        }
+
         const updatedNote = await res.json();
+        console.log('Received updated note from server: ', updatedNote);
+
         dispatch(updateNote(updatedNote));
         dispatch(thunkGetCurrentUsersNotes());
-        return updatedNote;
-    } else {
-        const error = await res.json()
-        return error;
+
+        return { success: true, note: updatedNote };
+    } catch (error) {
+        console.log.error('Error updating note: ', error);
+        return { success: false, error: error.message };
     }
-}
+};
 
 export const thunkDeleteNote = (noteId) => async (dispatch) => {
     const res = await fetch(`/api/notes/${noteId}/delete`, {
@@ -140,6 +151,13 @@ export default function noteReducer(state = initialState, action) {
                 ...state,
                 userNotes: [...state.userNotes, action.note],
             }
+        // case UPDATE_NOTE:
+        //     return {
+        //         ...state,
+        //         userNotes: state.userNotes.map((note) =>
+        //             note.id === action.note.id ? action.note : note
+        //         ),
+        //     };
         case UPDATE_NOTE: {
             const updatedNote = action.note;
             return {

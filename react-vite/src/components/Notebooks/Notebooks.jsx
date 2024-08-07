@@ -109,7 +109,7 @@ function Notebooks() {
                                         <div className="dropdown-item">
                                             <OpenModalButton
                                                 className="retitle-notebook-button"
-                                                buttonText="Retitle notebook"
+                                                buttonText="Rename notebook"
                                                 modalComponent={<UpdateNotebookModal notebookId={notebook.id} />}
                                                 onButtonClick={closeDropdown}
                                                 />
