@@ -22,9 +22,9 @@ function NotebookDetails() {
     const [error, setError] = useState(null);
     const [selectedNoteId, setSelectedNoteId] = useState(null);
     const [currentContent, setCurrentContent] = useState("")
+    const [title, setTitle] = useState("");
 
     useEffect(() => {
-        console.log('NotebookID from useParams: ', notebookId);
         const fetchNotebookDetails = async () => {
             try {
                 const response = await dispatch(thunkGetNotebookDetails(notebookId));
@@ -35,13 +35,8 @@ function NotebookDetails() {
             }
         };
 
-
         fetchNotebookDetails();
     }, [dispatch, notebookId]);
-
-    useEffect(() => {
-        console.log('NOTEBOOK FROM STATE: ', notebook, notebookId);
-    }, [notebook, notebookId])
 
     useEffect(() => {
         if (!notebook || !notebook.notes) {
@@ -55,16 +50,8 @@ function NotebookDetails() {
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
 
-    useEffect(() => {
-        console.log('Dropdown Index:', dropdownIndex);
-    }, [dropdownIndex]);
-
     const closeDropdown = () => {
         setDropdownIndex(null);
-    }
-
-    const handleNoteClick = (noteId) => {
-        setSelectedNoteId(noteId);
     }
 
     // Detect clicks outside dropdown and close menu
@@ -81,21 +68,35 @@ function NotebookDetails() {
         };
     }, []);
 
-    const handleContentChange = (content) => {
-        setCurrentContent(content);
-        localStorage.setItem('content', content);
-    }
-    useEffect(() => {
-        // Local content from local storage
-        const content = localStorage.getItem('content');
-        if (content) {
-            setCurrentContent(content)
+    const handleNoteClick = (noteId) => {
+        const selectedNote = notebook.notes.find(note => note.id === noteId);
+        if (selectedNote) {
+            setSelectedNoteId(noteId);
+            setCurrentContent(selectedNote.content || "");
+            setTitle(selectedNote.title || "");
         }
-    }, [])
+    };
+
+    const handleContentChange = (newContent) => {
+        setCurrentContent(newContent);
+        // localStorage.setItem('content', content);
+    }
+
+    const handleTitleChange = (newTitle) => {
+        setTitle(newTitle);
+    };
+    // useEffect(() => {
+    //     // Local content from local storage
+    //     const content = localStorage.getItem('content');
+    //     if (content) {
+    //         setCurrentContent(content)
+    //     }
+    // }, [])
 
     // const handleModalClose = () => {
     //     dispatch(thunkGetNotebookDetails(notebookId))
     // }
+
 
     if (error) return <p>{error}</p>;
     if (!notebook) return <div className="blank-page"></div>;
@@ -200,9 +201,17 @@ function NotebookDetails() {
                     )}
                 </section>
             </div>
-            <div className="details-editor-section">
-                <QuillEditor initialContent={currentContent} onChange={handleContentChange} />
-            </div>
+            <section className="details-editor-section">
+                {selectedNoteId && (
+                    <QuillEditor
+                        noteId={selectedNoteId}
+                        initialContent={currentContent}
+                        initialTitle={title}
+                        onContentChange={handleContentChange}
+                        onTitleChange={handleTitleChange}
+                    />
+                )}
+            </section>
         </div>
     );
 }

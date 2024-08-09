@@ -14,7 +14,7 @@
   }
 
   .quill-title-input {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-top: 0px;
     padding: 45px;
     border: 1px solid #ccc;
@@ -27,18 +27,27 @@
 
   .editor-container {
     height: calc(100vh - 245px);
-    border: 1px solid red;
     background-color: white;
     border-radius: 4px;
     /* box-sizing: border-box; */
     overflow: auto;
     width: 566px;
     flex-grow: 1;
-    padding: 30px;
-    /* border: none; */
+    padding: 45px;
+    border: none;
+    font-size: 1.0rem;
   }
 
   .editor-button-update {
     width: 565px;
+    height: 40px;
     cursor: pointer;
+    color: white;
+    background-color: green;
+    border-radius: 5px;
+    font-weight: lighter;
+  }
+
+  .editor-button-update:hover {
+    background-color: darkgreen;
   }

@@ -30,12 +30,10 @@ function Notes() {
     }
 
     const handleContentChange = (newContent) => {
-        console.log('Content changed:', newContent); // Debugging log
         setCurrentContent(newContent);
     }
 
     const handleTitleChange = (newTitle) => {
-        console.log('Title changed:', newTitle); // Debugging log
         setTitle(newTitle);
     };
 

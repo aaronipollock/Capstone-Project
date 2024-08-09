@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     height: 100vh;
-    background-color: rgb(241, 237, 237);
+    background-color: #F0F0F0;
 }
 
 .user-page-container {
@@ -50,7 +50,7 @@
     border: none;
     padding: 5px;
     margin-top: 15px;
-    background-color: rgb(241, 237, 237);
+    background-color: #F0F0F0;
     border-radius: 5px;
     align-items: flex-start;
 }

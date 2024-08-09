@@ -49,6 +49,7 @@ const QuillEditor = ({
         modules: {
           toolbar: '#quill-toolbar', // Link the toolbar by ID
         },
+        placeholder: '          Start writing...',
       });
       quillRef.current = quill;
 
@@ -190,12 +191,11 @@ const QuillEditor = ({
         onChange={(e) => {
           const newTitle = e.target.value;
           setTitle(e.target.value);
-          console.log('Title updated:', newTitle); // Log title change
           if (onTitleChange) {
             onTitleChange(newTitle)
           }
         }}
-        placeholder="Note Title"
+        placeholder="Title"
       />
       <div ref={editorRef} className="editor-container"></div>
       <button onClick={handleUpdateClick} className="editor-button-update" disabled={isLoading}>
