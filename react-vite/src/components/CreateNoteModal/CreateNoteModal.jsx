@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { thunkCreateNewNote } from "../../redux/notes";
 import './CreateNoteModal.css'
 
-function CreateNoteModal({ notebookId }) {
+function CreateNoteModal({ notebookId, prepopulatedContent }) {
     console.log("Notebook ID in CreateNoteModal:", notebookId);
 
     const dispatch = useDispatch();
@@ -14,6 +14,7 @@ function CreateNoteModal({ notebookId }) {
     const [content, setContent] = useState("");
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal();
+    const [padContent, setPadContent] = useState(prepopulatedContent);
 
     const validateForm = () => {
         const newErrors = {};
@@ -21,6 +22,10 @@ function CreateNoteModal({ notebookId }) {
         if (content.length < 2 || content.length > 800) newErrors.content = "Content must be between 2 and 800 characters."
         return newErrors;
     }
+
+    const handleContentChange = (e) => {
+        setPadContent(e.target.value);
+    };
 
     const handleCreateClick = async (e) => {
         e.preventDefault();
@@ -33,7 +38,6 @@ function CreateNoteModal({ notebookId }) {
             setErrors(newErrors);
             return;
         }
-
 
         const serverResponse = await dispatch(
             thunkCreateNewNote({
@@ -68,7 +72,6 @@ function CreateNoteModal({ notebookId }) {
                         <input
                             type="text"
                             value={title}
-                            placeholder="Note title"
                             onChange={(e) => setTitle(e.target.value)}
                             required
                         />
@@ -79,9 +82,8 @@ function CreateNoteModal({ notebookId }) {
                     Content
                     <div className="note-content">
                         <textarea
-                            value={content}
-                            placeholder="Note content"
-                            onChange={(e) => setContent(e.target.value)}
+                            value={content || padContent}
+                            onChange={(e) => setContent(e.target.value) || handleContentChange}
                             required
                         />
                     </div>

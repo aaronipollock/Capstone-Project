@@ -18,7 +18,6 @@
 .home-page-section2 {
     width: 100%;
     padding: 20px;
-    /* margin-bottom: 20px; */
 }
 
 .ready {
@@ -44,6 +43,36 @@
     flex-wrap: wrap;
 }
 
+.home-page-section2-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.scratch-pad-text {
+    margin-right: 215px;
+}
+
+.scratch-pad-action-button {
+    border: none;
+    font-size: 20px;
+}
+
+.scratch-pad-action-button:hover {
+    background-color: lightgray;
+    border-radius: 5px;
+}
+
 .home-page-notes-container {
     display: flex;
     flex-grow: 1;
@@ -63,6 +92,11 @@
     height: 275px;
     border-radius: 5px;
     font-size: 14px;
+    cursor: pointer;
+}
+
+.home-page-note-card:hover {
+    background-color: #F0F0F0;
 }
 
 .home-page-note-card-text {
@@ -79,16 +113,22 @@
     background-color: #fff9b1;
     width: 300px;
     height: 275px;
-    margin-left: auto
+    margin-left: auto;
 }
 
-.home-page-section2-top span {
-    justify-content: end;
+.dropdown-menu.active {
+    display: block;
+    height: 50px;
+    margin-top: 140px;
+    margin-left: 160px;
 }
 
-.home-page-section2-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right: 300px;
+.convert-note-button {
+    border: none;
+    background-color: white;
+}
+
+.convert-note-button:hover {
+    background-color: lightgray;
+    cursor: pointer;
 }

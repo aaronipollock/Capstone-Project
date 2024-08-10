@@ -70,7 +70,7 @@ html, body {
     padding: 15px;
     cursor: pointer;
     transition: background-color 0.2s ease; /* Smooth background change */
-    flex-grow: 1; /* Allow containers to grow and shrink */
+    /* flex-grow: 1; Allow containers to grow and shrink */
     min-height: 100px; /* Minimum height for each note */
     display: flex;
     flex-direction: column;
@@ -80,6 +80,7 @@ html, body {
     height: 135px;
     cursor: pointer; */
     max-width: 525px;
+    height: 100px;
 }
 
 .note-container:hover {

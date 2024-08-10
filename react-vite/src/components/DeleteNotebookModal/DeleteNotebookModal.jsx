@@ -40,8 +40,8 @@ function DeleteNotebookModal({ notebookId }) {
             <p>Any notes in the notebook will be deleted, as well. This cannot be undone.</p>
             {error && <p className="error-message">{error}</p>}
             <div className="delete-notebook-buttons">
-                <button onClick={handleDeleteClick} className="cancel-delete-notebook-button">Cancel</button>
-                <button onClick={closeModal} className="confirm-delete-notebook-button">Delete</button>
+                <button onClick={closeModal} className="cancel-delete-notebook-button">Cancel</button>
+                <button onClick={handleDeleteClick} className="confirm-delete-notebook-button">Delete</button>
             </div>
         </div>
     );
