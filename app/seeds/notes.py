@@ -10,39 +10,39 @@ def seed_notes():
     note3 = Note(
         title='Petruchio', content="Why, there's a wench! Come on, and kiss me, Kate.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note4 = Note(
-        title='Bianca', content="Old fashions please me best. I am not so nice To change true rules for old inventions.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bianca', content="Old fashions please me best. I am not so nice To change true rules for old inventions.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note5 = Note(
-        title='Tranio', content="No profit grows where is no pleasure ta’en: In brie, sir, study what you most affect.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Tranio', content="No profit grows where is no pleasure ta’en: In brie, sir, study what you most affect.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note6 = Note(
         title='Dick the butcher', content="The first thing we do, let's kill all the lawyers.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note7 = Note(
-        title='Suffolk', content="Smooth runs the water where the brook is deep: And in his simple show he harbours treason.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Suffolk', content="Smooth runs the water where the brook is deep: And in his simple show he harbours treason.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note8 = Note(
-        title='Cade', content='Thou hast most traitorously corrupted the youth of the realm in erecting a grammar school.', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cade', content='Thou hast most traitorously corrupted the youth of the realm in erecting a grammar school.', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note9 = Note(
-        title='Suffolk', content='Small things make base men proud.', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Suffolk', content='Small things make base men proud.', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note10 = Note(
-        title='King Henry VI', content='Can we outrun the heavens?', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry VI', content='Can we outrun the heavens?', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note11 = Note(
-        title='Richard', content="How sweet a thing it is to wear a crown, Within whose circuit is Elysium And all that poets feign of bliss and joy.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Richard', content="How sweet a thing it is to wear a crown, Within whose circuit is Elysium And all that poets feign of bliss and joy.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note12 = Note(
-        title='Clifford', content='The smallest worm will turn being trodden on.', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Clifford', content='The smallest worm will turn being trodden on.', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note13 = Note(
-        title='King Henry VI', content="O God! Methinks it were a happy life, To be no better than a homely swain, To sit upon a hill, as I do now, To carve out dials quaintly, point by point, Thereby to see the minutes how they run:", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry VI', content="O God! Methinks it were a happy life, To be no better than a homely swain, To sit upon a hill, as I do now, To carve out dials quaintly, point by point, Thereby to see the minutes how they run:", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note14 = Note(
-        title='Lady Grey', content='For trust not him that hath once broken faith.', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lady Grey', content='For trust not him that hath once broken faith.', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note15 = Note(
         title='Gloucester', content='Suspicion always haunts the quilty mind.', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note16 = Note(
-        title='Julia', content='You, minion, are too saucy', user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Julia', content='You, minion, are too saucy', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note17 = Note(
         title='Duke', content='Love is like a child That longs for every thing that he can come by.', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note18 = Note(
         title='Valentine', content='And why not death, rather than living torment? To die is to be banished from myself; And Silvia is myself: banished from her, Is self from self. A deadly banishment: What light is light, if Silvia be not seen? What joy is joy, if Silvia be not by?', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note19 = Note(
-        title='Julia', content="She dreams on him that has forgot her love, You dote on her that cares not for your love. 'Tis pity love should be so contrary: And thinking on it makes me cry 'Alas'.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Julia', content="She dreams on him that has forgot her love, You dote on her that cares not for your love. 'Tis pity love should be so contrary: And thinking on it makes me cry 'Alas'.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note20 = Note(
-        title='Proteus', content='O heaven, were man But constant, he were perfect.', user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Proteus', content='O heaven, were man But constant, he were perfect.', user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note21 = Note(
         title='Tamora', content="O cruel, irreligious piety!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note22 = Note(
@@ -54,95 +54,95 @@ def seed_notes():
     note25 = Note(
         title='Marcus', content="O, let me teach you how to knit again This scattered corn into one mutual sheaf, These broken limbs again into one body.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note26 = Note(
-        title='Talbot', content="My thoughts are whirled like a potter's wheel: I know not where I am, nor what I do.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Talbot', content="My thoughts are whirled like a potter's wheel: I know not where I am, nor what I do.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note27 = Note(
-        title='Bedford', content="I have heard it said, unbidden guests Are often welcomest when they are gone.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bedford', content="I have heard it said, unbidden guests Are often welcomest when they are gone.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note28 = Note(
-        title='Reignier', content="Defer no time, delays have dangerous ends.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Reignier', content="Defer no time, delays have dangerous ends.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note29 = Note(
-        title='Exeter', content="No simple man that sees This jarring discord of nobility, This shouldering of each other in the court, This factious bandying of their favourites, But that it doth presage some ill event.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Exeter', content="No simple man that sees This jarring discord of nobility, This shouldering of each other in the court, This factious bandying of their favourites, But that it doth presage some ill event.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note30 = Note(
-        title='John', content="Here on my knee I beg mortality, Rather than life preserved with infamy.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='John', content="Here on my knee I beg mortality, Rather than life preserved with infamy.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note31 = Note(
-        title='Richard', content="Now is the winter of our discontent Made glorious summer by this sun of York.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Richard', content="Now is the winter of our discontent Made glorious summer by this sun of York.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note32 = Note(
-        title='Richard', content="And thus I clothe my naked villany With old odd ends stolen out of holy writ; And seem a saint, when most I play the devil. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Richard', content="And thus I clothe my naked villany With old odd ends stolen out of holy writ; And seem a saint, when most I play the devil. ", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note33 = Note(
-        title='Richard', content="So wise so young, they say, do never live long.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Richard', content="So wise so young, they say, do never live long.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note34 = Note(
-        title='Richard', content="Talk'st thou to me of 'ifs'? Thou art a traitor: Off with his head! ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Richard', content="Talk'st thou to me of 'ifs'? Thou art a traitor: Off with his head! ", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note35 = Note(
-        title='Richard', content="A horse! a horse! my kingdom for a horse!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Richard', content="A horse! a horse! my kingdom for a horse!", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note36 = Note(
-        title='Antipholus of Syracuse', content="I to the world am like a drop of water That in the ocean seeks another dropWho, falling there to find his fellow forth - Unseen, inquisitive - confounds himself.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Antipholus of Syracuse', content="I to the world am like a drop of water That in the ocean seeks another dropWho, falling there to find his fellow forth - Unseen, inquisitive - confounds himself.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note37 = Note(
-        title='Dromio of Syracuse', content="Every why hath a wherefore", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Dromio of Syracuse', content="Every why hath a wherefore", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note38 = Note(
-        title='Balthazar', content="Small cheer and great welcome makes a merry feast", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Balthazar', content="Small cheer and great welcome makes a merry feast", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note39 = Note(
-        title='Adriana', content="He is deformed, crooked, old and sere, Ill-faced, worse bodied, shapeless everywhere, Vicious, ungentle, foolish, blunt, unkind, Stigmatical in making, worse in mind.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Adriana', content="He is deformed, crooked, old and sere, Ill-faced, worse bodied, shapeless everywhere, Vicious, ungentle, foolish, blunt, unkind, Stigmatical in making, worse in mind.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note40 = Note(
-        title='Dromio of Ephesus', content="And now let’s go hand in hand, not one before another.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Dromio of Ephesus', content="And now let’s go hand in hand, not one before another.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note41 = Note(
-        title='King', content="Our court shall be a little academe, Still and contemplative in living art.  ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King', content="Our court shall be a little academe, Still and contemplative in living art.  ", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note42 = Note(
-        title='Princess of France', content="Beauty is bought by judgement of the eye, Not uttered by base sale of chapmen's tongues", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Princess of France', content="Beauty is bought by judgement of the eye, Not uttered by base sale of chapmen's tongues", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note43 = Note(
-        title='Berowne', content="Your wit's too hot, it speeds too fast, ‘twill tire. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Berowne', content="Your wit's too hot, it speeds too fast, ‘twill tire. ", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note44 = Note(
-        title='Berowne', content="From women's eyes this doctrine I derive: They are the ground, the books, the academes From whence doth spring the true Promethean fire.  ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Berowne', content="From women's eyes this doctrine I derive: They are the ground, the books, the academes From whence doth spring the true Promethean fire.  ", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note45 = Note(
-        title='Moth', content="They have been at a great feast of languages, and stolen the scraps. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Moth', content="They have been at a great feast of languages, and stolen the scraps. ", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note46 = Note(
-        title='Helena', content="Love looks not with the eyes, but with the mind, And therefore is winged Cupid painted blind.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Helena', content="Love looks not with the eyes, but with the mind, And therefore is winged Cupid painted blind.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note47 = Note(
-        title='Bottom', content="To say the truth, reason and love keep little company together nowadays.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bottom', content="To say the truth, reason and love keep little company together nowadays.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note48 = Note(
-        title='Titania', content="Methought I was enamoured of an ass.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Titania', content="Methought I was enamoured of an ass.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note49 = Note(
-        title='Puck', content="...not a mouse Shall disturb this hallowed house. I am sent with broom before, To sweep the dust behind the door.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Puck', content="...not a mouse Shall disturb this hallowed house. I am sent with broom before, To sweep the dust behind the door.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note50 = Note(
-        title='Puck', content="If we shadows have offended, Think but this, and all is mended, That you have but slumbered here While these visions did appear.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Puck', content="If we shadows have offended, Think but this, and all is mended, That you have but slumbered here While these visions did appear.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note51 = Note(
-        title='Chorus', content="A pair of star-crossed lovers take their life.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Chorus', content="A pair of star-crossed lovers take their life.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note52 = Note(
-        title='Romeo', content="But, soft, what light through yonder window breaks? It is the east, and Juliet is the sun.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Romeo', content="But, soft, what light through yonder window breaks? It is the east, and Juliet is the sun.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note53 = Note(
-        title='Mercutio', content="A plague o' both your houses!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Mercutio', content="A plague o' both your houses!", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note54 = Note(
-        title='Juliet', content="O happy dagger, This is thy sheath: there rust, and let me die.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Juliet', content="O happy dagger, This is thy sheath: there rust, and let me die.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note55 = Note(
-        title='Prince', content="All are punshied", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Prince', content="All are punshied", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note56 = Note(
-        title='King Richard', content="Forget, forgive, conclude and be agreed: Our doctors say this is no time to bleed.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Richard', content="Forget, forgive, conclude and be agreed: Our doctors say this is no time to bleed.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note57 = Note(
-        title='Gaunt', content="This blessed plot, this earth, this realm, this England.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Gaunt', content="This blessed plot, this earth, this realm, this England.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note58 = Note(
-        title='King Richard', content="For heaven’s sake let us sit upon the ground And tell sad stories of the death of kings.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Richard', content="For heaven’s sake let us sit upon the ground And tell sad stories of the death of kings.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note59 = Note(
-        title='Bullingbrook', content="The shadow of your sorrow hath destroyed The shadow of your face.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bullingbrook', content="The shadow of your sorrow hath destroyed The shadow of your face.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note60 = Note(
-        title='King Richard', content="I wasted time, and now doth time waste me.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Richard', content="I wasted time, and now doth time waste me.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note61 = Note(
-        title='Constance', content="I will instruct my sorrows to be proud, For grief is proud and makes his owner stoop.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Constance', content="I will instruct my sorrows to be proud, For grief is proud and makes his owner stoop.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note62 = Note(
-        title='Lewis', content="Life is as tedious as a twice-told tale, Vexing the dull ear of a drowsy man;", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lewis', content="Life is as tedious as a twice-told tale, Vexing the dull ear of a drowsy man;", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note63 = Note(
-        title='Salisbury', content="To gild refinèd gold, to paint the lily, To throw a perfume on the violet, To smooth the ice, or add another hue Unto the rainbow, or with taper-light To seek the beauteous eye of heaven to garnish, Is wasteful and ridiculous excess. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Salisbury', content="To gild refinèd gold, to paint the lily, To throw a perfume on the violet, To smooth the ice, or add another hue Unto the rainbow, or with taper-light To seek the beauteous eye of heaven to garnish, Is wasteful and ridiculous excess. ", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note64 = Note(
-        title='King John', content="How oft the sight of means to do ill deeds Makes deeds ill done! ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King John', content="How oft the sight of means to do ill deeds Makes deeds ill done! ", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note65 = Note(
-        title='Bastard', content="Be great in act as you have been in thought", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bastard', content="Be great in act as you have been in thought", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note66 = Note(
-        title='Antonio', content="I hold the world but as the world, Gratiano, A stage where every man must play a part, And mine a sad one.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Antonio', content="I hold the world but as the world, Gratiano, A stage where every man must play a part, And mine a sad one.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note67 = Note(
-        title='Jessica', content="But love is blind, and lovers cannot see The pretty follies that themselves commit.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Jessica', content="But love is blind, and lovers cannot see The pretty follies that themselves commit.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note68 = Note(
-        title='Morocco', content="All that glisters is not gold.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Morocco', content="All that glisters is not gold.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note69 = Note(
-        title='Shylock', content="If you prick us, do we not bleed? If you tickle us, do we not laugh? If you poison us, do we not die? And if you wrong us, shall we not revenge? ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Shylock', content="If you prick us, do we not bleed? If you tickle us, do we not laugh? If you poison us, do we not die? And if you wrong us, shall we not revenge? ", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note70 = Note(
-        title='Lorenzo', content="The man that hath no music in himself, Nor is not moved with concord of sweet sounds, Is fit for treasons, stratagems and spoils. The motions of his spirit are dull as night And his affections dark as Erebus. Let no such man be trusted.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lorenzo', content="The man that hath no music in himself, Nor is not moved with concord of sweet sounds, Is fit for treasons, stratagems and spoils. The motions of his spirit are dull as night And his affections dark as Erebus. Let no such man be trusted.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note71 = Note(
         title='Falstaff', content="Let us be Diana’s foresters, gentlemen of the shade, minions of the moon.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note72 = Note(
@@ -154,95 +154,95 @@ def seed_notes():
     note75 = Note(
         title='Hotspur', content="O, Harry, thou hast robbed me of my youth!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note76 = Note(
-        title='Lord Chief Justice', content="Since all is well, keep it so: wake not a sleeping wolf.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lord Chief Justice', content="Since all is well, keep it so: wake not a sleeping wolf.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note77 = Note(
-        title='Hostess Quickly', content="He hath eaten me out of house and home.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hostess Quickly', content="He hath eaten me out of house and home.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note78 = Note(
-        title='King Henry IV', content="Uneasy lies the head that wears a crown.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry IV', content="Uneasy lies the head that wears a crown.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note79 = Note(
-        title='Warwick', content="His cares are now all ended.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Warwick', content="His cares are now all ended.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note80 = Note(
-        title='King Henry V', content="Presume not that I am the thing I was.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry V', content="Presume not that I am the thing I was.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note81 = Note(
-        title='Don Padro', content="In time the savage bull doth bear the yoke.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Don Padro', content="In time the savage bull doth bear the yoke.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note82 = Note(
-        title='Benedick', content="When I said I would die a bachelor, I did not think I should live till I were married.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Benedick', content="When I said I would die a bachelor, I did not think I should live till I were married.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note83 = Note(
-        title='Beatrice', content="I love you with so much of my heart that none is left to protest.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Beatrice', content="I love you with so much of my heart that none is left to protest.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note84 = Note(
-        title='Leonato', content="For there was never yet philosopher That could endure the toothache patiently.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Leonato', content="For there was never yet philosopher That could endure the toothache patiently.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note85 = Note(
-        title='Benedick', content="Thou and I are too wise to woo peaceably.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Benedick', content="Thou and I are too wise to woo peaceably.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note86 = Note(
-        title='King Henry', content="Once more unto the breach, dear friends, once more, Or close the wall up with our English dead.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry', content="Once more unto the breach, dear friends, once more, Or close the wall up with our English dead.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note87 = Note(
-        title='King Henry', content="The game's afoot: Follow your spirit, and upon this charge Cry ‘God for Harry, England, and Saint George!’", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry', content="The game's afoot: Follow your spirit, and upon this charge Cry ‘God for Harry, England, and Saint George!’", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note88 = Note(
-        title='King Henry', content="This story shall the good man teach his son, And Crispin Crispian shall ne'er go by, From this day to the ending of the world, But we in it shall be remembered; We few, we happy few, we band of brothers. For he to-day that sheds his blood with me Shall be my brother.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry', content="This story shall the good man teach his son, And Crispin Crispian shall ne'er go by, From this day to the ending of the world, But we in it shall be remembered; We few, we happy few, we band of brothers. For he to-day that sheds his blood with me Shall be my brother.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note89 = Note(
-        title='Fluellen', content="There is occasions and causes why and wherefore in all things.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Fluellen', content="There is occasions and causes why and wherefore in all things.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note90 = Note(
-        title='King Henry', content="A good heart, Kate, is the sun and the moon— or rather the sun and not the moon, for it shines bright and never changes, but keeps his course truly. If thou would have such a one, take me: and take me, take a soldier: take a soldier, take a king.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry', content="A good heart, Kate, is the sun and the moon— or rather the sun and not the moon, for it shines bright and never changes, but keeps his course truly. If thou would have such a one, take me: and take me, take a soldier: take a soldier, take a king.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note91 = Note(
-        title='Jaques', content="All the world's a stage, And all the men and women merely players;", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Jaques', content="All the world's a stage, And all the men and women merely players;", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note92 = Note(
-        title='Rosalind', content="Beauty provoketh thieves sooner than gold.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Rosalind', content="Beauty provoketh thieves sooner than gold.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note93 = Note(
-        title='Rosalind', content="Thou speakest wiser than thou art ware of.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Rosalind', content="Thou speakest wiser than thou art ware of.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note94 = Note(
-        title='Rosalind', content="I pray you do not fall in love with me, For I am falser than vows made in wine.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Rosalind', content="I pray you do not fall in love with me, For I am falser than vows made in wine.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note95 = Note(
-        title='Orlando', content="Forever and a day.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Orlando', content="Forever and a day.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note96 = Note(
-        title='Soothsayer', content="Beware the Ides of March.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Soothsayer', content="Beware the Ides of March.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note97 = Note(
-        title='Cassius', content="Men at some time are masters of their fates. The fault, dear Brutus, is not in our stars But in ourselves, that we are underlings.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cassius', content="Men at some time are masters of their fates. The fault, dear Brutus, is not in our stars But in ourselves, that we are underlings.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note98 = Note(
-        title='Brutus', content="Not that I loved Caesar less, but that I loved Rome more.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Brutus', content="Not that I loved Caesar less, but that I loved Rome more.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note99 = Note(
-        title='Caesar', content="Cowards die many times before their deaths, The valiant never taste of death but once. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Caesar', content="Cowards die many times before their deaths, The valiant never taste of death but once. ", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note100 = Note(
-        title='Antony', content="Cry havoc and let slip the dogs of war.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Antony', content="Cry havoc and let slip the dogs of war.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note101 = Note(
-        title='Marcellus', content="Something is rotten in the state of Denmark.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Marcellus', content="Something is rotten in the state of Denmark.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note102 = Note(
-        title='Polonius', content="Neither a borrower nor a lender be, For loan oft loses both itself and friend, And borrowing dulls the edge of husbandry.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Polonius', content="Neither a borrower nor a lender be, For loan oft loses both itself and friend, And borrowing dulls the edge of husbandry.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note103 = Note(
-        title='Hamlet', content="There is nothing either good or bad but thinking makes it so.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hamlet', content="There is nothing either good or bad but thinking makes it so.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note104 = Note(
-        title='Hamlet', content="To be, or Note2be, that is the question.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hamlet', content="To be, or Note2be, that is the question.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note105 = Note(
-        title='Hamlet', content="Alas, poor Yorick! I knew him, Horatio: A fellow of infinite jest.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hamlet', content="Alas, poor Yorick! I knew him, Horatio: A fellow of infinite jest.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note106 = Note(
-        title='Mistress Quickly', content="Here will be an old abusing of God's patience and the King's English.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Mistress Quickly', content="Here will be an old abusing of God's patience and the King's English.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note107 = Note(
-        title='Pistol', content="Why, then the world's mine oyster, which I with sword will open.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Pistol', content="Why, then the world's mine oyster, which I with sword will open.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note108 = Note(
-        title='Ford', content="Better three hours too soon than a minute too late.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Ford', content="Better three hours too soon than a minute too late.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note109 = Note(
-        title='Mistress Page', content="Wives may be merry, and yet honest too.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Mistress Page', content="Wives may be merry, and yet honest too.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note110 = Note(
-        title='Falstaff', content="I think the devil will not have me damned, lest the oil that's in me should set hell on fire.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Falstaff', content="I think the devil will not have me damned, lest the oil that's in me should set hell on fire.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note111 = Note(
-        title='Feste', content="Better a witty fool than a foolish wit.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Feste', content="Better a witty fool than a foolish wit.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note112 = Note(
-        title='Malvolio', content="Some are born great, some achieve greatness and some have greatness thrust upon 'em.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Malvolio', content="Some are born great, some achieve greatness and some have greatness thrust upon 'em.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note113 = Note(
-        title='Feste', content="Foolery, sir, does walk about the orb like the sun, it shines everywhere.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Feste', content="Foolery, sir, does walk about the orb like the sun, it shines everywhere.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note114 = Note(
-        title='Feste', content="And thus the whirligig of time brings in his revenges.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Feste', content="And thus the whirligig of time brings in his revenges.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note115 = Note(
-        title='Orsino', content="Cesario, come – For so you shall be, while you are a man. But when in other habits you are seen, Orsino's mistress, and his fancy's queen.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Orsino', content="Cesario, come – For so you shall be, while you are a man. But when in other habits you are seen, Orsino's mistress, and his fancy's queen.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note116 = Note(
-        title='Cressida', content="Things won are done, joy's soul lies in the doing. That she beloved knows nought that knows nought this: Men prize the thing ungained more than it is.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cressida', content="Things won are done, joy's soul lies in the doing. That she beloved knows nought that knows nought this: Men prize the thing ungained more than it is.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note117 = Note(
-        title='Thersites', content="The common curse of mankind, folly and ignorance, be thine in great revenue!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Thersites', content="The common curse of mankind, folly and ignorance, be thine in great revenue!", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note118 = Note(
-        title='Ulysses', content="One touch of nature makes the whole world kin.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Ulysses', content="One touch of nature makes the whole world kin.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note119 = Note(
-        title='Ulysses', content="There's language in her eye, her cheek, her lip; Nay, her foot speaks, her wanton spirits look out At every joint and motive of her body.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Ulysses', content="There's language in her eye, her cheek, her lip; Nay, her foot speaks, her wanton spirits look out At every joint and motive of her body.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note120 = Note(
-        title='Hector', content="The end crowns all, And that old common arbitrator, Time, Will one day end it.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hector', content="The end crowns all, And that old common arbitrator, Time, Will one day end it.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note121 = Note(
         title='Iago', content="But I will wear my heart upon my sleeve For daws to peck at: I am not what I am.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note122 = Note(
@@ -254,97 +254,97 @@ def seed_notes():
     note125 = Note(
         title='Othello', content="I kissed thee ere I killed thee: no way but this, Killing myself, to die upon a kiss.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note126 = Note(
-        title='Lucio', content="Our doubts are traitors, And make us lose the good we oft might win By fearing to attempt.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lucio', content="Our doubts are traitors, And make us lose the good we oft might win By fearing to attempt.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note127 = Note(
-        title='Angelo', content="Is this her fault or mine? The tempter or the tempted, who sins most?", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Angelo', content="Is this her fault or mine? The tempter or the tempted, who sins most?", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note128 = Note(
-        title='Claudio', content="The miserable have no other medicineBut only hope.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Claudio', content="The miserable have no other medicineBut only hope.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note129 = Note(
-        title='Duke', content="Haste still pays haste, and leisure answers leisure, Like doth quit like, and measure still for measure.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Duke', content="Haste still pays haste, and leisure answers leisure, Like doth quit like, and measure still for measure.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note130 = Note(
-        title='Duke', content="What's mine is yours and what is yours is mine", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Duke', content="What's mine is yours and what is yours is mine", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note131 = Note(
-        title='Countess', content="Love all, trust a few, do wrong to none.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Countess', content="Love all, trust a few, do wrong to none.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note132 = Note(
-        title='Helen', content="Great floods have flown From simple sources, and great seas have dried When miracles have by the great’st been denied.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Helen', content="Great floods have flown From simple sources, and great seas have dried When miracles have by the great’st been denied.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note133 = Note(
-        title='Mariana', content="No legacy is so rich as honesty.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Mariana', content="No legacy is so rich as honesty.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note134 = Note(
-        title='Helen', content="All's well that ends well, still the fine's the crown; Whate'er the course, the end is the renown.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Helen', content="All's well that ends well, still the fine's the crown; Whate'er the course, the end is the renown.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note135 = Note(
-        title='King', content="For we are old, and on our quick'st decrees Th’inaudible and noiseless foot of time Steals ere we can effect them.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King', content="For we are old, and on our quick'st decrees Th’inaudible and noiseless foot of time Steals ere we can effect them.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note136 = Note(
-        title='Apemantus', content="Here's that which is too weak to be a sinner— Honest water—which ne'er left man i'th’mire.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Apemantus', content="Here's that which is too weak to be a sinner— Honest water—which ne'er left man i'th’mire.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note137 = Note(
-        title='Lucullus', content="Every man has his fault, and honesty is his.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lucullus', content="Every man has his fault, and honesty is his.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note138 = Note(
-        title='Flavius', content="Strange, unusual blood, When man’s worst sin is he does too much good!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Flavius', content="Strange, unusual blood, When man’s worst sin is he does too much good!", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note139 = Note(
-        title='Timon', content="You are an alchemist, make gold of that.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Timon', content="You are an alchemist, make gold of that.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note140 = Note(
-        title='Alcibiades', content="'Here lies a wretched corpse, of wretched soul bereft. Seek not my name. A plague consume you wicked caitiffs left! Here lie I, Timon, who alive all living men did hate: Pass by and curse they fill, but pass and stay not here thy gait.'", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Alcibiades', content="'Here lies a wretched corpse, of wretched soul bereft. Seek not my name. A plague consume you wicked caitiffs left! Here lie I, Timon, who alive all living men did hate: Pass by and curse they fill, but pass and stay not here thy gait.'", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note141 = Note(
-        title='Edmund', content="Now, gods, stand up for bastards!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Edmund', content="Now, gods, stand up for bastards!", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note142 = Note(
-        title='Gloucester', content="As flies to wanton boys are we to th' gods: They kill us for their sport.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Gloucester', content="As flies to wanton boys are we to th' gods: They kill us for their sport.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note143 = Note(
-        title='Lear', content="I am a man More sinned against than sinning.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lear', content="I am a man More sinned against than sinning.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note144 = Note(
-        title='Lear', content="When we are born, we cry that we are come To this great stage of fools.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lear', content="When we are born, we cry that we are come To this great stage of fools.", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note145 = Note(
-        title='Lear', content="When thou dost ask me blessing, I'll kneel down And ask of thee forgiveness. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lear', content="When thou dost ask me blessing, I'll kneel down And ask of thee forgiveness. ", user_id=9, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note146 = Note(
-        title='Macbeth', content="If it were done when 'tis done, then 'twere well It were done quickly.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Macbeth', content="If it were done when 'tis done, then 'twere well It were done quickly.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note147 = Note(
-        title='Macbeth', content="Is this a dagger which I see before me, The handle toward my hand? Come, let me clutch thee: I have thee not, and yet I see thee still.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Macbeth', content="Is this a dagger which I see before me, The handle toward my hand? Come, let me clutch thee: I have thee not, and yet I see thee still.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note148 = Note(
-        title='Macbeth', content="It will have blood, they say: blood will have blood.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Macbeth', content="It will have blood, they say: blood will have blood.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note149 = Note(
-        title='Witches', content="Double, double toil and trouble: Fire burn, and cauldron bubble.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Witches', content="Double, double toil and trouble: Fire burn, and cauldron bubble.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note150 = Note(
-        title='Lady Macbeth', content="What's done cannot be undone.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Lady Macbeth', content="What's done cannot be undone.", user_id=10, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note151 = Note(
-        title='Cleopatra', content="O happy horse, to bear the weight of Antony!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cleopatra', content="O happy horse, to bear the weight of Antony!", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note152 = Note(
-        title='Cleopatra', content="My salad days, When I was green in judgement, cold in blood.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cleopatra', content="My salad days, When I was green in judgement, cold in blood.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note153 = Note(
-        title='Enobarbus', content="Age cannot wither her, nor custom stale Her infinite variety.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Enobarbus', content="Age cannot wither her, nor custom stale Her infinite variety.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note154 = Note(
-        title='Cahrmian', content="Now boast thee, death, in thy possession lies A lass unparalleled.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cahrmian', content="Now boast thee, death, in thy possession lies A lass unparalleled.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note155 = Note(
-        title='Caesar', content="She shall be buried by her Antony, No grave upon the earth shall clip in it A pair so famous.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Caesar', content="She shall be buried by her Antony, No grave upon the earth shall clip in it A pair so famous.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note156 = Note(
-        title='Matius', content="If any think brave death outweighs bad life, And that his country's dearer than himself, Let him alone, or so many so minded, Wave thus to express his disposition,", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Matius', content="If any think brave death outweighs bad life, And that his country's dearer than himself, Let him alone, or so many so minded, Wave thus to express his disposition,", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note157 = Note(
-        title='Sicinius', content="Nature teaches beasts to know their friends", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Sicinius', content="Nature teaches beasts to know their friends", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note158 = Note(
-        title='Sicinius', content="What is the city but the people?", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Sicinius', content="What is the city but the people?", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note159 = Note(
-        title='Volumnia', content="Action is eloquence.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Volumnia', content="Action is eloquence.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note160 = Note(
-        title='Coriolanus', content="There is a world elsewhere.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Coriolanus', content="There is a world elsewhere.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note161 = Note(
-        title='Pericles', content="Which care of them, not pity of myself, Who am no more but as the tops of trees. Which fence the roots they grow by and defend them, Makes both my body pine and soul to languish.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Pericles', content="Which care of them, not pity of myself, Who am no more but as the tops of trees. Which fence the roots they grow by and defend them, Makes both my body pine and soul to languish.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note162 = Note(
-        title='First Fisherman', content="Why, as men do a-land; the great ones eat up the little ones.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='First Fisherman', content="Why, as men do a-land; the great ones eat up the little ones.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note163 = Note(
-        title='Cerimon', content="The diamonds of a most praised water Doth appear, to make the world twice rich.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cerimon', content="The diamonds of a most praised water Doth appear, to make the world twice rich.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note164 = Note(
-        title='Bawd', content="That she would make a puritan of the devil if he should cheapen a kiss of her", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bawd', content="That she would make a puritan of the devil if he should cheapen a kiss of her", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note165 = Note(
-        title='Pericles', content="O, come, be buried A second time within these arms.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Pericles', content="O, come, be buried A second time within these arms.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note166 = Note(
-        title='Iachimo', content="Boldness be my friend: Arm me audacity from head to foot!", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Iachimo', content="Boldness be my friend: Arm me audacity from head to foot!", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note167 = Note(
-        title='Arviragus', content="Our cage We make a choir, as doth the prisoned bird, And sing our bondage freely.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Arviragus', content="Our cage We make a choir, as doth the prisoned bird, And sing our bondage freely.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note168 = Note(
-        title='Belarius', content="The game is up.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Belarius', content="The game is up.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note169 = Note(
-        title='Pisanio', content="I have not slept one wink.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Pisanio', content="I have not slept one wink.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note170 = Note(
-        title='Guiderius', content="Play judge and executioner all himself.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Guiderius', content="Play judge and executioner all himself.", user_id=4, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note171 = Note(
-        title='Leontes', content="Is this nothing? Why then the world and all that’s in’t is nothing: The covering sky is nothing, Bohemia nothing, My wife is nothing, nor nothing have these nothings, If this be nothing.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Leontes', content="Is this nothing? Why then the world and all that's in't is nothing: The covering sky is nothing, Bohemia nothing, My wife is nothing, nor nothing have these nothings, If this be nothing.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note172 = Note(
         title='Paulina', content="The silence often of pure innocence Persuades when speaking fails.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note173 = Note(
@@ -354,35 +354,35 @@ def seed_notes():
     note175 = Note(
         title='Autolycus', content="Though I am not naturally honest, I am so sometimes by chance", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note176 = Note(
-        title='Ariel', content="Ferdinand, With hair up-staring – then like reeds, not hair – Was the first man that leaped; cried ‘Hell is empty And all the devils are here.’", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Ariel', content="Ferdinand, With hair up-staring – then like reeds, not hair – Was the first man that leaped; cried ‘Hell is empty And all the devils are here.’", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note177 = Note(
-        title='Trinculo', content="Misery acquaints a man with strange bedfellows.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Trinculo', content="Misery acquaints a man with strange bedfellows.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note178 = Note(
-        title='Prospero', content="Our revels now are ended. These our actors, As I foretold you, were all spirits and Are melted into air, into thin air; And, like the baseless fabric of this vision, The cloud-capp'd towers, the gorgeous palaces, The solemn temples, the great globe itself, Yea, all which it inherit, shall dissolve, And, like this insubstantial pageant faded, Leave not a rack behind. We are such stuff As dreams are made on: and our little life Is rounded with a sleep.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Prospero', content="Our revels now are ended. These our actors, As I foretold you, were all spirits and Are melted into air, into thin air; And, like the baseless fabric of this vision, The cloud-capp'd towers, the gorgeous palaces, The solemn temples, the great globe itself, Yea, all which it inherit, shall dissolve, And, like this insubstantial pageant faded, Leave not a rack behind. We are such stuff As dreams are made on: and our little life Is rounded with a sleep.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note179 = Note(
-        title='Miranda', content="O, wonder! How many goodly creatures are there here! How beauteous mankind is! O brave new world, That has such people in't.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Miranda', content="O, wonder! How many goodly creatures are there here! How beauteous mankind is! O brave new world, That has such people in't.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note180 = Note(
-        title='Prospero', content="As you from crimes would pardoned be, Let your indulgence set me free.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Prospero', content="As you from crimes would pardoned be, Let your indulgence set me free.", user_id=6, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note181 = Note(
-        title='Norfolk', content="Be to yourself As you would to your friend.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Norfolk', content="Be to yourself As you would to your friend.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note182 = Note(
-        title='Norfolk', content="Heat not a furnace for your foe so hot That it do singe yourself.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Norfolk', content="Heat not a furnace for your foe so hot That it do singe yourself.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note183 = Note(
-        title='Cardinal Wolsey', content="A load would sink a navy: too much honour.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cardinal Wolsey', content="A load would sink a navy: too much honour.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note184 = Note(
-        title='Cardinal Wolsey', content="Love thyself last: cherish those hearts that hate thee: Corruption wins not more than honesty.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cardinal Wolsey', content="Love thyself last: cherish those hearts that hate thee: Corruption wins not more than honesty.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note185 = Note(
-        title='Griffith', content="Men’s evil manners live in brass, their virtues We write in water.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Griffith', content="Men’s evil manners live in brass, their virtues We write in water.", user_id=7, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note186 = Note(
-        title='Three Queens', content="Come all sad and solemn shows, That are quick-eyed Pleasure's foes: We convent naught else but woes. We convent naught else but woes.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Three Queens', content="Come all sad and solemn shows, That are quick-eyed Pleasure's foes: We convent naught else but woes. We convent naught else but woes.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note187 = Note(
-        title='Third Queen', content="This world's a city full of straying streets, And death's the market-place where each one meets.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Third Queen', content="This world's a city full of straying streets, And death's the market-place where each one meets.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note188 = Note(
-        title='Arcite', content="Fie, sir. You play the child extremely. ", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Arcite', content="Fie, sir. You play the child extremely. ", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note189 = Note(
-        title='Hippolyta', content="‘Tis pity love should be so tyrannous.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hippolyta', content="‘Tis pity love should be so tyrannous.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note190 = Note(
-        title='Emilia', content="I am bride-habited, But maiden-hearted.", user_id=5, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Emilia', content="I am bride-habited, But maiden-hearted.", user_id=8, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
 
 
     db.session.add(note1)

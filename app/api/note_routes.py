@@ -17,6 +17,7 @@ def get_notes():
 
     user_notes = Note.query.filter_by(user_id=current_user.id).all()
     return {"notes": [note.to_dict() for note in user_notes]}
+    print(f"Fetched {len(notes)} notes from the database.")
 
 @note_routes.route('/create', methods=['POST'])
 @login_required
@@ -51,7 +52,7 @@ def post_note():
                 print(f"Notebook found: {notebook}")
                 new_note.notebooks.append(notebook)
             else:
-                print("Notebook not found") 
+                print("Notebook not found")
                 return jsonify({"errors": "Notebook not found"}), 404
 
         db.session.add(new_note)

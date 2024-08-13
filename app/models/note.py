@@ -17,7 +17,7 @@ class Note(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship('User', back_populates='notes')
-    notebooks = db.relationship('Notebook', secondary=notebook_notes, back_populates='notes')
+    notebooks = db.relationship('Notebook', back_populates='notes', secondary=notebook_notes)
 
     def to_dict(self, include_notebooks=False):
         note_dict = {

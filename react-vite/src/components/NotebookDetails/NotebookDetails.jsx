@@ -70,20 +70,24 @@ function NotebookDetails() {
 
     const handleNoteClick = (noteId) => {
         const selectedNote = notebook.notes.find(note => note.id === noteId);
+        console.log('Selected Note:', selectedNote);
         if (selectedNote) {
             setSelectedNoteId(noteId);
             setCurrentContent(selectedNote.content || "");
             setTitle(selectedNote.title || "");
+            console.log('Content and Title set:', selectedNote.content, selectedNote.title)
         }
     };
 
     const handleContentChange = (newContent) => {
         setCurrentContent(newContent);
+        console.log('Content Changed:', newContent);
         // localStorage.setItem('content', content);
     }
 
     const handleTitleChange = (newTitle) => {
         setTitle(newTitle);
+        console.log('Title Changed:', newTitle);
     };
     // useEffect(() => {
     //     // Local content from local storage
