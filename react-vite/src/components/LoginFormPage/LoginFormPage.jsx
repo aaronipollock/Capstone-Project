@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { NavLink } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import { FaStickyNote } from "react-icons/fa";
+// import { FaStickyNote } from "react-icons/fa";
+import { ImQuill } from "react-icons/im";
 import { FaAsterisk } from "react-icons/fa";
 import { FaCloud } from "react-icons/fa";
 
@@ -58,9 +59,9 @@ function LoginFormPage() {
       <div className="login-page">
       <FaAsterisk className="asterisk-icon" />
       <div className="login-form-container">
-        <FaStickyNote className="sticky-note-icon" />
+        <ImQuill className="sticky-note-icon" />
         <h1 className="login-label">Log in</h1>
-        <p className="sub-login-label">to continue to your Everclone account.</p>
+        <p className="sub-login-label">to continue to your Note2be account.</p>
         {/* {Object.values(errors).length > 0 &&
           Object.values(errors).map((message, index) => <p key={index} className="error-message">{message}</p>)} */}
         {errors.server && <p className="error-message">{errors.server}</p>}

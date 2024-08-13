@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
 import './SignupFormPage.css'
-import { FaStickyNote } from "react-icons/fa";
+import { ImQuill } from "react-icons/im";
+// import { FaStickyNote } from "react-icons/fa";
 import { FaShapes, FaHeart, FaHourglass } from "react-icons/fa";
 import { IoBusiness } from "react-icons/io5";
 import { IoMdSchool } from "react-icons/io";
@@ -67,8 +68,8 @@ function SignupFormPage() {
   return (
     <div className="signup-page-container">
       <div className="signup-page-left">
-        <FaStickyNote className="signup-sticky-note-icon" />
-        <h1 className="signup-label">Welcome to Everclone!</h1>
+        <ImQuill className="signup-sticky-note-icon" />
+        <h1 className="signup-label">Welcome to Note2be!</h1>
         <p className="sub-signup-label">Sign up and start taking notes.</p>
         {errors.server && <p>{errors.server}</p>}
         <form className="signup-form" onSubmit={handleSubmit}>
