@@ -33,7 +33,11 @@ function Notebooks() {
 
     //Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        setDropdownIndex(dropdownIndex == index ? null : index);
+        console.log('Toggling Dropdown: ', index); // Log the index of the clicked dropdown
+        console.log('Current Dropdown Index Before: ', dropdownIndex); // Log the current state before update
+        setDropdownIndex(dropdownIndex === index ? null : index);
+        console.log('Current Dropdown Index After: ', dropdownIndex === index ? null : index); // Log the state after update
+
     };
 
     // Close dropdown
@@ -44,7 +48,7 @@ function Notebooks() {
     //Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.notebook-action-button')) {
+            if (!event.target.closest('.notebook-dropdown-menu') && !event.target.closest('.notebook-action-button')) {
                 setDropdownIndex(null);
             }
         };
@@ -101,18 +105,22 @@ function Notebooks() {
                                 <div className="notebook-item">
                                     <button
                                         className="notebook-action-button"
-                                        onClick={() => toggleDropdown(index)}
+                                        onClick={() => {
+                                            console.log(`Button clicked for dropdown ${index}`);
+                                            toggleDropdown(index);
+                                        }}
                                     >
                                         <strong>...</strong>
                                     </button>
-                                    <div className={`dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
-                                        <div className="dropdown-item">
+                                    <div className={`notebook-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
+                                        {console.log(`Dropdown ${index} is ${dropdownIndex === index ? 'active' : 'inactive'}`)}
+                                        <div className="notebook-dropdown-item">
                                             <OpenModalButton
                                                 className="retitle-notebook-button"
                                                 buttonText="Rename notebook"
                                                 modalComponent={<UpdateNotebookModal notebookId={notebook.id} />}
                                                 onButtonClick={closeDropdown}
-                                                />
+                                            />
                                             <OpenModalButton
                                                 className="delete-notebook-button"
                                                 buttonText="Delete notebook"

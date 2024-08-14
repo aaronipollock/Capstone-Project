@@ -64,7 +64,7 @@ function NotebookDetails() {
     // Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.details-action-button')) {
+            if (!event.target.closest('.details-dropdown-menu') && !event.target.closest('.details-action-button')) {
                 setDropdownIndex(null);
             }
         };
@@ -139,7 +139,7 @@ function NotebookDetails() {
                         >
                             <strong>...</strong>
                         </button>
-                        <div className={`dropdown-menu ${dropdownIndex === 'notebook' ? 'active' : ''}`}>
+                        <div className={`details-dropdown-menu ${dropdownIndex === 'notebook' ? 'active' : ''}`}>
                             <div className="dropdown-item">
                                 {notebook && (
                                     <OpenModalButton

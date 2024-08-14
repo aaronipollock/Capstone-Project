@@ -38,7 +38,7 @@ function UserPage() {
     // Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('.scratch-pad-action-button')) {
+            if (!event.target.closest('.scratch-pad-dropdown-menu') && !event.target.closest('.scratch-pad-action-button')) {
                 setDropdownIndex(null);
             }
         };
@@ -78,7 +78,7 @@ function UserPage() {
                             >
                                 <strong>...</strong>
                             </button>
-                            <div className={`dropdown-menu ${dropdownIndex === 'scratch-pad' ? 'active' : ''}`}>
+                            <div className={`scratch-pad-dropdown-menu ${dropdownIndex === 'scratch-pad' ? 'active' : ''}`}>
                             <div className="dropdown-item">
                                 {(
                                     <OpenModalButton
