@@ -11,17 +11,23 @@ function debounce(func, wait) {
   let timeout;
   return (...args) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
+    timeout = setTimeout(() => {
+      try {
+        func(...args);
+      } catch (error) {
+        console.error('Error in debounced function', error);
+      }
+    }, wait);
   };
 }
 
 const QuillEditor = ({
-  noteData,  // Renamed from 'note' to 'noteData' to avoid conflicts
+  noteData,
   initialContent = '',
   initialTitle = '',
   onContentChange,
   onTitleChange,
-  onNoteUpdate,  // New prop for handling note update
+  onNoteUpdate,
 }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
@@ -43,6 +49,7 @@ const QuillEditor = ({
 
   // Initialize Quill editor once
   useEffect(() => {
+    console.log('Initializing Quill editor');
     if (!quillRef.current) {
       const quill = new Quill(editorRef.current, {
         theme: 'snow',
@@ -54,7 +61,10 @@ const QuillEditor = ({
       quillRef.current = quill;
 
       // Set initial content
-      quill.clipboard.dangerouslyPasteHTML(initialContent);
+      if (initialContent) {
+        console.log('Setting initial content');
+        quill.clipboard.dangerouslyPasteHTML(initialContent);
+      }
 
       // Update content on text change
       quill.on(

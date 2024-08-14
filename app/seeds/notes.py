@@ -4,25 +4,25 @@ from sqlalchemy.sql import text
 
 def seed_notes():
     note1 = Note(
-        title='Hortensio', content="There's small choice in rotten apples.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Hortensio', content="There's small choice in rotten apples.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note2 = Note(
-        title='Katherina', content='If I be waspish, best beware my sting. ', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Katherina', content='If I be waspish, best beware my sting. ', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note3 = Note(
-        title='Petruchio', content="Why, there's a wench! Come on, and kiss me, Kate.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Petruchio', content="Why, there's a wench! Come on, and kiss me, Kate.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note4 = Note(
-        title='Bianca', content="Old fashions please me best. I am not so nice To change true rules for old inventions.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Bianca', content="Old fashions please me best. I am not so nice To change true rules for old inventions.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note5 = Note(
-        title='Tranio', content="No profit grows where is no pleasure ta’en: In brie, sir, study what you most affect.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Tranio', content="No profit grows where is no pleasure ta’en: In brie, sir, study what you most affect.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note6 = Note(
-        title='Dick the butcher', content="The first thing we do, let's kill all the lawyers.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Dick the butcher', content="The first thing we do, let's kill all the lawyers.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note7 = Note(
-        title='Suffolk', content="Smooth runs the water where the brook is deep: And in his simple show he harbours treason.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Suffolk', content="Smooth runs the water where the brook is deep: And in his simple show he harbours treason.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note8 = Note(
-        title='Cade', content='Thou hast most traitorously corrupted the youth of the realm in erecting a grammar school.', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Cade', content='Thou hast most traitorously corrupted the youth of the realm in erecting a grammar school.', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note9 = Note(
-        title='Suffolk', content='Small things make base men proud.', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Suffolk', content='Small things make base men proud.', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note10 = Note(
-        title='King Henry VI', content='Can we outrun the heavens?', user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='King Henry VI', content='Can we outrun the heavens?', user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note11 = Note(
         title='Richard', content="How sweet a thing it is to wear a crown, Within whose circuit is Elysium And all that poets feign of bliss and joy.", user_id=3, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note12 = Note(

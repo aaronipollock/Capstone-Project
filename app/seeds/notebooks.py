@@ -5,8 +5,8 @@ from sqlalchemy.sql import text
 def seed_notebooks():
     # List of notebooks to seed
     notebooks_to_add = [
-        {'title': 'Taming of the Shrew', 'user_id': 1},
-        {'title': 'Henry VI Part II', 'user_id': 2},
+        {'title': 'Taming of the Shrew', 'user_id': 2},
+        {'title': 'Henry VI Part II', 'user_id': 1},
         {'title': 'Henry VI Part III', 'user_id': 3},
         {'title': 'The Two Gentlement of Verona', 'user_id': 4},
         {'title': 'Titus Andronicus', 'user_id': 5},

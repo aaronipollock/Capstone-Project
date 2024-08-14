@@ -15,11 +15,19 @@ function UserPage() {
     const [scratchPadContent, setScratchPadContent] = useState('');
 
     useEffect(() => {
-        dispatch(thunkGetCurrentUsersNotes());
+        const fetchNotes = async () => {
+            try {
+                await dispatch(thunkGetCurrentUsersNotes());
+            } catch (error) {
+                console.error('Failed to fetch notes:', error);
+                // Optionally set an error state and display an error message in the UI
+            }
+        };
+        fetchNotes();
     }, [dispatch])
 
     const getRecentNotes = () => {
-        if (!notes) return [];
+        if (!notes || notes.length === 0) return <p>No revent notes available</p>;
         return notes
             .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
             .slice(0, 4);
@@ -96,7 +104,7 @@ function UserPage() {
                         {recentNotes.map(note => (
                             <div key={note.id} className="home-page-note-card">
                                 <div className="home-page-note-card-text title">{note.title || 'Untitled'}</div>
-                                <div className="home-page-note-card-text content">{note.content}</div>
+                                <div className="home-page-note-card-text content">{note.content || 'No content available'}</div>
                             </div>
                         ))}
                         <textarea

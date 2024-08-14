@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { thunkCreateNewNotebook } from "../../redux/notebooks";
 import './CreateNotebookModal.css'
 
 function CreateNotebookModal() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const [title, setTitle] = useState("");
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
@@ -41,7 +42,7 @@ function CreateNotebookModal() {
                 setErrors(serverResponse.errors);
             } else {
                 closeModal();
-                navigate('/notebooks');
+                navigate(location.pathname);
             }
         } catch (error) {
             console.error("Error in handleCreateClick:", error);
@@ -52,7 +53,7 @@ function CreateNotebookModal() {
     const handleCancelClick = (e) => {
         e.preventDefault();
         closeModal();
-        navigate('/notebooks')
+        navigate(location.pathname)
     };
 
     return (

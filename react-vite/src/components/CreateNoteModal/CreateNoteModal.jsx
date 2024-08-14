@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { thunkCreateNewNote } from "../../redux/notes";
 import './CreateNoteModal.css'
 
@@ -10,6 +10,7 @@ function CreateNoteModal({ notebookId, prepopulatedContent }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [errors, setErrors] = useState({})
@@ -52,14 +53,14 @@ function CreateNoteModal({ notebookId, prepopulatedContent }) {
             setErrors(serverResponse.errors);
         } else {
             closeModal();
-            navigate('/notes');
+            navigate(location.pathname);
         }
     };
 
     const handleCancelClick = (e) => {
         e.preventDefault();
         closeModal();
-        navigate('/notes')
+        navigate(location.pathname)
     };
 
     return (
