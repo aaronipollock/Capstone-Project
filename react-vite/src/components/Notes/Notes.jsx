@@ -77,7 +77,8 @@ function Notes() {
                     <div className="notes-editor-section">
                         {selectedNoteId && (
                             <QuillEditor
-                                noteId={selectedNoteId}
+                                noteData={notes.find(note => note.id === selectedNoteId)}
+                                // noteId={selectedNoteId}
                                 initialContent={currentContent}
                                 initialTitle={title}
                                 onContentChange={handleContentChange}
