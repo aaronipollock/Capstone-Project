@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import './QuillEditor.css';
 import { useModal } from "../../context/Modal";
-import { thunkUpdateNote, thunkGetCurrentUsersNotes } from "../../redux/notes";
+import { useDispatch } from "react-redux";
+import { thunkUpdateNote } from "../../redux/notes";
 
 // Helper function to debounce events
 function debounce(func, wait) {
@@ -16,22 +16,22 @@ function debounce(func, wait) {
 }
 
 const QuillEditor = ({
+  noteData,  // Renamed from 'note' to 'noteData' to avoid conflicts
   initialContent = '',
   initialTitle = '',
   onContentChange,
   onTitleChange,
-  noteId,
+  onNoteUpdate,  // New prop for handling note update
 }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
   const dispatch = useDispatch();
-  const note = useSelector((state) =>
-    state.notes.userNotes.find((n) => n.id === noteId));
-  const [title, setTitle] = useState(note ? note.title : "");
-  const [content, setContent] = useState(note ? note.content : "")
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = noteData?.user_id;
+
   const { closeModal } = useModal();
 
   // Function to strip HTML tags using DOMParser
@@ -47,97 +47,97 @@ const QuillEditor = ({
       const quill = new Quill(editorRef.current, {
         theme: 'snow',
         modules: {
-          toolbar: '#quill-toolbar', // Link the toolbar by ID
+          toolbar: '#quill-toolbar',
         },
+        placeholder: 'Start writing...',
       });
       quillRef.current = quill;
 
-      // Set initial content using Delta
-      const delta = quill.clipboard.convert(initialContent)
-      quill.setContents(delta);
+      // Set initial content
+      quill.clipboard.dangerouslyPasteHTML(initialContent);
 
       // Update content on text change
-      quill.on('text-change', debounce(() => {
-        const newContent = quill.root.innerHTML;
-        setContent(newContent);
-        if (onContentChange) {
-          onContentChange(newContent);
-        }
-      }, 300));
+      quill.on(
+        'text-change',
+        debounce(() => {
+          const newContent = quill.root.innerHTML;
+          setContent(newContent);
+          if (onContentChange) {
+            onContentChange(newContent);
+          }
+        }, 300)
+      );
     }
-  }, [initialContent, onContentChange]);
+  }, [initialContent, onContentChange]); // Only initialize once on mount
 
-  // Update Quill content when note changes
+  // Update content when the initialContent changes
   useEffect(() => {
-    if (quillRef.current && note) {
-      const quill = quillRef.current;
-
-      if (quill.root.innerHTML !== note.content) {
-        quill.clipboard.dangerouslyPasteHTML(note.content);  // Use clipboard to set HTML content
-      }
-
-      // Restore cursor position if necessary
-      const currentRange = quill.getSelection();
-      if (currentRange && document.activeElement === quill.root) {
-        quill.setSelection(currentRange.index, currentRange.length);
-      }
+    if (quillRef.current && quillRef.current.root.innerHTML !== initialContent) {
+      quillRef.current.clipboard.dangerouslyPasteHTML(initialContent);
     }
-  }, [note, note?.content]);
+  }, [initialContent]);
 
-  // Update title and content states when note changes
+  // Update title if the note title changes
   useEffect(() => {
-    if (note) {
-      console.log('Note title or content changed:', note);
-      if (title !== note.title) {
-        setTitle(note.title);
-      }
-    } else {
+    if (title !== initialTitle) {
       setTitle(initialTitle);
     }
-  }, [note]);
+  }, [initialTitle, title]);
 
   const validateForm = () => {
     const newErrors = {};
     const plainTextContent = stripHtmlTags(content);
-    if (title.length < 2 || title.length > 50) newErrors.title = "Title must be between 2 and 50 characters."
-    if (plainTextContent.length < 2 || plainTextContent.length > 800) newErrors.content = "Content must be between 2 and 800 characters."
+    if (title.length < 2 || title.length > 50) {
+      newErrors.title = "Title must be between 2 and 50 characters.";
+    }
+    if (plainTextContent.length < 2 || plainTextContent.length > 800) {
+      newErrors.content = "Content must be between 2 and 800 characters.";
+    }
     return newErrors;
-  }
+  };
 
   const handleUpdateClick = async (e) => {
     e.preventDefault();
     console.log('Update button clicked');
 
     const newErrors = validateForm();
+    console.log('Validation errors:', newErrors);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    if (!note) {
+    console.log('Current note:', noteData);
+
+    if (!noteData) {
+      console.log('Note not found');
       setErrors({ note: "Note not found." });
       return;
     }
 
-    if (note.user_id !== currentUser.id) {
+    if (noteData.user_id !== currentUser) {
+      console.log('User not authorized');
       setErrors({ user: "You are not authorized." });
-      return
+      return;
     }
 
     const plainTextContent = stripHtmlTags(content);
-    const updatedNote = { ...note, title, content: plainTextContent };
+    const updatedNote = { ...noteData, title, content: plainTextContent };
 
-    console.log('Dispatching thunkUpdateNote with: ', updatedNote)
+    console.log('Dispatching thunkUpdateNote with: ', updatedNote);
 
     try {
       setIsLoading(true);
       const serverResponse = await dispatch(thunkUpdateNote(updatedNote));
 
       if (serverResponse.errors) {
+        console.log('Server response errors:', serverResponse.errors);
         setErrors(serverResponse.errors);
       } else {
-        console.log('Note updated successfully'); // Debugging log
-        dispatch(thunkGetCurrentUsersNotes());
+        console.log('Note updated successfully');
+        if (onNoteUpdate) {
+          onNoteUpdate();
+        }
         closeModal();
       }
     } catch (error) {
@@ -189,13 +189,12 @@ const QuillEditor = ({
         value={title}
         onChange={(e) => {
           const newTitle = e.target.value;
-          setTitle(e.target.value);
-          console.log('Title updated:', newTitle); // Log title change
+          setTitle(newTitle);
           if (onTitleChange) {
-            onTitleChange(newTitle)
+            onTitleChange(newTitle);
           }
         }}
-        placeholder="Note Title"
+        placeholder="Title"
       />
       <div ref={editorRef} className="editor-container"></div>
       <button onClick={handleUpdateClick} className="editor-button-update" disabled={isLoading}>

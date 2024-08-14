@@ -30,14 +30,14 @@ function Notes() {
     }
 
     const handleContentChange = (newContent) => {
-        console.log('Content changed:', newContent); // Debugging log
         setCurrentContent(newContent);
     }
 
     const handleTitleChange = (newTitle) => {
-        console.log('Title changed:', newTitle); // Debugging log
         setTitle(newTitle);
     };
+
+    console.log('Rendering notes:', notes);
 
     return (
         <>
@@ -77,7 +77,8 @@ function Notes() {
                     <div className="notes-editor-section">
                         {selectedNoteId && (
                             <QuillEditor
-                                noteId={selectedNoteId}
+                                noteData={notes.find(note => note.id === selectedNoteId)}
+                                // noteId={selectedNoteId}
                                 initialContent={currentContent}
                                 initialTitle={title}
                                 onContentChange={handleContentChange}

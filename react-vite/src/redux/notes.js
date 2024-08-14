@@ -31,16 +31,49 @@ const updateNoteIdInStore = (note) => ({
 })
 
 //Thunks
+// export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
+//     const res = await fetch('/api/notes/');
+//     if (res.ok) {
+//         const usersNotes = await res.json();
+//         // console.log('Fetched Notes: ', usersNotes);
+//         dispatch(currentUsersNotes(usersNotes.notes));
+//     } else {
+//         const error = await res.json();
+//         console.error('Failed to fetch notes:', error);
+//         return error;
+//     }
+// };
+// Thunk action to fetch the current user's notes
 export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
-    const res = await fetch('/api/notes/');
-    if (res.ok) {
-        const usersNotes = await res.json();
-        // console.log('Fetched Notes: ', usersNotes);
-        dispatch(currentUsersNotes(usersNotes.notes));
-    } else {
-        const error = await res.json();
-        console.error('Failed to fetch notes:', error);
-        return error;
+    try {
+        // Fetch notes from the API endpoint
+        const res = await fetch('/api/notes/');
+
+        // Check if the response is OK (status in the range 200-299)
+        if (res.ok) {
+            // Parse the JSON response
+            const usersNotes = await res.json();
+
+            // Ensure the notes property exists in the response
+            if (usersNotes && Array.isArray(usersNotes.notes)) {
+                // Dispatch action to update the Redux store with the fetched notes
+                dispatch(currentUsersNotes(usersNotes.notes));
+            } else {
+                // Handle unexpected response structure
+                console.error('Unexpected response structure:', usersNotes);
+            }
+        } else {
+            // Handle non-OK responses
+            const error = await res.json();
+            console.error('Failed to fetch notes:', error);
+            // Optionally dispatch an action to handle the error in your application state
+            // dispatch(fetchNotesError(error));
+        }
+    } catch (err) {
+        // Catch and log any errors that occur during the fetch operation
+        console.error('An error occurred while fetching notes:', err);
+        // Optionally dispatch an action to handle the error in your application state
+        // dispatch(fetchNotesError(err));
     }
 };
 
@@ -142,6 +175,7 @@ const initialState = {
 export default function noteReducer(state = initialState, action) {
     switch (action.type) {
         case CURRENT_USERS_NOTES:
+            console.log('Updating state with notes:', action.notes);
             return {
                 ...state,
                 userNotes: action.notes,

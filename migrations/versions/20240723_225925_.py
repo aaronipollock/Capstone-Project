@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: 41237081c9d2
-Revises: 
+Revises:
 Create Date: 2024-07-23 22:59:25.603052
 
 """
@@ -48,7 +48,6 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('title')
     )
     op.create_table('notebook_notes',
     sa.Column('notebook_id', sa.Integer(), nullable=False),

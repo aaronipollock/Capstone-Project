@@ -9,7 +9,7 @@ class Note(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False, unique=True)
+    title = db.Column(db.String(50), nullable=False)
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     # make notebook_id nullable=False at later date after creating default notebook
@@ -17,7 +17,7 @@ class Note(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship('User', back_populates='notes')
-    notebooks = db.relationship('Notebook', secondary=notebook_notes, back_populates='notes')
+    notebooks = db.relationship('Notebook', back_populates='notes', secondary=notebook_notes)
 
     def to_dict(self, include_notebooks=False):
         note_dict = {

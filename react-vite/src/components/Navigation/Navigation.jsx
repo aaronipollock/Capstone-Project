@@ -7,7 +7,7 @@ function Navigation() {
     <header className="navigation">
       <div className="nav-left">
         <i className="fas fa-sticky-note nav-icon navigation-icon"></i>
-        <div className="nav-link">Everclone</div>
+        <div className="nav-link">Note2be</div>
       </div>
       <div className="nav-right">
         <div>
