@@ -1,6 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 from .notebook import notebook_notes
+from sqlalchemy import Table, Column, Integer, ForeignKey
+
 
 class Note(db.Model):
     __tablename__ = 'notes'
@@ -32,3 +34,8 @@ class Note(db.Model):
         if include_notebooks:
             note_dict['notebook'] = [notebook.to_dict(include_notes=False) for notebook in self.notebooks]
         return note_dict
+
+# notebook_notes = Table('notebook_notes', db.Model.metadata,
+#     Column('notebook_id', Integer, ForeignKey(add_prefix_for_prod('notebooks.id')), primary_key=True),
+#     Column('note_id', Integer, ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True)
+# )
