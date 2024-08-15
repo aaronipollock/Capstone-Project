@@ -2,6 +2,13 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 from .notebook import notebook_notes
 
+note_tags = Table('note_tags', db.Model, metadata,
+    db.Column('note_id', db.Integer, db.ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True),
+    db.Column('tag_id', db.Integer, db.ForeignKey(add_prefix_for_prod('tags.id')),
+    db.Column('created_at', db.Datetime, nullable=False, default=datetime.utcnow),
+    db.Column('updated_at', db.Datetime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow),
+)
+
 class Note(db.Model):
     __tablename__ = 'notes'
 
@@ -18,8 +25,9 @@ class Note(db.Model):
 
     user = db.relationship('User', back_populates='notes')
     notebooks = db.relationship('Notebook', back_populates='notes', secondary=notebook_notes)
+    tags = db.relationship('Tag', secondary='note_tags', back_populates='notes')
 
-    def to_dict(self, include_notebooks=False):
+    def to_dict(self, include_notebooks=False, include_tags=False):
         note_dict = {
             'id': self.id,
             'title': self.title,
@@ -31,4 +39,8 @@ class Note(db.Model):
         }
         if include_notebooks:
             note_dict['notebook'] = [notebook.to_dict(include_notes=False) for notebook in self.notebooks]
+        return note_dict
+
+        if include_tags:
+            note_dict['tags'] = [tag.to_dict() for tag in self.tags]
         return note_dict

@@ -56,6 +56,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['notebook_id'], ['notebooks.id'], ),
     sa.PrimaryKeyConstraint('notebook_id', 'note_id')
     )
+    op.create_table('note_tags',
+    sa.Column('note_id', sa.Integer, nullable=False),
+    sa.Column('tag_id', sa.Integer, nullable=False),
+    sa.ForeignKeyConstraint(['note_id'], ['notes.id'], ),
+    sa.ForeignKeyConstraint(['tag_id'], ['tag.id'], ),
+    sa.PrimaryKeyConstraint('note_id', 'tag_id')
+    )
     # ### end Alembic commands ###
 
 
