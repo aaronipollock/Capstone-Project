@@ -64,10 +64,10 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA flask_schema;")
-        op.execute(f"ALTER TABLE notebooks SET SCHEMA flask_schema;")
-        op.execute(f"ALTER TABLE notes SET SCHEMA flask_schema;")
-        op.execute(f"ALTER TABLE notebook_notes SET SCHEMA flask_schema;")
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE notebooks SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE notes SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE notebook_notes SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
