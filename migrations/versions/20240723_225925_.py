@@ -7,7 +7,10 @@ Create Date: 2024-07-23 22:59:25.603052
 """
 from alembic import op
 import sqlalchemy as sa
+import os
 
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '41237081c9d2'
@@ -29,6 +32,7 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
     op.create_table('notebooks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=50), nullable=False),
@@ -39,6 +43,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('title')
     )
+
     op.create_table('notes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=50), nullable=False),
@@ -49,6 +54,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     )
+
     op.create_table('notebook_notes',
     sa.Column('notebook_id', sa.Integer(), nullable=False),
     sa.Column('note_id', sa.Integer(), nullable=False),
@@ -56,6 +62,12 @@ def upgrade():
     sa.ForeignKeyConstraint(['notebook_id'], ['notebooks.id'], ),
     sa.PrimaryKeyConstraint('notebook_id', 'note_id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA (SCHEMA);")
+        op.execute(f"ALTER TABLE notebooks SET SCHEMA (SCHEMA);")
+        op.execute(f"ALTER TABLE notes SET SCHEMA (SCHEMA);")
+        op.execute(f"ALTER TABLE notebook_notes SET SCHEMA (SCHEMA);")
     # ### end Alembic commands ###
 
 
