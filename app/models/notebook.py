@@ -2,7 +2,8 @@ from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import Table, Column, Integer, ForeignKey
 
-notebook_notes = Table('notebook_notes', db.Model.metadata,
+notebook_notes = Table(
+    add_prefix_for_prod('notebook_notes'), db.Model.metadata,
     Column('notebook_id', Integer, ForeignKey(add_prefix_for_prod('notebooks.id')), primary_key=True),
     Column('note_id', Integer, ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True)
 )
