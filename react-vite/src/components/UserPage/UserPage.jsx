@@ -87,26 +87,30 @@ function UserPage() {
                                 <strong>...</strong>
                             </button>
                             <div className={`scratch-pad-dropdown-menu ${dropdownIndex === 'scratch-pad' ? 'active' : ''}`}>
-                            <div className="dropdown-item">
-                                {(
-                                    <OpenModalButton
-                                        className="convert-note-button"
-                                        buttonText="Convert to note"
-                                        modalComponent={<CreateNoteModal prepopulatedContent={scratchPadContent}/>}
-                                        onButtonClick={closeDropdown}
-                                    />
-                                )}
+                                <div className="dropdown-item">
+                                    {(
+                                        <OpenModalButton
+                                            className="convert-note-button"
+                                            buttonText="Convert to note"
+                                            modalComponent={<CreateNoteModal prepopulatedContent={scratchPadContent} />}
+                                            onButtonClick={closeDropdown}
+                                        />
+                                    )}
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                     <div className="home-page-notes-container">
-                        {recentNotes.map(note => (
-                            <div key={note.id} className="home-page-note-card">
-                                <div className="home-page-note-card-text title">{note.title || 'Untitled'}</div>
-                                <div className="home-page-note-card-text content">{note.content || 'No content available'}</div>
-                            </div>
-                        ))}
+                        {Array.isArray(recentNotes) && recentNotes.length > 0 ? (
+                            recentNotes.map(note => (
+                                <div key={note.id} className="home-page-note-card">
+                                    <div className="home-page-note-card-text title">{note.title || 'Untitled'}</div>
+                                    <div className="home-page-note-card-text content">{note.content || 'No content available'}</div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No notes available</p>
+                        )}
                         <textarea
                             className="scratch-pad"
                             value={scratchPadContent}

@@ -5,10 +5,10 @@ import OpenModalButton from '../OpenModalButton';
 import CreateNotebookModal from '../CreateNotebookModal'
 import CreateNoteModal from '../CreateNoteModal';
 import { MdOutlineHome } from "react-icons/md";
-import { FaRegStar } from "react-icons/fa";
+// import { FaRegStar } from "react-icons/fa";
 import { HiOutlineDocumentText } from "react-icons/hi";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { FiTag } from "react-icons/fi";
+// import { FaRegCheckCircle } from "react-icons/fa";
+// import { FiTag } from "react-icons/fi";
 import { PiNotebookBold } from "react-icons/pi";
 
 
@@ -33,10 +33,10 @@ function Sidebar() {
                         modalComponent={<CreateNoteModal />}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <button className="button task">+Task</button>
                     <button className="button event">+Event</button>
-                </div>
+                </div> */}
             </div>
             <div className="sidebar-menu-buttons">
                 <Link to="/users/current" className="link-menu-button">
@@ -44,29 +44,29 @@ function Sidebar() {
                     {/* <button className="menu-button home">Home</button> */}
                     <span>Home</span>
                 </Link>
-                <Link to="/users/current" className="link-menu-button">
+                {/* <Link to="/users/current" className="link-menu-button">
                     <FaRegStar className="icon" />
-                    <span>Shortcuts</span>
+                    <span>Shortcuts</span> */}
                 {/* <button className="menu-button">Shortcuts</button> */}
-                </Link>
+                {/* </Link> */}
                 <Link to="/notes" className="link-menu-button">
                     <HiOutlineDocumentText className='icon' />
                     <span>Notes</span>
                     {/* <button className="menu-button notes">Notes</button> */}
                 </Link>
-                <Link to="/users/current" className="link-menu-button">
+                {/* <Link to="/users/current" className="link-menu-button">
                     <FaRegCheckCircle className="icon" />
                     <span>Tasks</span>
                     {/* <button className="menu-button">Tasks</button> */}
-                </Link>
+                {/* </Link> */}
                 <Link to="/notebooks" className="link-menu-button">
                     <PiNotebookBold className="icon" />
                     <span>Notebooks</span>
                     {/* <button className="menu-button notebooks">Notebooks</button> */}
                 </Link>
                 <Link to="/users/current" className="link-menu-button">
-                    <FiTag className="icon" />
-                    <span>Tags</span>
+                    {/* <FiTag className="icon" /> */}
+                    {/* <span>Tags</span> */}
                     {/* <button className="menu-button notebooks">Notebooks</button> */}
                 </Link>
                 {/* <button className="menu-button">Tags</button> */}
