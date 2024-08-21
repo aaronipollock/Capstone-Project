@@ -43,11 +43,9 @@ export const thunkGetCurrentUsersNotebooks = () => async (dispatch) => {
     const res = await fetch('/api/notebooks/');
     if (res.ok) {
         const usersNotebooks = await res.json();
-        // console.log('Fetched Notebooks: ', usersNotebooks);
         dispatch(currentUsersNotebooks(usersNotebooks.notebooks));
     } else {
         const error = await res.json();
-        console.error('Failed to fetch notebooks:', error);
         return error;
     }
 };
@@ -112,7 +110,6 @@ export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
     });
     if (res.ok) {
         const data = await res.json();
-        console.log('Fetched Notebook Details:', data);
         dispatch(notebookDetails(data));
         return data;
     } else {
@@ -137,7 +134,6 @@ const initialState = {
 export default function notebookReducer(state = initialState, action) {
     switch (action.type) {
         case CURRENT_USERS_NOTEBOOKS:
-            // console.log('Reducing CURRENT_USERS_NOTEBOOKS action:', action);
             return {
                 ...state,
                 userNotebooks: action.notebooks,

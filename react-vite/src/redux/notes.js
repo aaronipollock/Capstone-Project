@@ -3,8 +3,14 @@ const CURRENT_USERS_NOTES = 'notes';
 const CREATE_NEW_NOTE = 'notes/create';
 const UPDATE_NOTE = 'notes/:noteId/edit';
 const DELETE_NOTE = 'notes/:noteId/delete';
+const FETCH_NOTES_ERROR = 'notes/error';
 
 //Action creators
+const fetchNotesError = (error) => ({
+    type: FETCH_NOTES_ERROR,
+    error,
+});
+
 const currentUsersNotes = (notes) => ({
     type: CURRENT_USERS_NOTES,
     notes,
@@ -31,19 +37,6 @@ const updateNoteIdInStore = (note) => ({
 })
 
 //Thunks
-// export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
-//     const res = await fetch('/api/notes/');
-//     if (res.ok) {
-//         const usersNotes = await res.json();
-//         // console.log('Fetched Notes: ', usersNotes);
-//         dispatch(currentUsersNotes(usersNotes.notes));
-//     } else {
-//         const error = await res.json();
-//         console.error('Failed to fetch notes:', error);
-//         return error;
-//     }
-// };
-// Thunk action to fetch the current user's notes
 export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
     try {
         // Fetch notes from the API endpoint
@@ -58,28 +51,19 @@ export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
             if (usersNotes && Array.isArray(usersNotes.notes)) {
                 // Dispatch action to update the Redux store with the fetched notes
                 dispatch(currentUsersNotes(usersNotes.notes));
-            } else {
-                // Handle unexpected response structure
-                console.error('Unexpected response structure:', usersNotes);
             }
         } else {
             // Handle non-OK responses
             const error = await res.json();
-            console.error('Failed to fetch notes:', error);
-            // Optionally dispatch an action to handle the error in your application state
-            // dispatch(fetchNotesError(error));
+            dispatch(fetchNotesError(error));
         }
     } catch (err) {
         // Catch and log any errors that occur during the fetch operation
-        console.error('An error occurred while fetching notes:', err);
-        // Optionally dispatch an action to handle the error in your application state
-        // dispatch(fetchNotesError(err));
+        dispatch(fetchNotesError(err));
     }
 };
 
 export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dispatch) => {
-    console.log("Dispatching thunkCreateNewNote with:", { title, content, notebookId });
-
     const res = await fetch('/api/notes/create', {
         method: 'POST',
         headers: {
@@ -90,12 +74,10 @@ export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dis
 
     if (!res.ok) {
         const error = await res.json();
-        console.error("Error creating note:", error);
         return { errors: error };
     }
 
     const newNote = await res.json();
-    console.log("Note created:", newNote);
 
     dispatch(createNewNote(newNote.note));
     dispatch(thunkGetCurrentUsersNotes());
@@ -105,8 +87,6 @@ export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dis
 
 export const thunkUpdateNote = (note) => async (dispatch) => {
     try {
-        console.log('Sending update request to server: ', note);
-
         const res = await fetch(`/api/notes/${note.id}/edit`, {
             method: 'PUT',
             headers: {
@@ -116,19 +96,16 @@ export const thunkUpdateNote = (note) => async (dispatch) => {
         });
         if (!res.ok) {
             const errorData = await res.json();
-            console.log('Server responded with an error: ', errorData);
             throw new Error(errorData.message || 'Failed to update note');
         }
 
         const updatedNote = await res.json();
-        console.log('Received updated note from server: ', updatedNote);
 
         dispatch(updateNote(updatedNote));
         dispatch(thunkGetCurrentUsersNotes());
 
         return { success: true, note: updatedNote };
     } catch (error) {
-        console.log.error('Error updating note: ', error);
         return { success: false, error: error.message };
     }
 };
@@ -175,7 +152,6 @@ const initialState = {
 export default function noteReducer(state = initialState, action) {
     switch (action.type) {
         case CURRENT_USERS_NOTES:
-            console.log('Updating state with notes:', action.notes);
             return {
                 ...state,
                 userNotes: action.notes,

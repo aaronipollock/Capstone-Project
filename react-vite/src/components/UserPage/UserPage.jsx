@@ -13,13 +13,14 @@ function UserPage() {
     const notes = useSelector(state => state.notes.userNotes);
     const [dropdownIndex, setDropdownIndex] = useState(null);
     const [scratchPadContent, setScratchPadContent] = useState('');
+    const [errors, setErrors] = useState({})
 
     useEffect(() => {
         const fetchNotes = async () => {
             try {
                 await dispatch(thunkGetCurrentUsersNotes());
             } catch (error) {
-                console.error('Failed to fetch notes:', error);
+                setErrors({ errors: 'Failed to fetch notes' });
                 // Optionally set an error state and display an error message in the UI
             }
         };
@@ -35,7 +36,6 @@ function UserPage() {
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log('Toggling Dropdown:', index);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
 
@@ -116,6 +116,7 @@ function UserPage() {
                             value={scratchPadContent}
                             onChange={handleScratchPadChange}
                         ></textarea>
+                        {errors.errors && <p className="error-message">{errors.errors}</p>}
                     </div>
                 </section>
             </div>

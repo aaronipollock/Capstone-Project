@@ -20,7 +20,6 @@ function UpdateNotebookModal({ notebookId }) {
 
     useEffect(() => {
         if(!notebook) {
-            console.log('Fetching notebook details for: ', notebookId)
             dispatch(thunkGetNotebookDetails(notebookId));
         } else {
             setTitle(notebook.title);
@@ -29,7 +28,6 @@ function UpdateNotebookModal({ notebookId }) {
 
     useEffect(() => {
         if (notebook) {
-            console.log('Notebook fetch: ', notebook);
             setTitle(notebook.title);
         }
     }, [notebook]);
@@ -47,10 +45,7 @@ function UpdateNotebookModal({ notebookId }) {
             return;
         }
 
-        console.log("Notebook before update: ", notebook);
-
         if (notebook.user_id !== currentUser.id) {
-            console.log('Unauthorized user: ', currentUser.id, 'Expected user: ', notebook.user_id)
             setErrors({ user: "You are not authorized." });
             return
         }
@@ -68,11 +63,9 @@ function UpdateNotebookModal({ notebookId }) {
                     closeModal();
                 }
             } else {
-                console.error('Notebook ID is undefined');
                 setErrors({ notebook: "Notebook ID is undefined." })
             }
         } catch (error) {
-            console.error('Failed to update notebook:', error);
             setErrors({ server: "An error occurred while updating the notebook."});
         }
     };

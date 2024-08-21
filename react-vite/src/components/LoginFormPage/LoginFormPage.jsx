@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -28,13 +28,8 @@ function LoginFormPage() {
     navigate("/users/current")
   }
 
-  useEffect(() => {
-    console.log("Current session user:", sessionUser);
-  }, [sessionUser]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with", { email, password });
 
     const serverResponse = await dispatch(
       thunkLogin({
@@ -42,8 +37,6 @@ function LoginFormPage() {
         password,
       })
     );
-
-    console.log("Server response", serverResponse);
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);

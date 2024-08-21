@@ -6,7 +6,6 @@ import { thunkCreateNewNote } from "../../redux/notes";
 import './CreateNoteModal.css'
 
 function CreateNoteModal({ notebookId, prepopulatedContent }) {
-    console.log("Notebook ID in CreateNoteModal:", notebookId);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,9 +30,6 @@ function CreateNoteModal({ notebookId, prepopulatedContent }) {
     const handleCreateClick = async (e) => {
         e.preventDefault();
 
-        console.log("Creating note with notebookId:", notebookId);
-
-
         const newErrors = validateForm();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -47,7 +43,6 @@ function CreateNoteModal({ notebookId, prepopulatedContent }) {
                 notebookId,
             })
         );
-        console.log("Server response: ", serverResponse)
 
         if (serverResponse.errors) {
             setErrors(serverResponse.errors);

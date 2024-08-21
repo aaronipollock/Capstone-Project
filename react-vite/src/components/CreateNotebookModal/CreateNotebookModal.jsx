@@ -21,12 +21,10 @@ function CreateNotebookModal() {
 
     const handleCreateClick = async (e) => {
         e.preventDefault();
-        console.log("Create button clicked");
 
         const newErrors = validateForm();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
-            console.log("Validation errors:", newErrors);
             return;
         }
 
@@ -36,8 +34,6 @@ function CreateNotebookModal() {
                 thunkCreateNewNotebook({ title })
             );
 
-            console.log("Server response:", serverResponse);
-
             if (serverResponse.errors) {
                 setErrors(serverResponse.errors);
             } else {
@@ -45,7 +41,6 @@ function CreateNotebookModal() {
                 navigate(location.pathname);
             }
         } catch (error) {
-            console.error("Error in handleCreateClick:", error);
             setErrors({ server: "Something went wrong. Please try again." })
         }
     };
@@ -70,7 +65,6 @@ function CreateNotebookModal() {
                             placeholder="Notebook title"
                             onChange={(e) => {
                                 setTitle(e.target.value);
-                                console.log("Title input changed:", e.target.value);
                             }}
                             required
                         />

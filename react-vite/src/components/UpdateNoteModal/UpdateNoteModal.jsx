@@ -67,7 +67,6 @@ function UpdateNoteModal({ noteId }) {
                 closeModal();
             }
         } catch (error) {
-            console.error('Failed to update note:', error);
             setErrors({ server: "An error occurred while updating the note."});
         }
     };

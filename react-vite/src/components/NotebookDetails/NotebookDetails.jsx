@@ -25,20 +25,14 @@ function NotebookDetails() {
     const [title, setTitle] = useState("");
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
-
-    console.log("Rendering NotebookDetails component"); // Logs whenever the component re-renders
-
     const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
-    console.log("Current notebook:", notebook); // Logs the notebook being used
 
     useEffect(() => {
         const fetchNotebookDetails = async () => {
             try {
-                const response = await dispatch(thunkGetNotebookDetails(notebookId));
-                console.log('Fetched Notebook Details:', response);
+                await dispatch(thunkGetNotebookDetails(notebookId));
             } catch (err) {
                 setError(err.message);
-                console.error('Failed to fetch notebook details:', err);
             } finally {
                 setLoading(false);
             }
@@ -48,12 +42,9 @@ function NotebookDetails() {
     }, [dispatch, notebookId, noteUpdated]);
 
     const notes = notebook ? notebook.notes : [];
-    console.log("Filtered notes:", notes);
-
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log('Toggling Dropdown:', index);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
 
@@ -76,24 +67,19 @@ function NotebookDetails() {
     }, []);
 
     const handleNoteClick = (noteId) => {
-        console.log(`Note clicked with ID: ${noteId}`);
         const selectedNote = notes.find(note => note.id === noteId);
-        console.log('Selected Note:', selectedNote);
         if (selectedNote) {
             setSelectedNoteId(noteId);
             setCurrentContent(selectedNote.content || "");
             setTitle(selectedNote.title || "");
-            console.log('Content and Title set:', selectedNote.content, selectedNote.title)
         }
     };
 
     const handleContentChange = (newContent) => {
-        console.log('Content Changed:', newContent);
         setCurrentContent(newContent);
     }
 
     const handleTitleChange = (newTitle) => {
-        console.log('Title Changed:', newTitle);
         setTitle(newTitle);
     };
 
@@ -105,13 +91,7 @@ function NotebookDetails() {
     if (error) return <p>{error}</p>;
     if (!notebook) return <div className="blank-page"></div>;
 
-    // const notes = notebook.notes;
-
-    console.log('NOTEBOOK: ', notebook.title, notebookId)
-
-    if (loading) return <div>Loading...</div>; // Example usage
-
-    console.log('Rendering NotebookDetails with notes:', notes);
+    if (loading) return <div>Loading...</div>;
 
     return (
         <div className="details-page-container">
@@ -204,7 +184,6 @@ function NotebookDetails() {
             <section className="details-editor-section">
                 {selectedNoteId && (
                     <>
-                        {console.log('Rendering QuillEditor with noteId:', selectedNoteId, 'Content:', currentContent, 'Title:', title)}
                         <QuillEditor
                             noteData={notes.find(note => note.id === selectedNoteId)}
                             // noteId={selectedNoteId}

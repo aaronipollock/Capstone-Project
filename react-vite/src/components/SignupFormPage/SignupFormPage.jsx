@@ -13,7 +13,6 @@ import { IoIosChatbubbles } from "react-icons/io";
 
 
 function SignupFormPage() {
-  console.log("Rendering SignupFormPage component");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const sessionUser = useSelector((state) => state.session.user);
@@ -103,7 +102,6 @@ function SignupFormPage() {
               type="text"
               value={email}
               onChange={(e) => {
-                console.log("Email changed to:", e.target.value);
                 setEmail(e.target.value)
               }}
               required
@@ -116,7 +114,6 @@ function SignupFormPage() {
               type="text"
               value={username}
               onChange={(e) => {
-                console.log("Username changed to:", e.target.value);
                 setUsername(e.target.value)
               }}
               required
@@ -129,7 +126,6 @@ function SignupFormPage() {
               type="password"
               value={password}
               onChange={(e) => {
-                console.log("Password changed to:", e.target.value);
                 setPassword(e.target.value)
               }}
               required
@@ -142,7 +138,6 @@ function SignupFormPage() {
               type="password"
               value={confirmPassword}
               onChange={(e) => {
-                console.log("Confirm Password changed to:", e.target.value);
                 setConfirmPassword(e.target.value)
               }}
               required

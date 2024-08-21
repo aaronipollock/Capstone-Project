@@ -13,7 +13,6 @@ function DeleteNotebookModal({ notebookId }) {
 
     useEffect(() => {
         if (!notebook) {
-            console.log('Fetching notebook details for: ', notebookId);
             dispatch(thunkGetNotebookDetails(notebookId));
         }
     }, [dispatch, notebookId, notebook]);
@@ -27,7 +26,6 @@ function DeleteNotebookModal({ notebookId }) {
                 closeModal();
             }
         } catch (err) {
-            console.error('Failed to delete notebook:', err);
             setError('An error occurred while deleting the notebook.');
         }
     };

@@ -49,7 +49,6 @@ const QuillEditor = ({
 
   // Initialize Quill editor once
   useEffect(() => {
-    console.log('Initializing Quill editor');
     if (!quillRef.current) {
       const quill = new Quill(editorRef.current, {
         theme: 'snow',
@@ -62,7 +61,6 @@ const QuillEditor = ({
 
       // Set initial content
       if (initialContent) {
-        console.log('Setting initial content');
         quill.clipboard.dangerouslyPasteHTML(initialContent);
       }
 
@@ -108,25 +106,19 @@ const QuillEditor = ({
 
   const handleUpdateClick = async (e) => {
     e.preventDefault();
-    console.log('Update button clicked');
 
     const newErrors = validateForm();
-    console.log('Validation errors:', newErrors);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    console.log('Current note:', noteData);
-
     if (!noteData) {
-      console.log('Note not found');
       setErrors({ note: "Note not found." });
       return;
     }
 
     if (noteData.user_id !== currentUser) {
-      console.log('User not authorized');
       setErrors({ user: "You are not authorized." });
       return;
     }
@@ -134,24 +126,19 @@ const QuillEditor = ({
     const plainTextContent = stripHtmlTags(content);
     const updatedNote = { ...noteData, title, content: plainTextContent };
 
-    console.log('Dispatching thunkUpdateNote with: ', updatedNote);
-
     try {
       setIsLoading(true);
       const serverResponse = await dispatch(thunkUpdateNote(updatedNote));
 
       if (serverResponse.errors) {
-        console.log('Server response errors:', serverResponse.errors);
         setErrors(serverResponse.errors);
       } else {
-        console.log('Note updated successfully');
         if (onNoteUpdate) {
           onNoteUpdate();
         }
         closeModal();
       }
     } catch (error) {
-      console.error('Failed to update note:', error);
       setErrors({ server: "An error occurred while updating the note." });
     } finally {
       setIsLoading(false);

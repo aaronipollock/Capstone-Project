@@ -37,8 +37,6 @@ function Notes() {
         setTitle(newTitle);
     };
 
-    console.log('Rendering notes:', notes);
-
     return (
         <>
             <div className="notes-page-container">

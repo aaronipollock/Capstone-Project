@@ -33,11 +33,7 @@ function Notebooks() {
 
     //Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log('Toggling Dropdown: ', index); // Log the index of the clicked dropdown
-        console.log('Current Dropdown Index Before: ', dropdownIndex); // Log the current state before update
         setDropdownIndex(dropdownIndex === index ? null : index);
-        console.log('Current Dropdown Index After: ', dropdownIndex === index ? null : index); // Log the state after update
-
     };
 
     // Close dropdown
@@ -106,14 +102,12 @@ function Notebooks() {
                                     <button
                                         className="notebook-action-button"
                                         onClick={() => {
-                                            console.log(`Button clicked for dropdown ${index}`);
                                             toggleDropdown(index);
                                         }}
                                     >
                                         <strong>...</strong>
                                     </button>
                                     <div className={`notebook-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
-                                        {console.log(`Dropdown ${index} is ${dropdownIndex === index ? 'active' : 'inactive'}`)}
                                         <div className="notebook-dropdown-item">
                                             <OpenModalButton
                                                 className="retitle-notebook-button"

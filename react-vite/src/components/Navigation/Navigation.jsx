@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 
 function Navigation() {
-  // console.log("Rendering Navigation compoent")
   return (
     <header className="navigation">
       <div className="nav-left">
