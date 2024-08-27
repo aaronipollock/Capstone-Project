@@ -1,132 +1,173 @@
-# Flask React Project
+# Welcome to Note2be!
 
-This is the starter for the Flask React project.
+Note2be is a web-based note-taking application that mimics the core features of Evernote. Users can create, edit, organize, and delete notes, and categorize them into notebooks. The application features user authentication, rich text editing, and a responsive design, providing a seamless experience across various devices.
 
-## Getting started
+Check out a live version here:  
+https://capstone-project-xsl6.onrender.com
 
-1. Clone this repository (only this branch).
+## Screenshots
 
-2. Install dependencies.
+Here are some screenshots of the Evernote Clone in action:
 
+### Home Page
+![Home Page Screenshot](./docs/screenshots/home_page.png)
+
+### Note Editor
+![Note Editor Screenshot](./docs/screenshots/note_editor.png)
+
+### Notebook Management
+![Notebook Management Screenshot](./docs/screenshots/notebook_management.png)
+
+## Features & Implementation
+
+### Feature List
+- [Feature List Document](./docs/feature_list.md)
+
+### React Components
+- [React Components List](./docs/react_components.md)
+
+### Database Schema
+- [Database Schema](./docs/database_schema.md)
+
+### Frontend Routes
+- [Frontend Routes Document](./docs/frontend_routes.md)
+
+### API Routes
+- [API Routes Document](./docs/api_routes.md)
+
+### Single-Page App
+
+**React Router and Components:**  
+Evernote Clone is a single-page application built using React. All components are dynamically rendered at the root URL, `/`, and navigation is handled by React Router. This setup ensures a fast, seamless user experience with no full-page reloads.
+
+**Frontend and Backend Interaction:**  
+The front end communicates with the backend primarily through RESTful APIs. Upon logging in, user data and notes are fetched and stored in Redux. The application minimizes data transfer by retrieving only the necessary information on demand.
+
+### User Authentication
+
+**Secure Authentication:**  
+Users are required to sign up or log in to use the application. User credentials are securely hashed using bcrypt, and JWTs are used for session management to ensure secure and stateless authentication.
+
+### Notes and Notebooks
+
+**Rich Text Editor:**  
+Notes are created and edited using Quill.js, a powerful rich text editor that allows users to format their text with various options like bold, italic, lists, and links.
+
+**Notebook System:**  
+Users can categorize notes into different notebooks, allowing for better organization and retrieval of notes.
+
+### Best Practices
+
+**Git Feature Branching and Agile Methodologies:**  
+The project follows best practices for development, including using Git feature branching for version control and Scrum for task management. This approach ensures that the project remains well-organized, scalable, and easy to maintain.
+
+## Installation Instructions
+
+To run this project locally, follow these steps:
+
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/evernote-clone.git
+    ```
+
+2. **Navigate to the project directory:**
+    ```bash
+    cd evernote-clone
+    ```
+
+3. **Set up the backend:**
+
+   Navigate to the backend directory and install the dependencies:
    ```bash
-   pipenv install -r requirements.txt
-   ```
+   pip install -r requirements.txt
+Set up the frontend:
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+Navigate to the frontend directory and install the dependencies:
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+bash
+Copy code
+npm install
+Configure environment variables:
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+In both the frontend and backend directories, create a .env file and populate it with the necessary values, such as database URLs and secret keys.
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+Run the application:
 
-   ```bash
-   pipenv shell
-   ```
+Backend:
 
-   ```bash
-   flask db upgrade
-   ```
+bash
+Copy code
+flask run
+Frontend:
 
-   ```bash
-   flask seed all
-   ```
+bash
+Copy code
+npm run dev
+Access the application:
+Visit http://localhost:3000 to start using the app.
 
-   ```bash
-   flask run
-   ```
+Technologies Used
+Frontend:
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+React
+Redux
+React Router
+Quill.js
+Axios
+HTML5, CSS3
+Backend:
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+Flask
+SQLAlchemy
+PostgreSQL (Production)
+SQLite3 (Development)
+Bcrypt for password hashing
+JWT for authentication
+To-Dos/Future Features
+Implement a WYSIWYG editor for more advanced text formatting options.
+Add collaborative note editing with real-time synchronization.
+Develop a mobile version of the app with native features.
+Integrate advanced search features, such as filtering by notebooks and full-text search within notes.
+Technical Implementation Details
+Database Schema:
+The application uses a relational database structure with a many-to-one relationship between notes and notebooks. The SQLAlchemy ORM is used to manage database operations, providing a layer of abstraction over raw SQL queries.
 
-## Deployment through Render.com
+Frontend Architecture:
+React components are structured to maximize reusability and separation of concerns. Redux is employed to manage the global state, ensuring a consistent state throughout the application.
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+Challenges & Solutions
+Challenge: Securely Handling User Authentication
+Solution:
+Implemented JWT-based authentication to maintain stateless sessions, ensuring that user data is not vulnerable to attacks. Passwords are hashed using Bcrypt before storage, enhancing security.
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+Challenge: Efficiently Managing Notes and Notebooks Relationships
+Solution:
+Used SQLAlchemy to create a many-to-one relationship between notes and notebooks, allowing users to organize their notes effectively. This relationship is managed through foreign keys, ensuring that the database remains normalized and efficient.
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+Code Snippets
+Example of Note and Notebook Relationship:
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+python
+Copy code
+class Note(db.Model):
+    __tablename__ = 'notes'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.Text)
+    notebook_id = db.Column(db.Integer, db.ForeignKey('notebooks.id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+    notebook = db.relationship('Notebook', back_populates='notes')
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+class Notebook(db.Model):
+    __tablename__ = 'notebooks'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    notes = db.relationship('Note', back_populates='notebook')
+Best Practices
+Separation of Concerns:
+The application maintains a clear separation between frontend and backend logic, ensuring that each layer can be developed, tested, and maintained independently.
 
-Start by giving your application a name.
-
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
-
-Select "Free" as your Instance Type.
-
-### Add environment variables
-
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from the **External Database URL** field)
-
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
-
-### Deploy
-
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
-
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
-
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
-# capstone-project
+Modular Code Structure:
+The codebase is organized into distinct modules, each responsible for a specific functionality, such as authentication, note management, and notebook organization. This modular approach facilitates easier debugging and feature extensions.
