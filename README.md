@@ -7,16 +7,16 @@ https://capstone-project-xsl6.onrender.com
 
 ## Screenshots
 
-Here are some screenshots of the Evernote Clone in action:
+Here are some screenshots of the Note2be in action:
 
 ### Home Page
-![Home Page Screenshot](./docs/screenshots/home_page.png)
+<img width="1621" alt="Screenshot 2024-08-25 at 9 14 44 PM" src="https://github.com/user-attachments/assets/9c5bae9e-2817-40ac-8827-92fbe31e86ab">
 
 ### Note Editor
-![Note Editor Screenshot](./docs/screenshots/note_editor.png)
+<img width="1510" alt="Screenshot 2024-08-18 at 12 30 33 PM" src="https://github.com/user-attachments/assets/6292f3b4-c522-4e70-a0dc-131a116978f2">
 
 ### Notebook Management
-![Notebook Management Screenshot](./docs/screenshots/notebook_management.png)
+<img width="1394" alt="Screenshot 2024-08-18 at 12 28 50 PM" src="https://github.com/user-attachments/assets/c8b878f6-655e-4c52-a7c8-86f26dc0422a">
 
 ## Features & Implementation
 
