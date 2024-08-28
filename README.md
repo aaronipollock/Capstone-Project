@@ -70,9 +70,8 @@ Users can categorize notes into different notebooks, allowing for better organiz
 - Redux
 - React Router
 - Quill.js
-- Axios
 - HTML5, CSS3
-- 
+  
 **Backend:**
 - Flask
 - SQLAlchemy
