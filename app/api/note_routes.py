@@ -17,7 +17,6 @@ def get_notes():
 
     user_notes = Note.query.filter_by(user_id=current_user.id).all()
     return {"notes": [note.to_dict() for note in user_notes]}
-    print(f"Fetched {len(notes)} notes from the database.")
 
 @note_routes.route('/create', methods=['POST'])
 @login_required
@@ -29,10 +28,7 @@ def post_note():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     data = request.get_json()
-    # title = data.get('title')
-    # content = data.get('content')
     notebook_id = data.get('notebookId')
-    # user_id = current_user.id
     print(f"Received data: {data}")
     print(f"Notebook ID: {notebook_id}")
 
