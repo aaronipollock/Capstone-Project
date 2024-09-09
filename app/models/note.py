@@ -1,13 +1,12 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .notebook import notebook_notes
+from sqlalchemy import Table, Column, Integer, ForeignKey
 
-note_tags = db.Table(
-    'note_tags',
-    db.Column('note_id', db.Integer, db.ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True),
-    db.Column('tag_id', db.Integer, db.ForeignKey(add_prefix_for_prod('tags.id'))),
-    db.Column('created_at', db.DateTime, nullable=False, default=datetime.utcnow),
-    db.Column('updated_at', db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow),
+
+note_tags = db.Table('note_tags', db.Model.metadata,
+    Column('note_id', Integer, db.ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True),
+    Column('tag_id', Integer, db.ForeignKey(add_prefix_for_prod('tags.id')), primary_key=True)
 )
 
 class Note(db.Model):
@@ -37,7 +36,7 @@ class Note(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
-        
+
         if include_notebooks:
             note_dict['notebook'] = [notebook.to_dict(include_notes=False) for notebook in self.notebooks]
 

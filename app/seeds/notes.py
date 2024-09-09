@@ -112,7 +112,7 @@ def seed_notes():
     note54 = Note(
         title='Juliet', content="O happy dagger, This is thy sheath: there rust, and let me die.", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note55 = Note(
-        title='Prince', content="All are punshied", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+        title='Prince', content="All are punished", user_id=1, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note56 = Note(
         title='King Richard', content="Forget, forgive, conclude and be agreed: Our doctors say this is no time to bleed.", user_id=2, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
     note57 = Note(
