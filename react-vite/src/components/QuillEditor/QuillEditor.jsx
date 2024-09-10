@@ -38,6 +38,9 @@ const QuillEditor = ({
   const [isLoading, setIsLoading] = useState(false);
   const currentUser = noteData?.user_id;
 
+  const [isInput, setIsInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
   const { closeModal } = useModal();
 
   // Function to strip HTML tags using DOMParser
@@ -108,25 +111,19 @@ const QuillEditor = ({
 
   const handleUpdateClick = async (e) => {
     e.preventDefault();
-    console.log('Update button clicked');
 
     const newErrors = validateForm();
-    console.log('Validation errors:', newErrors);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    console.log('Current note:', noteData);
-
     if (!noteData) {
-      console.log('Note not found');
       setErrors({ note: "Note not found." });
       return;
     }
 
     if (noteData.user_id !== currentUser) {
-      console.log('User not authorized');
       setErrors({ user: "You are not authorized." });
       return;
     }
@@ -134,7 +131,6 @@ const QuillEditor = ({
     const plainTextContent = stripHtmlTags(content);
     const updatedNote = { ...noteData, title, content: plainTextContent };
 
-    console.log('Dispatching thunkUpdateNote with: ', updatedNote);
 
     try {
       setIsLoading(true);
@@ -157,6 +153,10 @@ const QuillEditor = ({
       setIsLoading(false);
     }
   };
+
+  const handleTagClick = () => {
+    setIsInput(true);
+  }
 
   return (
     <div className="quill-editor">
@@ -207,8 +207,21 @@ const QuillEditor = ({
         placeholder="Title"
       />
       <div ref={editorRef} className="editor-container"></div>
+      <div>
+        {isInput ? (
+          <input
+            type="text"
+            placeholder="Type to add..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            autoFocus
+          />
+        ) : (
+          <button onClick={handleTagClick} className="add-tag-button">Add Tag</button>
+        )}
+      </div>
       <button onClick={handleUpdateClick} className="editor-button-update" disabled={isLoading}>
-        {isLoading ? 'Updating..' : 'Update Note'}
+        {isLoading ? 'Updating...' : 'Update Note'}
       </button>
       {errors &&
         Object.keys(errors).map((key) => (

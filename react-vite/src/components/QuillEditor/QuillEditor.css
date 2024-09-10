@@ -51,3 +51,14 @@
   .editor-button-update:hover {
     background-color: darkgreen;
   }
+
+  .add-tag-button {
+    width: 565px;
+    height: 40px;
+    cursor: pointer;
+    color: gray;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: lighter;
+    border: none
+  }
