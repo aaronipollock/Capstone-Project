@@ -5,6 +5,7 @@ import Sidebar from '../Sidebar';
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './Notes.css';
+import { thunkGetTagsForNote } from '../../redux/notes';
 
 function Notes() {
     const dispatch = useDispatch();
@@ -37,7 +38,15 @@ function Notes() {
         setTitle(newTitle);
     };
 
-    console.log('Rendering notes:', notes);
+    useEffect(() => {
+        if (selectedNoteId) {
+            dispatch(thunkGetTagsForNote(selectedNoteId));
+        }
+    }, [selectedNoteId, dispatch])
+
+    const tags = useSelector(state => state.tags.tagsByNoteId[selectedNoteId] || []);
+
+    console.log('TAGS: ', tags)
 
     return (
         <>
@@ -70,6 +79,15 @@ function Notes() {
                                 >
                                     <div className="note-item-title">{note.title}</div>
                                     <div className="note-item-content">{note.content}</div>
+                                    <div className="note-item-tags">
+                                        {tags.length > 0 ? (
+                                            tags.map(tag => (
+                                                <span key={tag.id} className="tag">{tag.tag_name}</span>
+                                            ))
+                                        ) : (
+                                            <p></p>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </section>

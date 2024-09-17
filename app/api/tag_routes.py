@@ -7,7 +7,16 @@ from app.models import db
 
 tag_routes = Blueprint('tags', __name__)
 
-@tag_routes.route('/', methods=['POST'])
+@tag_routes.route('/')
+@login_required
+def get_all_tags():
+    """Get all tags"""
+    tags = Tag.query.all()
+    tag_list = [{'id': tag.id, 'name': tag.tag_name} for tag in tags]
+
+    return jsonify(tag_list), 200
+
+@tag_routes.route('/create', methods=['POST'])
 @login_required
 def create_tag():
     """Create a new tag"""
@@ -34,7 +43,7 @@ def add_tags_to_note(note_id):
             tag = Tag(name=tag_name)
             db.session.add(tag)
         note.tags.append(tag)
-    db.session.ocmmit()
+    db.session.commit()
     return jsonify({'message': 'Tags added successfully'})
 
 @tag_routes.route('/notes/<int:note_id>', methods=['GET'])
@@ -43,10 +52,14 @@ def get_tags_of_note(note_id):
     """Get all tags associated with a particular note"""
 
     note = Note.query.get(note_id)
-    tags = [{'id': tag.id, 'name': tag.tag_name} for tag in note.tags]
-    return jsonify(tags)
+    if not note:
+        return jsonify({'error': 'Note not found'}), 404
 
-@tag_routes.route('/<int:tag_id>', methods=['PUT'])
+    tags = [{'id': tag.id, 'tag_name': tag.tag_name} for tag in note.tags]
+
+    return jsonify(tags), 200
+
+@tag_routes.route('/<int:tag_id>/edit', methods=['GET', 'PUT'])
 @login_required
 def update_tag(tag_id):
     """Update a tag's name"""
@@ -54,12 +67,12 @@ def update_tag(tag_id):
     tag_name = data.get('name')
 
     tag = Tag.query.get(tag_id)
-    tag.name = tag_name
+    tag.tag_name = tag_name
     db.session.commit()
 
     return jsonify(tag.to_dict()), 200
 
-@tag_routes.route('<int:tag_id>', methods=['DELETE'])
+@tag_routes.route('/<int:tag_id>/delete', methods=['DELETE'])
 @login_required
 def delete_tag(tag_id):
     """Delete a tag"""
@@ -73,7 +86,7 @@ def delete_tag(tag_id):
 
     return jsonify({'message': 'Tag deleted'}), 200
 
-@tag_routes.route('/<int:tag_id>/notes/<int:note_id>', methods=['DELETE'])
+@tag_routes.route('/<int:tag_id>/notes/<int:note_id>/remove', methods=['DELETE'])
 @login_required
 def remove_tag_from_note(tag_id, note_id):
     """Remove a tag from a note"""
@@ -86,12 +99,3 @@ def remove_tag_from_note(tag_id, note_id):
         db.session.commit()
 
     return jsonify({'message': 'Tag removed from note'}), 200
-
-@tag_routes.route('/', methods=['GET'])
-@login_required
-def get_all_tags():
-    """Get all tags"""
-    tags = Tag.query.all()
-    tag_list = [{'id': tag.id, 'name': tag.name} for tag in tags]
-
-    return jsonify(tag_list), 200

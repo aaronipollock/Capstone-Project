@@ -28,6 +28,7 @@ const QuillEditor = ({
   onContentChange,
   onTitleChange,
   onNoteUpdate,
+  tags = [],
 }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
@@ -52,7 +53,6 @@ const QuillEditor = ({
 
   // Initialize Quill editor once
   useEffect(() => {
-    console.log('Initializing Quill editor');
     if (!quillRef.current) {
       const quill = new Quill(editorRef.current, {
         theme: 'snow',
@@ -65,7 +65,6 @@ const QuillEditor = ({
 
       // Set initial content
       if (initialContent) {
-        console.log('Setting initial content');
         quill.clipboard.dangerouslyPasteHTML(initialContent);
       }
 
@@ -207,6 +206,14 @@ const QuillEditor = ({
         placeholder="Title"
       />
       <div ref={editorRef} className="editor-container"></div>
+      <div className="note-tags">
+        <p>Tags:</p>
+        <div className="tag-list">
+          {tags.map(tag => (
+            <span key={tag.id} className="tag">{tag.tag_name}</span>
+          ))}
+        </div>
+      </div>
       <div>
         {isInput ? (
           <input

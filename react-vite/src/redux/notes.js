@@ -3,6 +3,7 @@ const CURRENT_USERS_NOTES = 'notes';
 const CREATE_NEW_NOTE = 'notes/create';
 const UPDATE_NOTE = 'notes/:noteId/edit';
 const DELETE_NOTE = 'notes/:noteId/delete';
+// const SET_TAGS_FOR_NOTE = 'tags/notes/:noteId';
 
 //Action creators
 const currentUsersNotes = (notes) => ({
@@ -28,6 +29,11 @@ const deleteNote = (noteId) => ({
 const updateNoteIdInStore = (note) => ({
     type: 'UPDATE_NOTE_ID',
     note
+})
+
+const setTagsForNote = (payload) => ({
+    type: 'SET_TAGS_FOR_NOTE',
+    payload
 })
 
 //Thunks
@@ -105,7 +111,6 @@ export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dis
 
 export const thunkUpdateNote = (note) => async (dispatch) => {
     try {
-        console.log('Sending update request to server: ', note);
 
         const res = await fetch(`/api/notes/${note.id}/edit`, {
             method: 'PUT',
@@ -116,7 +121,6 @@ export const thunkUpdateNote = (note) => async (dispatch) => {
         });
         if (!res.ok) {
             const errorData = await res.json();
-            console.log('Server responded with an error: ', errorData);
             throw new Error(errorData.message || 'Failed to update note');
         }
 
@@ -166,9 +170,18 @@ export const thunkUpdateNoteId = (noteId, notebookId) => async (dispatch) => {
     }
 };
 
+export const thunkGetTagsForNote = (noteId) => async (dispatch) => {
+    const res = await fetch(`/api/tags/notes/${noteId}`);
+    if (res.ok) {
+        const tags = await res.json();
+        dispatch(setTagsForNote({ noteId, tags }));
+    }
+}
+
 // Initial state
 const initialState = {
     userNotes: [],
+    tagsByNoteId: {}
 }
 
 //Reducer
@@ -211,7 +224,17 @@ export default function noteReducer(state = initialState, action) {
                 userNotes: state.userNotes.map(note =>
                     note.id === action.note.id ? action.note : note
                 )
+            }
+        case 'SET_TAGS_FOR_NOTE': {
+            const { noteId, tags } = action.payload;
+            return {
+                ...state,
+                tagsByNoteId: {
+                    ...state.tagsByNoteId,
+                    [noteId]: tags
+                }
             };
+        }
         default:
             return state;
     }
