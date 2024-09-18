@@ -5,7 +5,6 @@ import Sidebar from '../Sidebar';
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './Notes.css';
-import { thunkGetTagsForNote } from '../../redux/notes';
 
 function Notes() {
     const dispatch = useDispatch();
@@ -13,9 +12,6 @@ function Notes() {
     const [currentContent, setCurrentContent] = useState("")
     const [selectedNoteId, setSelectedNoteId] = useState(null);
     const [title, setTitle] = useState("");
-    // const [errors, setErrors] = useState({})
-    // const [content, setContent] = useState("")
-
 
     useEffect(() => {
         dispatch(thunkGetCurrentUsersNotes());
@@ -37,16 +33,6 @@ function Notes() {
     const handleTitleChange = (newTitle) => {
         setTitle(newTitle);
     };
-
-    useEffect(() => {
-        if (selectedNoteId) {
-            dispatch(thunkGetTagsForNote(selectedNoteId));
-        }
-    }, [selectedNoteId, dispatch])
-
-    const tags = useSelector(state => state.tags.tagsByNoteId[selectedNoteId] || []);
-
-    console.log('TAGS: ', tags)
 
     return (
         <>
@@ -80,8 +66,8 @@ function Notes() {
                                     <div className="note-item-title">{note.title}</div>
                                     <div className="note-item-content">{note.content}</div>
                                     <div className="note-item-tags">
-                                        {tags.length > 0 ? (
-                                            tags.map(tag => (
+                                        {note.tags && note.tags.length > 0 ? (
+                                            note.tags.map(tag => (
                                                 <span key={tag.id} className="tag">{tag.tag_name}</span>
                                             ))
                                         ) : (

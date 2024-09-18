@@ -135,4 +135,13 @@ html, body {
     border-radius: 5px;
 } */
 
+.note-item-tags {
+    margin-left: 15px;
+    margin-top: 5px;
+}
 
+.tag {
+    color: gray;
+    border: none;
+    background-color: ;
+}

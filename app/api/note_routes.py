@@ -13,10 +13,12 @@ note_routes = Blueprint('notes', __name__)
 @note_routes.route('/')
 @login_required
 def get_notes():
-    """Get current user's notes"""
+    """Get current user's notes with tags"""
 
     user_notes = Note.query.filter_by(user_id=current_user.id).all()
-    return {"notes": [note.to_dict() for note in user_notes]}
+    notes_with_tags = [note.to_dict(include_tags=True) for note in user_notes]
+
+    return jsonify(notes_with_tags), 200
 
 @note_routes.route('/create', methods=['POST'])
 @login_required
@@ -115,4 +117,3 @@ def update_note_id(note_id):
     db.session.commit()
 
     return jsonify(note.to_dict())
-

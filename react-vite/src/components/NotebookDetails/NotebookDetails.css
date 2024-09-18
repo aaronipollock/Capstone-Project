@@ -216,17 +216,7 @@
     background-color: white;
 }
 
-/* #toolbar {
-    border: 1px solid #ccc;
-    border-bottom: none;
-    background-color: #f3f3f3;
-    display: flex;
-    justify-content: space-between;
-    padding: 8px
-} */
-
-/* .editor-container {
-    height: calc(95vh - 40px);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-} */
+.details-item-tags {
+    margin-left: 14px;
+    margin-top: 10px;
+}

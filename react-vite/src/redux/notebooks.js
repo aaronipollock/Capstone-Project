@@ -120,11 +120,6 @@ export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
         return { errors: error };
     }
 }
-// export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
-//     const response = await fetch(`/api/notebooks/${notebookId}`);
-//     const notebook = await response.json();
-//     dispatch({ type: 'notebook/:notebookId', notebook });
-// };
 
 //Inital state
 const initialState = {
@@ -137,7 +132,6 @@ const initialState = {
 export default function notebookReducer(state = initialState, action) {
     switch (action.type) {
         case CURRENT_USERS_NOTEBOOKS:
-            // console.log('Reducing CURRENT_USERS_NOTEBOOKS action:', action);
             return {
                 ...state,
                 userNotebooks: action.notebooks,
@@ -161,6 +155,8 @@ export default function notebookReducer(state = initialState, action) {
                 userNotebooks: state.userNotebooks.filter(notebook => notebook.id !== action.notebookId)
             }
         case NOTEBOOK_DETAILS:
+            console.log("Entire state:", state);
+            console.log("Tags in notes slice:", state.notes?.tags);
             return {
                 ...state,
                 notebookDetails: {
