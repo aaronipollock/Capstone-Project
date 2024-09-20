@@ -13,7 +13,7 @@ function Notes() {
     const [currentContent, setCurrentContent] = useState("")
     const [selectedNoteId, setSelectedNoteId] = useState(null);
     const [title, setTitle] = useState("");
-    const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
+    const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {});
 
 
     useEffect(() => {
@@ -26,6 +26,7 @@ function Notes() {
             setSelectedNoteId(noteId);
             setCurrentContent(selectedNote.content || "");
             setTitle(selectedNote.title || "");
+            dispatch(thunkGetTagsForNote(noteId));
         }
     }
 

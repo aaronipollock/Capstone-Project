@@ -104,3 +104,14 @@
 .quill-tag-input {
   width: 553px;
 }
+
+.upside-down-caret {
+  display: inline-block;
+  font-size: 14px;
+  color: gray;
+  margin-left: 3px;;
+}
+
+.upside-down-caret:hover {
+  cursor: pointer;
+}

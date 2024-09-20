@@ -4,9 +4,10 @@ import 'quill/dist/quill.snow.css';
 import './QuillEditor.css';
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
-import { thunkUpdateNote } from "../../redux/notes";
-import { thunkAddTagToNote } from "../../redux/tags";
+import { thunkGetCurrentUsersNotes, thunkUpdateNote } from "../../redux/notes";
+import { thunkAddTagToNote, thunkGetTagsForNote } from "../../redux/tags";
 import { FaTag } from "react-icons/fa";
+import { PiCaretDown } from "react-icons/pi";
 
 // Helper function to debounce events
 function debounce(func, wait) {
@@ -54,6 +55,10 @@ const QuillEditor = ({
     div.innerHTML = html;
     return div.textContent || div.innerText || '';
   };
+
+  useEffect(() => {
+    setLocalTags(tags);
+  }, [tags])
 
   // Initialize Quill editor once
   useEffect(() => {
@@ -157,10 +162,12 @@ const QuillEditor = ({
       const serverResponse = await dispatch(thunkUpdateNote(updatedNote));
 
       if (serverResponse.errors) {
-        console.log('Server response errors:', serverResponse.errors);
         setErrors(serverResponse.errors);
       } else {
-        console.log('Note updated successfully');
+        // re-fetch updated notes and tags after successful update
+        await dispatch(thunkGetCurrentUsersNotes());
+        await dispatch(thunkGetTagsForNote(noteData.id));
+
         if (onNoteUpdate) {
           onNoteUpdate();
         }
@@ -184,7 +191,15 @@ const QuillEditor = ({
       try {
         const addedTag = await dispatch(thunkAddTagToNote(noteData.id, newTag));
 
-        setLocalTags((prevTags) => [...prevTags, addedTag]);
+        if (addedTag?.id && addedTag?.tag_name) {
+          setLocalTags((prevTags) => [...prevTags, addedTag]);
+        } else {
+          const constructedTag = { id: Date.now(), tag_name: inputValue };
+          setLocalTags((prevTags) => [...prevTags, constructedTag]);
+        }
+
+        await dispatch(thunkGetCurrentUsersNotes());
+        await dispatch(thunkGetTagsForNote(noteData.id));
 
         setInputValue(""); // Clear input after adding tag
         setIsInput(false); // Hide input after adding tag
@@ -251,7 +266,9 @@ const QuillEditor = ({
               if (tag && tag.tag_name) {
                 return (
                   <span key={tag.id} className="quill-tag">
-                    <span className="quill-tag-icon"><FaTag /> </span>{tag.tag_name}
+                    <span className="quill-tag-icon"><FaTag /></span>
+                    {tag.tag_name}
+                    <span className="upside-down-caret"><PiCaretDown /></span>
                   </span>
                 );
               } else {
