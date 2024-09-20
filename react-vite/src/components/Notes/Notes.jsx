@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkGetCurrentUsersNotes } from '../../redux/notes';
+import { thunkGetTagsForNote } from "../../redux/notes";
 import Sidebar from '../Sidebar';
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
@@ -12,6 +13,8 @@ function Notes() {
     const [currentContent, setCurrentContent] = useState("")
     const [selectedNoteId, setSelectedNoteId] = useState(null);
     const [title, setTitle] = useState("");
+    const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
+
 
     useEffect(() => {
         dispatch(thunkGetCurrentUsersNotes());
@@ -33,6 +36,12 @@ function Notes() {
     const handleTitleChange = (newTitle) => {
         setTitle(newTitle);
     };
+
+    useEffect(() => {
+        if (selectedNoteId) {
+            dispatch(thunkGetTagsForNote(selectedNoteId));
+        }
+    }, [selectedNoteId]);
 
     return (
         <>
@@ -87,6 +96,7 @@ function Notes() {
                                 initialTitle={title}
                                 onContentChange={handleContentChange}
                                 onTitleChange={handleTitleChange}
+                                tags={tagsByNoteId[selectedNoteId] || []}
                             />
                         )}
                     </div>

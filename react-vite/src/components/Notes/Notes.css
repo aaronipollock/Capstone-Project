@@ -136,12 +136,15 @@ html, body {
 } */
 
 .note-item-tags {
-    margin-left: 15px;
+    margin-left: 20px;
     margin-top: 5px;
 }
 
 .tag {
     color: gray;
     border: none;
-    background-color: ;
+    font-size: 12px;
+    margin-right: 8px;
+    background-color: lightgray;
+    padding: 5px;
 }

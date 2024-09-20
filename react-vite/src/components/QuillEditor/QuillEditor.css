@@ -26,7 +26,7 @@
   }
 
   .editor-container {
-    height: calc(100vh - 245px);
+    height: calc(100vh - 345px);
     background-color: white;
     border-radius: 4px;
     box-sizing: border-box;
@@ -63,15 +63,44 @@
     border: none
   }
 
-  .tags-list {
+  .quill-tag-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    height: 40px;
+    margin-left: 50px;
 }
 
-.tag {
-    background-color: #f0f0f0;
-    border-radius: 12px;
-    padding: 4px 8px;
-    font-size: 12px;
+.quill-tag {
+    background-color: lightgray;
+    border-radius: 6px;
+    margin: 3px;
+    padding: 8px;
+    font-size: 14px;
+    color: black;
+}
+
+.quill-tag-icon {
+  color: gray;
+  padding: 3px;
+}
+
+.quill-note-tags {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  width: 558px;
+  background-color: white;
+  padding: 3px;
+}
+
+.add-tag-button {
+  border: 1px solid #ccc;
+}
+
+.add-tag-button:hover {
+  background-color: lightgray;
+}
+
+.quill-tag-input {
+  width: 553px;
 }

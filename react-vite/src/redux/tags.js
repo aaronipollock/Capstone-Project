@@ -25,10 +25,10 @@ const getTagsForNote = (noteId, tags) => ({
     payload: tags,
 })
 
-const addTagToNote = (noteId, tags) => ({
-    type: ADD_TAG_TO_NOTE,
+const addTagToNote = (noteId, tag) => ({
+    type: 'tag/ADD_TAG_TO_NOTE',
     noteId,
-    payload: tags,
+    payload: tag
 });
 
 const removeTagFromNote = (noteId, tagId) => ({
@@ -78,21 +78,23 @@ export const thunkGetTagsForNote = (noteId) => async (dispatch) => {
             return;
         }
         const tags = await res.json();
-        console.log('Tag fetched from backend:', tags);
         dispatch(getTagsForNote(noteId, tags));
     } catch (error) {
         console.error('Failed to fetch tags:', error);
     }
 };
 
-export const thunkAddTagsToNote = (noteId, tags) => async (dispatch) => {
+export const thunkAddTagToNote = (noteId, newTag) => async (dispatch) => {
+    console.log('Sending tags to server:', newTag);
+
     const res = await fetch(`/api/tags/notes/${noteId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tags })
+        body: JSON.stringify({ tag_name: newTag.tag_name, user_id: newTag.user_id })
     });
     if (res.ok) {
-        dispatch(addTagToNote(noteId, tags));
+        const tag = await res.json();
+        dispatch(addTagToNote(noteId, tag));
     }
 };
 
@@ -151,6 +153,20 @@ export default function tagReducer(state = initialState, action) {
                 tagsByNoteId: {
                     ...state.tagsByNoteId,
                     [action.noteId]: action.payload
+                }
+            };
+        case 'tag/ADD_TAG_TO_NOTE':
+            console.log('Action received:', action);
+            console.log('Current state:', state);
+            const { noteId, payload } = action
+            console.log('Updated noteId:', noteId);
+            console.log('Payload:', payload);
+
+            return {
+                ...state,
+                tagsByNoteId: {
+                    ...state.tagsByNoteId,
+                    [noteId]: [...(state.tagsByNoteId[noteId] || []), payload]
                 }
             };
         case REMOVE_TAG_FROM_NOTE:

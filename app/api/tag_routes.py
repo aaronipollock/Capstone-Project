@@ -33,30 +33,44 @@ def create_tag():
 @login_required
 def add_tags_to_note(note_id):
     """Attach a tag to a note"""
-
     data = request.get_json()
-    tags = data.get('tags')
-    note = Note.query.get(note_id)
-    for tag_name in tags:
-        tag = Tag.query.filter_by(name=tag_name).first()
-        if not tag:
-            tag = Tag(name=tag_name)
-            db.session.add(tag)
-        note.tags.append(tag)
-    db.session.commit()
-    return jsonify({'message': 'Tags added successfully'})
 
-@tag_routes.route('/notes/<int:note_id>', methods=['GET'])
-@login_required
-def get_tags_of_note(note_id):
-    """Get all tags associated with a particular note"""
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    tag_name = data.get('tag_name')
+    user_id = data.get('user_id')
+
+    print(f"Received tag_name: {tag_name}, user_id: {user_id}")
+
+    if not tag_name or not user_id:
+        return jsonify({'error': 'Tag name and user ID are required'}), 400
 
     note = Note.query.get(note_id)
     if not note:
         return jsonify({'error': 'Note not found'}), 404
 
-    tags = [{'id': tag.id, 'tag_name': tag.tag_name} for tag in note.tags]
+    tag = Tag.query.filter_by(tag_name=tag_name, user_id=user_id).first()
+    if not tag:
+        tag = Tag(tag_name=tag_name, user_id=user_id)
+        db.session.add(tag)
+        db.session.commit()
 
+    if tag not in note.tags:
+        note.tags.append(tag)
+        db.session.commit()
+
+    return jsonify({'message': 'Tag added successfully'}), 200
+
+@tag_routes.route('/notes/<int:note_id>', methods=['GET'])
+@login_required
+def get_tags_of_note(note_id):
+    """Get all tags associated with a particular note"""
+    note = Note.query.get(note_id)
+    if not note:
+        return jsonify({'error': 'Note not found'}), 404
+
+    tags = [{'id': tag.id, 'tag_name': tag.tag_name} for tag in note.tags]
     return jsonify(tags), 200
 
 @tag_routes.route('/<int:tag_id>/edit', methods=['GET', 'PUT'])
@@ -90,9 +104,11 @@ def delete_tag(tag_id):
 @login_required
 def remove_tag_from_note(tag_id, note_id):
     """Remove a tag from a note"""
-
     note = Note.query.get(note_id)
     tag = Tag.query.get(tag_id)
+
+    if not note or not tag:
+        return jsonify({'error': 'Note or tag not found'}), 404
 
     if tag in note.tags:
         note.tags.remove(tag)

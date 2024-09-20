@@ -5,6 +5,8 @@ import './QuillEditor.css';
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { thunkUpdateNote } from "../../redux/notes";
+import { thunkAddTagToNote } from "../../redux/tags";
+import { FaTag } from "react-icons/fa";
 
 // Helper function to debounce events
 function debounce(func, wait) {
@@ -32,9 +34,11 @@ const QuillEditor = ({
 }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
+  const inputRef = useRef(null);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
+  const [localTags, setLocalTags] = useState(tags);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const currentUser = noteData?.user_id;
@@ -95,6 +99,23 @@ const QuillEditor = ({
       setTitle(initialTitle);
     }
   }, [initialTitle, title]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
+        setIsInput(false);
+      }
+    };
+
+
+    if (isInput) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isInput]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -157,6 +178,23 @@ const QuillEditor = ({
     setIsInput(true);
   }
 
+  const handleInputKeyPress = async (e) => {
+    if (e.key === 'Enter' && inputValue.trim()) {
+      const newTag = { tag_name: inputValue, user_id: currentUser };
+      try {
+        const addedTag = await dispatch(thunkAddTagToNote(noteData.id, newTag));
+
+        setLocalTags((prevTags) => [...prevTags, addedTag]);
+
+        setInputValue(""); // Clear input after adding tag
+        setIsInput(false); // Hide input after adding tag
+      } catch (error) {
+        console.error('Failed to add tag', error);
+        setErrors({ server: "An error occurred while adding the tag." })
+      }
+    }
+  }
+
   return (
     <div className="quill-editor">
       <div id="quill-toolbar" className="quill-toolbar">
@@ -206,21 +244,36 @@ const QuillEditor = ({
         placeholder="Title"
       />
       <div ref={editorRef} className="editor-container"></div>
-      <div className="note-tags">
-        <p>Tags:</p>
-        <div className="tag-list">
-          {tags.map(tag => (
-            <span key={tag.id} className="tag">{tag.tag_name}</span>
-          ))}
+      <div className="quill-note-tags">
+        <div className="quill-tag-list">
+          {localTags && localTags.length > 0 ? (
+            localTags.map((tag) => {
+              if (tag && tag.tag_name) {
+                return (
+                  <span key={tag.id} className="quill-tag">
+                    <span className="quill-tag-icon"><FaTag /> </span>{tag.tag_name}
+                  </span>
+                );
+              } else {
+                console.error('Invalid tag object:', tag);
+                return null;
+              }
+            })
+          ) : (
+            <p></p>
+          )}
         </div>
       </div>
       <div>
         {isInput ? (
           <input
+            ref={inputRef}
+            className='quill-tag-input'
             type="text"
             placeholder="Type to add..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            onKeyPress={handleInputKeyPress}
             autoFocus
           />
         ) : (
