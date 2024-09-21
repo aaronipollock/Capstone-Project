@@ -119,7 +119,7 @@ export const thunkUpdateTag = (tagId, tag_name) => async (dispatch) => {
     }
 };
 
-export const thunkDeleteNote = (tagId) => async (dispatch) => {
+export const thunkDeleteTag = (tagId) => async (dispatch) => {
     const res = await fetch(`/api/tags/${tagId}/delete`, {
         method: 'DELETE'
     });

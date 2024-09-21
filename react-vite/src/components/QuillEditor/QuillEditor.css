@@ -82,7 +82,7 @@
 
 .quill-tag-icon {
   color: gray;
-  padding: 3px;
+  padding: 5px;
 }
 
 .quill-note-tags {
@@ -112,6 +112,27 @@
   margin-left: 3px;;
 }
 
-.upside-down-caret:hover {
+.tag-dropdown-toggle-button {
+  border: none;
+  background-color: lightgray;
+}
+
+.tag-dropdown-toggle-button:hover {
+  cursor: pointer;
+}
+
+.tag-dropdown-menu {
+  /* z-index: 1; */
+  position: absolute;
+  margin: -70px 70px;
+  /* background-color: white; */
+  width: 100%;
+}
+
+.remove-tag-button {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
   cursor: pointer;
 }
