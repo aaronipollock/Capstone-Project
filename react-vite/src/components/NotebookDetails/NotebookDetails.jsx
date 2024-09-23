@@ -11,6 +11,7 @@ import DeleteNotebookModal from "../DeleteNotebookModal";
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './NotebookDetails.css';
+import { useMemo } from 'react';
 
 function NotebookDetails() {
     const { notebookId } = useParams();
@@ -24,7 +25,7 @@ function NotebookDetails() {
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
     const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
-    const notes = notebook ? notebook.notes : [];
+    const notes = useMemo(() => (notebook ? notebook.notes : []), [notebook]);
     const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
 
     useEffect(() => {
@@ -185,6 +186,7 @@ function NotebookDetails() {
                             initialTitle={title}
                             onContentChange={handleContentChange}
                             onTitleChange={handleTitleChange}
+                            tags={tagsByNoteId[selectedNoteId] || []}
                             onNoteUpdate={handleNoteUpdate}
                         />
                     </>

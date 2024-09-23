@@ -26,7 +26,7 @@ const getTagsForNote = (noteId, tags) => ({
 })
 
 const addTagToNote = (noteId, tag) => ({
-    type: 'tag/ADD_TAG_TO_NOTE',
+    type: ADD_TAG_TO_NOTE,
     noteId,
     payload: tag
 });
@@ -155,7 +155,7 @@ export default function tagReducer(state = initialState, action) {
                     [action.noteId]: action.payload
                 }
             };
-        case 'tag/ADD_TAG_TO_NOTE':
+        case ADD_TAG_TO_NOTE: {
             console.log('Action received:', action);
             console.log('Current state:', state);
             const { noteId, payload } = action
@@ -169,7 +169,12 @@ export default function tagReducer(state = initialState, action) {
                     [noteId]: [...(state.tagsByNoteId[noteId] || []), payload]
                 }
             };
+        }
         case REMOVE_TAG_FROM_NOTE:
+            if (!state.tagsByNoteId[action.noteId]) {
+                return state;
+            }
+
             return {
                 ...state,
                 tagsByNoteId: {

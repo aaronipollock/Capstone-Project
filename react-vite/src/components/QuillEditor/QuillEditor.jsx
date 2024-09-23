@@ -32,6 +32,7 @@ const QuillEditor = ({
   onTitleChange,
   onNoteUpdate,
   tags = [],
+  onTagsUpdate,
 }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
@@ -218,17 +219,22 @@ const QuillEditor = ({
   };
 
   const handleRemoveTag = async (tagId) => {
+    console.log("Before removing tag:", localTags);
+
     try {
-      setLocalTags((prevTags) => prevTags.filter((tag) => tag.id !== tagId));
+      const updatedTags = localTags.filter((tag) => tag.id !== tagId);
+      setLocalTags(updatedTags);
+
+      console.log("After removing tag from local state:", updatedTags);
 
       await dispatch(thunkRemoveTagFromNote(noteData.id, tagId));
-      // await dispatch(thunkGetCurrentUsersNotes());
-      const updatedTags = await dispatch(thunkGetTagsForNote(noteData.id));
-      setLocalTags(updatedTags);
+
+      console.log("Tag removed from backend. Updated tags:", updatedTags);
     } catch (error) {
-      setErrors({ server: "An error occurred while removing the tag." });
+      console.error('Failed to remove tag', error);
     }
   };
+
 
   // const handleDeleteTag = async (tagId) => {
   //   try {
@@ -259,6 +265,14 @@ const QuillEditor = ({
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (onTagsUpdate) {
+      console.log("Calling onTagsUpdate with updated tags:", localTags);
+      onTagsUpdate(localTags);
+    }
+  }, [localTags, onTagsUpdate]);
+
 
   return (
     <div className="quill-editor">
