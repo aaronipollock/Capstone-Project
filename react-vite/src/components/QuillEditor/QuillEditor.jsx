@@ -5,7 +5,7 @@ import './QuillEditor.css';
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { thunkGetCurrentUsersNotes, thunkUpdateNote } from "../../redux/notes";
-import { thunkAddTagToNote, thunkGetTagsForNote, thunkRemoveTagFromNote } from "../../redux/tags";
+import { thunkAddTagToNote, thunkGetTagsForNote, thunkRemoveTagFromNote, thunkDeleteTag } from "../../redux/tags";
 import { FaTag } from "react-icons/fa";
 import { PiCaretDown } from "react-icons/pi";
 
@@ -236,16 +236,16 @@ const QuillEditor = ({
   };
 
 
-  // const handleDeleteTag = async (tagId) => {
-  //   try {
-  //     await dispatch(thunkDeleteTag(tagId));
-  //     setLocalTags((prevTags) => prevTags.filter((tag) => tag.id !== tagId));
-  //     await dispatch(thunkGetCurrentUsersNotes());
-  //     await dispatch(thunkGetTagsForNote(noteData.id));
-  //   } catch (error) {
-  //     setErrors({ server: "An error occurred while deleting the tag." });
-  //   }
-  // };
+  const handleDeleteTag = async (tagId) => {
+    try {
+      await dispatch(thunkDeleteTag(tagId));
+      setLocalTags((prevTags) => prevTags.filter((tag) => tag.id !== tagId));
+      await dispatch(thunkGetCurrentUsersNotes());
+      await dispatch(thunkGetTagsForNote(noteData.id));
+    } catch (error) {
+      setErrors({ server: "An error occurred while deleting the tag." });
+    }
+  };
 
   // Close dropdown
   const closeDropdown = () => {
@@ -353,12 +353,12 @@ const QuillEditor = ({
                         >
                           Remove tag
                         </button>
-                        {/* <button
+                        <button
                           className="delete-tag-button"
                           onClick={() => handleDeleteTag(tag.id)}
                         >
                           Remove tag from all notes...
-                        </button> */}
+                        </button>
                       </div>
                     )}
                   </span>

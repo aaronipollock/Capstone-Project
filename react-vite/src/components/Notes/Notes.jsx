@@ -6,6 +6,7 @@ import Sidebar from '../Sidebar';
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './Notes.css';
+import { thunkRemoveTagFromNote } from '../../redux/tags';
 
 function Notes() {
     const dispatch = useDispatch();
@@ -19,8 +20,30 @@ function Notes() {
 
 
     useEffect(() => {
-        dispatch(thunkGetCurrentUsersNotes());
-    }, [dispatch]);
+        const fetchNotesAndTags = async () => {
+            await dispatch(thunkGetCurrentUsersNotes());
+
+            console.log("Fetched notes:", notes);
+            // Fetch tags for all notes when the component is first loaded
+            if (notes && notes.length > 0) {
+                const tagPromises = notes.map(note => {
+                    if (!tagsByNoteId[note.id]) {
+                        return dispatch(thunkGetTagsForNote(note.id));
+                    }
+                    return null;
+                });
+
+                // Wait for all tag-fetching promises to complete
+                await Promise.all(tagPromises);
+            }
+        };
+        fetchNotesAndTags();
+    }, [dispatch, notes, tagsByNoteId]);
+
+    useEffect(() => {
+        setLocalTagsByNoteId(tagsByNoteId);
+        console.log('Syncing localTagsByNoteId with tagsByNoteId:', tagsByNoteId);
+    }, [tagsByNoteId]);
 
     const handleNoteClick = (noteId) => {
         const selectedNote = notes.find(note => note.id === noteId);
@@ -28,22 +51,8 @@ function Notes() {
             setSelectedNoteId(noteId);
             setCurrentContent(selectedNote.content || "");
             setTitle(selectedNote.title || "");
-
-            console.log(`Fetching tags for noteId: ${noteId}`)
-            dispatch(thunkGetTagsForNote(noteId)).then((tags) => {
-                console.log(`Fetched tags for noteId: ${noteId}`, tags);
-            });
         }
     };
-
-    useEffect(() => {
-        console.log("tagsByNoteId state updated:", tagsByNoteId);
-    }, [tagsByNoteId]);
-
-        // Update localTagsByNoteId when tagsByNoteId changes
-    useEffect(() => {
-        setLocalTagsByNoteId(tagsByNoteId);
-    }, [tagsByNoteId]);
 
     const handleContentChange = (newContent) => {
         setCurrentContent(newContent);
@@ -53,41 +62,27 @@ function Notes() {
         setTitle(newTitle);
     };
 
-    useEffect(() => {
-        if (selectedNoteId) {
-            dispatch(thunkGetTagsForNote(selectedNoteId));
-        }
-    }, [selectedNoteId, dispatch]);
-
-    // const handleTagsUpdate = (updatedTags) => {
-    //     // Update the tags in tagsByNoteId for the currently selected note
-    //     console.log(`Tags updated for noteId ${selectedNoteId}:`, updatedTags);
-    //     tagsByNoteId[selectedNoteId] = updatedTags;
-    // };
     const handleTagsUpdate = (updatedTags) => {
-        setLocalTagsByNoteId((prev) => {
-            const newState = {
-                ...prev,
-                [selectedNoteId]: updatedTags,
-            };
-            console.log("Updated localTagsByNoteId in Notes:", newState);
-            return newState;
-        });
-    }
+        const removedTag = localTagsByNoteId[selectedNoteId]?.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
 
-    // Log the tags being passed to QuillEditor whenever selectedNoteId or tagsByNoteId changes
-    useEffect(() => {
-        if (selectedNoteId) {
-            console.log(`Passing tags to QuillEditor for noteId ${selectedNoteId}:`, tagsByNoteId[selectedNoteId]);
-        }
-    }, [selectedNoteId, tagsByNoteId]);
+        // Optimistically update local state
+        setLocalTagsByNoteId((prev) => ({
+            ...prev,
+            [selectedNoteId]: updatedTags,
+        }));
 
-    // Log tagsByNoteId when updated
-    useEffect(() => {
-        if (tagsByNoteId[selectedNoteId]) {
-            console.log(`tagsByNoteId updated for noteId ${selectedNoteId}:`, tagsByNoteId[selectedNoteId]);
+        // Dispatch the action to remove the tag from the backend
+        if (removedTag && removedTag.id) {
+            dispatch(thunkRemoveTagFromNote(selectedNoteId, removedTag.id))
+                .then(() => {
+                    console.log(`Tag successfully removed from noteId ${selectedNoteId}:`, removedTag.id);
+                })
+                .catch((error) => {
+                    console.error("Error removing tag from backend:", error);
+                    // Optionally, you can revert the optimistic update here if needed.
+                });
         }
-    }, [tagsByNoteId, selectedNoteId]);
+    };
 
 
     return (
@@ -122,12 +117,12 @@ function Notes() {
                                     <div className="note-item-title">{note.title}</div>
                                     <div className="note-item-content">{note.content}</div>
                                     <div className="note-item-tags">
-                                        {note.tags && note.tags.length > 0 ? (
-                                            note.tags.map(tag => (
+                                        {localTagsByNoteId[note.id] && localTagsByNoteId[note.id].length > 0 ? (
+                                            localTagsByNoteId[note.id].map(tag => (
                                                 <span key={tag.id} className="tag">{tag.tag_name}</span>
                                             ))
                                         ) : (
-                                            <p></p>
+                                            <p>No tags available</p>
                                         )}
                                         {console.log(`Rendering tags for note ${note.id}:`, localTagsByNoteId[note.id])}
                                     </div>
