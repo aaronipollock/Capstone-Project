@@ -22,25 +22,9 @@ function Notes(noteId, tagId) {
     const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {});
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
-
-
-    // useEffect(() => {
-    //     const fetchNotesAndTags = async () => {
-            // await dispatch(thunkGetCurrentUsersNotes());
-
-    //         // Fetch tags for all notes if not already present
-    //         notes.forEach(note => {
-    //             if (!tagsByNoteId[note.id]) {
-    //                 dispatch(thunkGetTagsForNote(note.id));
-    //             }
-    //         });
-    //     };
-    //     fetchNotesAndTags();
-    // }, [dispatch, noteUpdated, notes]);
     useEffect(() => {
         dispatch(thunkGetCurrentUsersNotes());
-        console.log('Notes fetched from backend:', notes);
-    }, [dispatch, notes]);
+    }, [dispatch]);
 
     useEffect(() => {
         if (notes.length > 0) {

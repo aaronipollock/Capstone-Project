@@ -49,7 +49,7 @@ const QuillEditor = ({
 
   const { closeModal } = useModal();
 
-  const [dropdownIndex, setDropdownIndex] = useState(null);
+  // const [dropdownIndex, setDropdownIndex] = useState(null);
 
 
   // Function to strip HTML tags using DOMParser
