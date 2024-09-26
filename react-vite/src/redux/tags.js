@@ -1,3 +1,8 @@
+import { setTagsByNoteId } from './notesSlice';
+import { removeTagFromNote } from './notesSlice';
+import { removeTagFromAllNotes } from './notesSlice';
+
+
 // Action Types
 const GET_ALL_TAGS = 'tags/GET_ALL_TAGS';
 const CREATE_TAG = 'tags/CREATE_TAG';
@@ -31,11 +36,11 @@ const addTagToNote = (noteId, tag) => ({
     payload: tag
 });
 
-const removeTagFromNote = (noteId, tagId) => ({
-    type: REMOVE_TAG_FROM_NOTE,
-    noteId,
-    tagId
-});
+// const removeTagFromNote = (noteId, tagId) => ({
+//     type: REMOVE_TAG_FROM_NOTE,
+//     noteId,
+//     tagId
+// });
 
 const updateTag = (tag) => ({
     type: UPDATE_TAG,
@@ -78,11 +83,20 @@ export const thunkGetTagsForNote = (noteId) => async (dispatch) => {
             return;
         }
         const tags = await res.json();
-        dispatch(getTagsForNote(noteId, tags));
+        dispatch(setTagsByNoteId(noteId, tags));
     } catch (error) {
         console.error('Failed to fetch tags:', error);
     }
 };
+// export const thunkGetTagsForNote = (noteId) => async (dispatch) => {
+//     try {
+//         const tags = await fetchTagsForNoteFromAPI(noteId);
+//         dispatch(setTagsByNoteId({ noteId, tags }));
+//     } catch (error) {
+//         console.error('Failed to fetch tags:', error);
+//     }
+// };
+
 
 export const thunkAddTagToNote = (noteId, newTag) => async (dispatch) => {
     console.log('Sending tags to server:', newTag);
@@ -106,6 +120,19 @@ export const thunkRemoveTagFromNote = (noteId, tagId) => async (dispatch) => {
         dispatch(removeTagFromNote(noteId, tagId));
     }
 };
+// export const thunkRemoveTagFromNote = (noteId, tagId) => async (dispatch) => {
+//     try {
+//         // Call API to remove the tag from the note on the backend
+//         await removeTagFromNoteAPI(noteId, tagId); // Replace with actual API function
+
+//         // Dispatch the Redux action to update the local state (optimistic update)
+//         dispatch(removeTagFromNote({ noteId, tagId }));
+
+//         console.log(`Tag with id ${tagId} removed from note ${noteId}`);
+//     } catch (error) {
+//         console.error(`Failed to remove tag ${tagId} from note ${noteId}:`, error);
+//     }
+// };
 
 export const thunkUpdateTag = (tagId, tag_name) => async (dispatch) => {
     const res = await fetch(`/api/tags/${tagId}/edit`, {
@@ -124,9 +151,18 @@ export const thunkDeleteTag = (tagId) => async (dispatch) => {
         method: 'DELETE'
     });
     if (res.ok) {
-        dispatch(deleteTag(tagId));
+        dispatch(removeTagFromAllNotes(tagId));
     }
 };
+
+// export const thunkRemoveTagFromAllNotes = (tagId) => async (dispatch) => {
+//     try {
+//         await removeTagFromAllNotesAPI(tagId); // Assuming API handles removing tag from all notes
+//         dispatch(removeTagFromAllNotes(tagId));
+//     } catch (error) {
+//         console.error('Failed to remove tag from all notes:', error);
+//     }
+// };
 
 // Initial State
 const initialState = {

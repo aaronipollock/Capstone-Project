@@ -12,6 +12,9 @@ import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './NotebookDetails.css';
 import { useMemo } from 'react';
+import Tags from '../Tags'
+import { thunkRemoveTagFromNote } from '../../redux/tags';
+
 
 function NotebookDetails() {
     const { notebookId } = useParams();
@@ -97,6 +100,20 @@ function NotebookDetails() {
     if (!notebook) return <div className="blank-page"></div>;
     if (loading) return <div>Loading...</div>;
 
+    const handleTagsUpdate = (noteId, tagId, updatedTags) => {
+        console.log(`Updating tags for noteId ${noteId}, removing tagId ${tagId}`);
+
+        const removedTag = tagsByNoteId[noteId]?.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+
+        // Dispatch the action to remove the tag from the backend
+        if (removedTag) {
+            dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
+                .catch((error) => {
+                    console.error("Error removing tag from backend:", error);
+                });
+        }
+    };
+
     return (
         <div className="details-page-container">
             <Sidebar />
@@ -163,15 +180,10 @@ function NotebookDetails() {
                             >
                                 <div className="details-item-title">{note.title}</div>
                                 <div className="details-item-content">{note.content}</div>
-                                <div className="details-item-tags">
-                                    {tagsByNoteId[note.id] && tagsByNoteId[note.id].length > 0 ? (
-                                        tagsByNoteId[note.id].map(tag => (
-                                            <span key={tag.id} className="tag">{tag.tag_name}</span>
-                                        ))
-                                    ) : (
-                                        <p></p>
-                                    )}
-                                </div>
+                                <Tags
+                                    tags={tagsByNoteId[note.id] || []}
+                                    variant="default"
+                                />
                             </div>
                         ))}
                     </ul>
@@ -188,6 +200,7 @@ function NotebookDetails() {
                             onTitleChange={handleTitleChange}
                             tags={tagsByNoteId[selectedNoteId] || []}
                             onNoteUpdate={handleNoteUpdate}
+                            onTagsUpdate={handleTagsUpdate}
                         />
                     </>
                 )}

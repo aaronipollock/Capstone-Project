@@ -63,14 +63,6 @@
     border: none
   }
 
-  .quill-tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    height: 40px;
-    margin-left: 50px;
-}
-
 .quill-tag {
     background-color: lightgray;
     border-radius: 6px;

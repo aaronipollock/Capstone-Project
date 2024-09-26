@@ -135,16 +135,6 @@ html, body {
     border-radius: 5px;
 } */
 
-.note-item-tags {
-    margin-left: 20px;
-    margin-top: 5px;
-}
 
-.tag {
-    color: gray;
-    border: none;
-    font-size: 12px;
-    margin-right: 8px;
-    background-color: lightgray;
-    padding: 5px;
-}
+
+

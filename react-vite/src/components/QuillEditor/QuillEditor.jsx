@@ -5,9 +5,8 @@ import './QuillEditor.css';
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { thunkGetCurrentUsersNotes, thunkUpdateNote } from "../../redux/notes";
-import { thunkAddTagToNote, thunkGetTagsForNote, thunkRemoveTagFromNote, thunkDeleteTag } from "../../redux/tags";
-import { FaTag } from "react-icons/fa";
-import { PiCaretDown } from "react-icons/pi";
+import { thunkAddTagToNote, thunkGetTagsForNote } from "../../redux/tags";
+import Tags from '../Tags';
 
 // Helper function to debounce events
 function debounce(func, wait) {
@@ -26,8 +25,8 @@ function debounce(func, wait) {
 
 const QuillEditor = ({
   noteData,
-  initialContent = '',
-  initialTitle = '',
+  initialContent,
+  initialTitle,
   onContentChange,
   onTitleChange,
   onNoteUpdate,
@@ -214,57 +213,29 @@ const QuillEditor = ({
     }
   }
 
-  const toggleDropdown = (index) => {
-    setDropdownIndex(dropdownIndex === index ? null : index);
+  // const handleRemoveTag = async (tagId) => {
+  //   console.log("Before removing tag:", localTags);
+
+  //   try {
+  //     const updatedTags = localTags.filter((tag) => tag.id !== tagId);
+  //     setLocalTags(updatedTags);
+
+  //     console.log("After removing tag from local state:", updatedTags);
+
+  //     await dispatch(thunkRemoveTagFromNote(noteData.id, tagId));
+
+  //     console.log("Tag removed from backend. Updated tags:", updatedTags);
+  //   } catch (error) {
+  //     console.error('Failed to remove tag', error);
+  //   }
+  // };
+  const handleRemoveTag = (tagId) => {
+    onTagsUpdate(noteData.id, tagId, tags.filter(tag => tag.id !== tagId));
   };
 
-  const handleRemoveTag = async (tagId) => {
-    console.log("Before removing tag:", localTags);
-
-    try {
-      const updatedTags = localTags.filter((tag) => tag.id !== tagId);
-      setLocalTags(updatedTags);
-
-      console.log("After removing tag from local state:", updatedTags);
-
-      await dispatch(thunkRemoveTagFromNote(noteData.id, tagId));
-
-      console.log("Tag removed from backend. Updated tags:", updatedTags);
-    } catch (error) {
-      console.error('Failed to remove tag', error);
-    }
+  const handleDeleteTag = (tagId) => {
+    onTagsUpdate(null, tagId, []);
   };
-
-
-  const handleDeleteTag = async (tagId) => {
-    try {
-      await dispatch(thunkDeleteTag(tagId));
-      setLocalTags((prevTags) => prevTags.filter((tag) => tag.id !== tagId));
-      await dispatch(thunkGetCurrentUsersNotes());
-      await dispatch(thunkGetTagsForNote(noteData.id));
-    } catch (error) {
-      setErrors({ server: "An error occurred while deleting the tag." });
-    }
-  };
-
-  // Close dropdown
-  const closeDropdown = () => {
-    setDropdownIndex(null);
-  }
-
-  //Detect clicks outside dropdown and close menu
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest('.tag-dropdown-menu') && !event.target.closest('.tag-dropdown-toggle-button')) {
-        setDropdownIndex(null);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     if (onTagsUpdate) {
@@ -323,56 +294,12 @@ const QuillEditor = ({
         placeholder="Title"
       />
       <div ref={editorRef} className="editor-container"></div>
-      <div className="quill-note-tags">
-        <div className="quill-tag-list">
-          {localTags && localTags.length > 0 ? (
-            localTags.map((tag, index) => {
-              if (tag && tag.tag_name) {
-                return (
-                  <span key={tag.id} className="quill-tag">
-                    <span className="quill-tag-icon"><FaTag /></span>
-                    {tag.tag_name}
-                    <span className="upside-down-caret">
-                      <button
-                        className="tag-dropdown-toggle-button"
-                        onClick={() => {
-                          toggleDropdown(index);
-                        }}
-                      >
-                        <PiCaretDown />
-                      </button>
-                    </span>
-                    {dropdownIndex == index && (
-                      <div className="tag-dropdown-menu">
-                        <button
-                          className="remove-tag-button"
-                          onClick={() => {
-                            handleRemoveTag(tag.id);
-                            closeDropdown();
-                          }}
-                        >
-                          Remove tag
-                        </button>
-                        <button
-                          className="delete-tag-button"
-                          onClick={() => handleDeleteTag(tag.id)}
-                        >
-                          Remove tag from all notes...
-                        </button>
-                      </div>
-                    )}
-                  </span>
-                );
-              } else {
-                console.error('Invalid tag object:', tag);
-                return null;
-              }
-            })
-          ) : (
-            <p></p>
-          )}
-        </div>
-      </div>
+      <Tags
+        tags={tags}
+        variant="quill"
+        onRemoveTag={handleRemoveTag}  // This removes the tag from the current note
+        onDeleteTag={handleDeleteTag}  // This removes the tag from all notes
+      />
       <div>
         {isInput ? (
           <input
