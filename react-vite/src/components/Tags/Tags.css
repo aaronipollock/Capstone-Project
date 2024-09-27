@@ -1,6 +1,13 @@
-.tags-container {
+/* .tags-container {
     margin-left: 20px;
     margin-bottom: -7px;
+} */
+
+.tags-container {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    margin: 0;
 }
 
 .tag {

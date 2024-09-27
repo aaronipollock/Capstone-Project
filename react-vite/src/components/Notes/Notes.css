@@ -76,6 +76,7 @@ html, body {
     max-width: 525px;
     height: 100px;
     overflow: hidden;
+    position: relative;
 }
 
 .note-container:hover {
@@ -134,7 +135,3 @@ html, body {
     border: 1px solid #ccc;
     border-radius: 5px;
 } */
-
-
-
-
