@@ -8,8 +8,6 @@ import './Notes.css';
 import Tags from '../Tags';
 import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
 import { thunkGetTagsForNote } from "../../redux/notes";
-// import { removeTagFromNote } from '../../redux/notesSlice';
-// import { setTagsByNoteId } from '../../redux/notesSlice';
 
 
 function Notes(noteId) {
@@ -98,6 +96,9 @@ function Notes(noteId) {
         }
     };
 
+    const placeholderContent = "Start writing your note...";
+    const placeholderTitle = "Title";
+
     return (
         <>
             <div className="notes-page-container">
@@ -140,18 +141,16 @@ function Notes(noteId) {
                         </section>
                     </div>
                     <div className="notes-editor-section">
-                        {selectedNoteId && (
-                            <QuillEditor
-                                noteData={notes.find(note => note.id === selectedNoteId)}
-                                initialContent={currentContent}
-                                initialTitle={title}
-                                onContentChange={handleContentChange}
-                                onTitleChange={handleTitleChange}
-                                tags={tagsByNoteId[selectedNoteId] || []}
-                                onNoteUpdate={handleNoteUpdate}
-                                onTagsUpdate={handleTagsUpdate}
-                            />
-                        )}
+                        <QuillEditor
+                            noteData={notes.find(note => note.id === selectedNoteId)}
+                            initialContent={selectedNoteId ? currentContent : placeholderContent}
+                            initialTitle={selectedNoteId ? title : placeholderTitle}
+                            onContentChange={handleContentChange}
+                            onTitleChange={handleTitleChange}
+                            tags={tagsByNoteId[selectedNoteId] || []}
+                            onNoteUpdate={handleNoteUpdate}
+                            onTagsUpdate={handleTagsUpdate}
+                        />
                     </div>
                 </div >
             </div >
