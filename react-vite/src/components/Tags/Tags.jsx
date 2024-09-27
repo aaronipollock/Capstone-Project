@@ -57,7 +57,10 @@ function Tags({ tags, variant = 'default', onRemoveTag, onDeleteTag }) {
                                     </button>
                                     <button
                                         className='delete-tag-button'
-                                        onClick={() => onDeleteTag(tag.id)}
+                                        onClick={() => {
+                                            onDeleteTag(tag.id);
+                                            closeDropdown();
+                                        }}
                                     >
                                         Remove tag from all notes...
                                     </button>

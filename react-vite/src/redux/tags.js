@@ -24,11 +24,11 @@ const createTag = (tag) => ({
     payload: tag
 })
 
-const getTagsForNote = (noteId, tags) => ({
-    type: GET_TAGS_FOR_NOTE,
-    noteId,
-    payload: tags,
-})
+// const getTagsForNote = (noteId, tags) => ({
+//     type: GET_TAGS_FOR_NOTE,
+//     noteId,
+//     payload: tags,
+// })
 
 const addTagToNote = (noteId, tag) => ({
     type: ADD_TAG_TO_NOTE,
@@ -47,10 +47,10 @@ const updateTag = (tag) => ({
     payload: tag
 });
 
-const deleteTag = (tagId) => ({
-    type: DELETE_TAG,
-    tagId
-})
+// const deleteTag = (tagId) => ({
+//     type: DELETE_TAG,
+//     tagId
+// })
 
 // Thunks
 export const thunkGetAllTags = () => async (dispatch) => {
@@ -113,26 +113,19 @@ export const thunkAddTagToNote = (noteId, newTag) => async (dispatch) => {
 };
 
 export const thunkRemoveTagFromNote = (noteId, tagId) => async (dispatch) => {
+    console.log(`Dispatching thunkRemoveTagFromNote with noteId: ${noteId}, tagId: ${tagId}`);
     const res = await fetch(`/api/tags/${tagId}/notes/${noteId}/remove`, {
         method: 'DELETE'
     });
+
     if (res.ok) {
+        console.log(`Tag with id ${tagId} successfully removed from note ${noteId}`);
         dispatch(removeTagFromNote(noteId, tagId));
+    } else {
+        console.error("Error removing tag from note:", await res.text());
     }
 };
-// export const thunkRemoveTagFromNote = (noteId, tagId) => async (dispatch) => {
-//     try {
-//         // Call API to remove the tag from the note on the backend
-//         await removeTagFromNoteAPI(noteId, tagId); // Replace with actual API function
 
-//         // Dispatch the Redux action to update the local state (optimistic update)
-//         dispatch(removeTagFromNote({ noteId, tagId }));
-
-//         console.log(`Tag with id ${tagId} removed from note ${noteId}`);
-//     } catch (error) {
-//         console.error(`Failed to remove tag ${tagId} from note ${noteId}:`, error);
-//     }
-// };
 
 export const thunkUpdateTag = (tagId, tag_name) => async (dispatch) => {
     const res = await fetch(`/api/tags/${tagId}/edit`, {
@@ -147,22 +140,17 @@ export const thunkUpdateTag = (tagId, tag_name) => async (dispatch) => {
 };
 
 export const thunkDeleteTag = (tagId) => async (dispatch) => {
-    const res = await fetch(`/api/tags/${tagId}/delete`, {
-        method: 'DELETE'
-    });
+    console.log(`Dispatching thunkDeleteTag with tagId: ${tagId}`);
+    const res = await fetch(`/api/tags/${tagId}/delete`, { method: 'DELETE' });
+
     if (res.ok) {
-        dispatch(removeTagFromAllNotes(tagId));
+        console.log(`Tag with id ${tagId} successfully deleted`);
+        dispatch(removeTagFromAllNotes(tagId)); // Remove the tag from all notes in the Redux state
+    } else {
+        console.error("Error deleting tag:", await res.text());
     }
 };
 
-// export const thunkRemoveTagFromAllNotes = (tagId) => async (dispatch) => {
-//     try {
-//         await removeTagFromAllNotesAPI(tagId); // Assuming API handles removing tag from all notes
-//         dispatch(removeTagFromAllNotes(tagId));
-//     } catch (error) {
-//         console.error('Failed to remove tag from all notes:', error);
-//     }
-// };
 
 // Initial State
 const initialState = {
@@ -226,10 +214,21 @@ export default function tagReducer(state = initialState, action) {
                 )
             };
         case DELETE_TAG:
+            // Remove the tag from all notes in the `tagsByNoteId`
             return {
                 ...state,
-                allTags: state.allTags.filter(tag => tag.id !== action.tagId)
+                tagsByNoteId: Object.keys(state.tagsByNoteId).reduce((acc, noteId) => {
+                    acc[noteId] = state.tagsByNoteId[noteId].filter(tag => tag.id !== action.tagId);
+                    return acc;
+                }, {}),
+                allTags: state.allTags.filter(tag => tag.id !== action.tagId),  // Also remove from global tag list
             };
+
+        // case DELETE_TAG:
+        //     return {
+        //         ...state,
+        //         allTags: state.allTags.filter(tag => tag.id !== action.tagId)
+        //     };
         default:
             return state;
     }

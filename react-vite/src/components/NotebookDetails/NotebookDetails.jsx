@@ -13,7 +13,7 @@ import 'quill/dist/quill.snow.css';
 import './NotebookDetails.css';
 import { useMemo } from 'react';
 import Tags from '../Tags'
-import { thunkRemoveTagFromNote } from '../../redux/tags';
+import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
 
 
 function NotebookDetails() {
@@ -53,7 +53,6 @@ function NotebookDetails() {
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log('Toggling Dropdown:', index);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
 
@@ -100,17 +99,45 @@ function NotebookDetails() {
     if (!notebook) return <div className="blank-page"></div>;
     if (loading) return <div>Loading...</div>;
 
-    const handleTagsUpdate = (noteId, tagId, updatedTags) => {
-        console.log(`Updating tags for noteId ${noteId}, removing tagId ${tagId}`);
+    const handleTagsUpdate = (noteId, tagId, updatedTags, removeFromAll = false) => {
+        console.log(`Updating tags for noteId: ${noteId}, tagId: ${tagId}, removeFromAll: ${removeFromAll}`);
 
-        const removedTag = tagsByNoteId[noteId]?.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+        // Ensure tagsByNoteId[noteId] exists and has tags
+        const currentTags = tagsByNoteId[noteId] || [];
+        console.log('Current tags for note:', currentTags);
 
-        // Dispatch the action to remove the tag from the backend
+        // Find the removed tag
+        const removedTag = currentTags.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+        console.log('Removed tag:', removedTag);
+
+        // Check if removedTag exists before proceeding
         if (removedTag) {
-            dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
-                .catch((error) => {
-                    console.error("Error removing tag from backend:", error);
-                });
+            if (removeFromAll) {
+                console.log(`Attempting to remove tag with id ${removedTag.id} from all notes`);
+                // If removeFromAll is true, remove the tag globally from all notes
+                dispatch(thunkDeleteTag(removedTag.id))
+                    .then(() => {
+                        console.log(`Tag with id ${removedTag.id} removed from all notes`);
+                        setNoteUpdated(prev => !prev); // Force re-render
+                    })
+                    .catch((error) => {
+                        console.error("Error removing tag from all notes:", error);
+                    });
+            } else {
+                console.log(`Attempting to remove tag with id ${removedTag.id} from note ${noteId}`);
+                // Otherwise, remove the tag from the specific note
+                dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
+                    .then(() => {
+                        console.log(`Tag with id ${removedTag.id} removed from note ${noteId}`);
+                        setNoteUpdated(prev => !prev); // Force re-render
+                        dispatch(thunkGetTagsForNote(noteId)); // Refresh tags for the note
+                    })
+                    .catch((error) => {
+                        console.error("Error removing tag from note:", error);
+                    });
+            }
+        } else {
+            console.error('No tag found to remove.');
         }
     };
 

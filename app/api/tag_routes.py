@@ -92,6 +92,9 @@ def delete_tag(tag_id):
     """Delete a tag"""
     tag = Tag.query.get(tag_id)
 
+    if not tag:
+        return jsonify({'error': 'Tag not found'}), 404
+
     for note in tag.notes:
         note.tags.remove(tag)
 

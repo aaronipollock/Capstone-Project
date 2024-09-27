@@ -204,8 +204,8 @@ const QuillEditor = ({
         await dispatch(thunkGetCurrentUsersNotes());
         await dispatch(thunkGetTagsForNote(noteData.id));
 
-        setInputValue(""); // Clear input after adding tag
-        setIsInput(false); // Hide input after adding tag
+        setInputValue("");
+        setIsInput(false);
       } catch (error) {
         console.error('Failed to add tag', error);
         setErrors({ server: "An error occurred while adding the tag." })
@@ -213,28 +213,12 @@ const QuillEditor = ({
     }
   }
 
-  // const handleRemoveTag = async (tagId) => {
-  //   console.log("Before removing tag:", localTags);
-
-  //   try {
-  //     const updatedTags = localTags.filter((tag) => tag.id !== tagId);
-  //     setLocalTags(updatedTags);
-
-  //     console.log("After removing tag from local state:", updatedTags);
-
-  //     await dispatch(thunkRemoveTagFromNote(noteData.id, tagId));
-
-  //     console.log("Tag removed from backend. Updated tags:", updatedTags);
-  //   } catch (error) {
-  //     console.error('Failed to remove tag', error);
-  //   }
-  // };
   const handleRemoveTag = (tagId) => {
-    onTagsUpdate(noteData.id, tagId, tags.filter(tag => tag.id !== tagId));
+    onTagsUpdate(noteData.id, tagId, tags.filter(tag => tag.id !== tagId), false);
   };
 
   const handleDeleteTag = (tagId) => {
-    onTagsUpdate(null, tagId, []);
+    onTagsUpdate(noteData.id, tagId, tags.filter(tag => tag.id !== tagId), true);
   };
 
   useEffect(() => {

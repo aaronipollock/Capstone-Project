@@ -6,13 +6,13 @@ import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './Notes.css';
 import Tags from '../Tags';
-import { thunkRemoveTagFromNote } from '../../redux/tags';
+import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
 import { thunkGetTagsForNote } from "../../redux/notes";
 // import { removeTagFromNote } from '../../redux/notesSlice';
 // import { setTagsByNoteId } from '../../redux/notesSlice';
 
 
-function Notes(noteId, tagId) {
+function Notes(noteId) {
     const dispatch = useDispatch();
     const notes = useSelector(state => state.notes.userNotes);
 
@@ -28,9 +28,7 @@ function Notes(noteId, tagId) {
 
     useEffect(() => {
         if (notes.length > 0) {
-            console.log('Notes found:', notes);
             notes.forEach(note => {
-                console.log(`Fetching tags for note ID: ${note.id}`);
                 dispatch(thunkGetTagsForNote(note.id));
             });
         }
@@ -38,8 +36,6 @@ function Notes(noteId, tagId) {
 
 
     const handleNoteClick = (noteId) => {
-        console.log('Note clicked:', noteId);
-
         const selectedNote = notes.find(note => note.id === noteId);
         if (selectedNote) {
             setSelectedNoteId(noteId);
@@ -60,64 +56,47 @@ function Notes(noteId, tagId) {
         setNoteUpdated(prev => !prev);
     }
 
-    // const handleTagsUpdate = (noteId, tagId, updatedTags) => {
+    const handleTagsUpdate = (noteId, tagId, updatedTags, removeFromAll = false) => {
+        console.log(`Updating tags for noteId: ${noteId}, tagId: ${tagId}, removeFromAll: ${removeFromAll}`);
 
-    //     const removedTag = tagsByNoteId[noteId]?.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+        // Ensure tagsByNoteId[noteId] exists and has tags
+        const currentTags = tagsByNoteId[noteId] || [];
+        console.log('Current tags for note:', currentTags);
 
-    //     // Dispatch the action to remove the tag from the backend
-    //     if (removedTag) {
-    //         dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
-    //             .then(() => {
-    //                 setNoteUpdated(prev => !prev);
-    //             })
-    //             .catch((error) => {
-    //                 console.error("Error removing tag from backend:", error);
-    //             });
-    //     }
-    // };
-    console.log('Note ID:', noteId);
-    console.log('Tag ID:', tagId);
+        // Find the removed tag
+        const removedTag = currentTags.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+        console.log('Removed tag:', removedTag);
 
-    // const handleTagsUpdate = (noteId, tagId) => {
-    //     console.log(`Removing tag with ID: ${tagId} from note with ID: ${noteId}`);
-    //     const previousTags = [...(tagsByNoteId[noteId] || [])]; // Keep a copy of the original tags
-    //     console.log('Previous tags:', previousTags);
-
-    //     if (!tagId || !noteId) {
-    //         console.error('Invalid note or tag ID');
-    //         return;
-    //     }
-
-    //     // Optimistically remove tag locally
-    //     dispatch(removeTagFromNote({ noteId, tagId }));
-
-    //     // Confirm removal with backend
-    //     dispatch(thunkRemoveTagFromNote(noteId, tagId))
-    //         .then(() => {
-    //             console.log(`Tag with ID: ${tagId} removed from note with ID: ${noteId}`);
-    //             setNoteUpdated(prev => !prev);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error removing tag from backend:", error);
-    //             // Revert to the original state if the backend call fails
-    //             dispatch(setTagsByNoteId({ noteId, tags: previousTags }));
-    //         });
-    // };
-    const handleTagsUpdate = (noteId, tagId, updatedTags) => {
-        console.log(`Updating tags for noteId ${noteId}, removing tagId ${tagId}`);
-
-        const removedTag = tagsByNoteId[noteId]?.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
-
-        // Dispatch the action to remove the tag from the backend
+        // Check if removedTag exists before proceeding
         if (removedTag) {
-            dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
-                .catch((error) => {
-                    console.error("Error removing tag from backend:", error);
-                });
+            if (removeFromAll) {
+                console.log(`Attempting to remove tag with id ${removedTag.id} from all notes`);
+                // If removeFromAll is true, remove the tag globally from all notes
+                dispatch(thunkDeleteTag(removedTag.id))
+                    .then(() => {
+                        console.log(`Tag with id ${removedTag.id} removed from all notes`);
+                        setNoteUpdated(prev => !prev); // Force re-render
+                    })
+                    .catch((error) => {
+                        console.error("Error removing tag from all notes:", error);
+                    });
+            } else {
+                console.log(`Attempting to remove tag with id ${removedTag.id} from note ${noteId}`);
+                // Otherwise, remove the tag from the specific note
+                dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
+                    .then(() => {
+                        console.log(`Tag with id ${removedTag.id} removed from note ${noteId}`);
+                        setNoteUpdated(prev => !prev); // Force re-render
+                        dispatch(thunkGetTagsForNote(noteId)); // Refresh tags for the note
+                    })
+                    .catch((error) => {
+                        console.error("Error removing tag from note:", error);
+                    });
+            }
+        } else {
+            console.error('No tag found to remove.');
         }
     };
-
-    console.log('Tags by Note ID:', tagsByNoteId);
 
     return (
         <>
@@ -153,6 +132,8 @@ function Notes(noteId, tagId) {
                                     <Tags
                                         tags={tagsByNoteId[note.id] || []}
                                         variant="default"
+                                        onRemoveTag={(tagId) => handleTagsUpdate(noteId, tagId, tagsByNoteId[note.id], false)}
+                                        onDeleteTag={(tagId) => handleTagsUpdate(null, tagId, tagsByNoteId[note.id], true)}
                                     />
                                 </div>
                             ))}
