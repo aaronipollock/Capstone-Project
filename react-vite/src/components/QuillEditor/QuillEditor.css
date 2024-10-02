@@ -56,7 +56,7 @@
     width: 565px;
     height: 40px;
     cursor: pointer;
-    color: gray;
+    color: orange;
     background-color: white;
     border-radius: 5px;
     font-weight: lighter;
@@ -73,7 +73,7 @@
 }
 
 .quill-tag-icon {
-  color: gray;
+  color: orange;
   padding: 5px;
 }
 

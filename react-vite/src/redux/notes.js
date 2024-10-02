@@ -6,10 +6,10 @@ const DELETE_NOTE = 'notes/:noteId/delete';
 // const SET_TAGS_FOR_NOTE = 'tags/notes/:noteId';
 
 //Action creators
-const fetchNotesError = (error) => ({
-    type: FETCH_NOTES_ERROR,
-    error,
-});
+// const fetchNotesError = (error) => ({
+//     type: FETCH_NOTES_ERROR,
+//     error,
+// });
 
 const currentUsersNotes = (notes) => ({
     type: CURRENT_USERS_NOTES,

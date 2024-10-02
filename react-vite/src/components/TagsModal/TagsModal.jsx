@@ -14,7 +14,7 @@ function TagsModal() {
     const [loading, setLoading] = useState(true);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [sortedTags, setSortedTags] = useState([...tags]);
-    const [sortOrder, setSortOrder] = useState('A-Z');
+    const [ setSortOrder ] = useState('A-Z');
 
     useEffect(() => {
         const fetchTags = async () => {

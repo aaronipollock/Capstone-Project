@@ -9,7 +9,7 @@ import { MdOutlineHome } from "react-icons/md";
 // import { FaRegStar } from "react-icons/fa";
 import { HiOutlineDocumentText } from "react-icons/hi";
 // import { FaRegCheckCircle } from "react-icons/fa";
-// import { FiTag } from "react-icons/fi";
+import { FiTag } from "react-icons/fi";
 import { PiNotebookBold } from "react-icons/pi";
 
 
