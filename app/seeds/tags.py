@@ -119,11 +119,8 @@ def seed_tags():
     note154.tags.append(tag7)
     note155.tags.append(tag5)
     note155.tags.append(tag7)
-    print(f"Tags associated with notes: Note 6 -> {note6.tags}, Note 7 -> {note7.tags}, Note 8 -> {note8.tags}")
 
     db.session.commit()
-    print("Tags associated with notes committed to the database")
-
 
 def undo_tags():
     if environment == "production":
