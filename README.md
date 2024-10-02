@@ -7,7 +7,7 @@ https://capstone-project-xsl6.onrender.com
 
 ## Screenshots
 
-Here are some screenshots of the Note2be in action:
+Here are some screenshots of Note2be in action:
 
 ### Home Page
 <img width="1621" alt="Screenshot 2024-08-25 at 9 14 44 PM" src="https://github.com/user-attachments/assets/9c5bae9e-2817-40ac-8827-92fbe31e86ab">
@@ -82,6 +82,3 @@ Users can categorize notes into different notebooks, allowing for better organiz
 
 **Database Schema:**
 - The application uses a relational database structure with a many-to-many relationship between notes and notebooks. The SQLAlchemy ORM is used to manage database operations.
-
-
-
