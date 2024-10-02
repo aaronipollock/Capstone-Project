@@ -36,7 +36,6 @@ function UserPage() {
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log('Toggling Dropdown:', index);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
 

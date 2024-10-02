@@ -12,7 +12,7 @@ tag_routes = Blueprint('tags', __name__)
 def get_all_tags():
     """Get all tags"""
     tags = Tag.query.all()
-    tag_list = [{'id': tag.id, 'name': tag.tag_name} for tag in tags]
+    tag_list = [{'id': tag.id, 'tag_name': tag.tag_name, 'user_id': tag.user_id} for tag in tags]
 
     return jsonify(tag_list), 200
 

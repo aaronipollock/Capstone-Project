@@ -4,6 +4,7 @@ import './Sidebar.css';
 import OpenModalButton from '../OpenModalButton';
 import CreateNotebookModal from '../CreateNotebookModal'
 import CreateNoteModal from '../CreateNoteModal';
+import TagsModal from '../TagsModal';
 import { MdOutlineHome } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -64,11 +65,21 @@ function Sidebar() {
                     <span>Notebooks</span>
                     {/* <button className="menu-button notebooks">Notebooks</button> */}
                 </Link>
-                <Link to="/users/current" className="link-menu-button">
+                <div>
+                    <OpenModalButton
+                        className="tag-modal-button"
+                        buttonText={(
+                            <span>
+                                <FiTag className="tag-sidebar-icon" /> Tags
+                            </span>
+                        )}
+                        modalComponent={<TagsModal />}
+                    />
+                </div>
+                {/* <Link to="/users/current" className="link-menu-button">
                     <FiTag className="icon" />
                     <span>Tags</span>
-                    {/* <button className="menu-button notebooks">Notebooks</button> */}
-                </Link>
+                </Link> */}
                 {/* <button className="menu-button">Tags</button> */}
                 {/* <button className="menu-button trash">Trash</button>
                 {/* <button className="menu-button upgrade"><strong>Upgrade</strong></button> */}

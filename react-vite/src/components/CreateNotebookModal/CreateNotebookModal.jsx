@@ -36,8 +36,6 @@ function CreateNotebookModal() {
                 thunkCreateNewNotebook({ title })
             );
 
-            console.log("Server response:", serverResponse);
-
             if (serverResponse.errors) {
                 setErrors(serverResponse.errors);
             } else {

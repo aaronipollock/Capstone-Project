@@ -10,7 +10,7 @@
     width: 566px;
     height: 100px;
     background: white;
-    z-index: 1;
+    /* z-index: 1; */
   }
 
   .quill-title-input {

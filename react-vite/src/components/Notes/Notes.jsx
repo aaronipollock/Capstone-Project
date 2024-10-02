@@ -96,8 +96,8 @@ function Notes(noteId) {
         }
     };
 
-    const placeholderContent = "Start writing your note...";
-    const placeholderTitle = "Title";
+    // const placeholderContent = "Start writing your note...";
+    // const placeholderTitle = "Title...";
 
     return (
         <>
@@ -143,8 +143,8 @@ function Notes(noteId) {
                     <div className="notes-editor-section">
                         <QuillEditor
                             noteData={notes.find(note => note.id === selectedNoteId)}
-                            initialContent={selectedNoteId ? currentContent : placeholderContent}
-                            initialTitle={selectedNoteId ? title : placeholderTitle}
+                            initialContent={selectedNoteId ? currentContent : ""}
+                            initialTitle={selectedNoteId ? title : ""}
                             onContentChange={handleContentChange}
                             onTitleChange={handleTitleChange}
                             tags={tagsByNoteId[selectedNoteId] || []}

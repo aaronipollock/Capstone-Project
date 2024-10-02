@@ -51,13 +51,37 @@ const QuillEditor = ({
 
   // const [dropdownIndex, setDropdownIndex] = useState(null);
 
+  // Update title if the note title changes
 
-  // Function to strip HTML tags using DOMParser
-  const stripHtmlTags = (html) => {
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    return div.textContent || div.innerText || '';
-  };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
+        setIsInput(false);
+      }
+    };
+
+
+    if (isInput) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isInput]);
+
+  useEffect(() => {
+    if (initialTitle && initialTitle !== title) {
+      setTitle(initialTitle);
+    }
+  }, [initialTitle]);
+
+  // Update content when the initialContent changes
+  useEffect(() => {
+    if (quillRef.current && quillRef.current.root.innerHTML !== initialContent) {
+      quillRef.current.clipboard.dangerouslyPasteHTML(initialContent);
+    }
+  }, [initialContent]);
 
   useEffect(() => {
     setLocalTags(tags);
@@ -71,7 +95,7 @@ const QuillEditor = ({
         modules: {
           toolbar: '#quill-toolbar',
         },
-        placeholder: 'Start writing...',
+        placeholder: '',
       });
       quillRef.current = quill;
 
@@ -94,36 +118,12 @@ const QuillEditor = ({
     }
   }, [initialContent, onContentChange]); // Only initialize once on mount
 
-  // Update content when the initialContent changes
-  useEffect(() => {
-    if (quillRef.current && quillRef.current.root.innerHTML !== initialContent) {
-      quillRef.current.clipboard.dangerouslyPasteHTML(initialContent);
-    }
-  }, [initialContent]);
-
-  // Update title if the note title changes
-  useEffect(() => {
-    if (title !== initialTitle) {
-      setTitle(initialTitle);
-    }
-  }, [initialTitle, title]);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (inputRef.current && !inputRef.current.contains(e.target)) {
-        setIsInput(false);
-      }
-    };
-
-
-    if (isInput) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isInput]);
+  // Function to strip HTML tags using DOMParser
+  const stripHtmlTags = (html) => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -151,14 +151,13 @@ const QuillEditor = ({
       return;
     }
 
-    if (noteData.user_id !== currentUser) {
-      setErrors({ user: "You are not authorized." });
-      return;
-    }
+    // if (noteData.user_id !== currentUser) {
+    //   setErrors({ user: "You are not authorized." });
+    //   return;
+    // }
 
     const plainTextContent = stripHtmlTags(content);
     const updatedNote = { ...noteData, title, content: plainTextContent };
-
 
     try {
       setIsLoading(true);
@@ -223,7 +222,6 @@ const QuillEditor = ({
 
   useEffect(() => {
     if (onTagsUpdate) {
-      console.log("Calling onTagsUpdate with updated tags:", localTags);
       onTagsUpdate(localTags);
     }
   }, [localTags, onTagsUpdate]);
@@ -275,7 +273,7 @@ const QuillEditor = ({
             onTitleChange(newTitle);
           }
         }}
-        placeholder="Title"
+        placeholder=""
       />
       <div ref={editorRef} className="editor-container"></div>
       <Tags
