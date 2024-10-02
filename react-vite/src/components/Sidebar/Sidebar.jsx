@@ -34,10 +34,10 @@ function Sidebar() {
                         modalComponent={<CreateNoteModal />}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <button className="button task">+Task</button>
                     <button className="button event">+Event</button>
-                </div>
+                </div> */}
             </div>
             <div className="sidebar-menu-buttons">
                 <Link to="/users/current" className="link-menu-button">
@@ -45,21 +45,21 @@ function Sidebar() {
                     {/* <button className="menu-button home">Home</button> */}
                     <span>Home</span>
                 </Link>
-                <Link to="/users/current" className="link-menu-button">
+                {/* <Link to="/users/current" className="link-menu-button">
                     <FaRegStar className="icon" />
-                    <span>Shortcuts</span>
+                    <span>Shortcuts</span> */}
                 {/* <button className="menu-button">Shortcuts</button> */}
-                </Link>
+                {/* </Link> */}
                 <Link to="/notes" className="link-menu-button">
                     <HiOutlineDocumentText className='icon' />
                     <span>Notes</span>
                     {/* <button className="menu-button notes">Notes</button> */}
                 </Link>
-                <Link to="/users/current" className="link-menu-button">
-                    <FaRegCheckCircle className="icon" />
-                    <span>Tasks</span>
+                {/* <Link to="/users/current" className="link-menu-button"> */}
+                    {/* <FaRegCheckCircle className="icon" />
+                    <span>Tasks</span> */}
                     {/* <button className="menu-button">Tasks</button> */}
-                </Link>
+                {/* </Link> */}
                 <Link to="/notebooks" className="link-menu-button">
                     <PiNotebookBold className="icon" />
                     <span>Notebooks</span>
