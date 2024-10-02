@@ -59,7 +59,7 @@
 .new-notebook-button {
     font-size: 14px;
     border: none;
-    color: green;
+    color: rgb(190, 79, 190);
     background-color: transparent;
     cursor: pointer;
     margin-right: 50px;

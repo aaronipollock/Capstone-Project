@@ -64,11 +64,11 @@ input {
 
 .button.create {
     color: white;
-    background-color: gray;
+    background-color: rgb(190, 79, 190);
 }
 
 .button.create:hover {
-    background-color: blue;
+    background-color: rgb(122, 50, 122)
 }
 
 .error-message {

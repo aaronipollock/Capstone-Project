@@ -39,6 +39,9 @@
 
 
 .tag-list-close-button {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
     margin-top: 10px;
     padding: 10px;
     background-color: orange;

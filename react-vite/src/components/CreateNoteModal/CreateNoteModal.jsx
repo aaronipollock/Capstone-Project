@@ -89,7 +89,7 @@ function CreateNoteModal({ notebookId, prepopulatedContent }) {
                     <button type='button' onClick={handleCancelClick} className="button cancel">
                         Cancel
                     </button>
-                    <button type='submit' className="button create">
+                    <button type='submit' className="create-note-button">
                         Create
                     </button>
                 </div>

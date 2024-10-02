@@ -78,6 +78,15 @@ def upgrade():
     sa.ForeignKeyConstraint(['note_id'], ['notes.id'], ),
     sa.PrimaryKeyConstraint('note_id', 'tag_id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE notebooks SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE notes SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE notebook_notes SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE tags SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE note_tags SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
