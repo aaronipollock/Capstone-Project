@@ -7,7 +7,6 @@ import OpenModalButton from "../OpenModalButton";
 import CreateNotebookModal from '../CreateNotebookModal';
 import UpdateNotebookModal from '../UpdateNotebookModal/UpdateNotebookModal';
 import DeleteNotebookModal from '../DeleteNotebookModal';
-// import NotesByNotebook from '../NotesByNotebooks/NotesByNotebook';
 import './Notebooks.css';
 
 function Notebooks() {

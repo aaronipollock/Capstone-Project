@@ -1,0 +1,31 @@
+/* .tags-container {
+    margin-left: 20px;
+    margin-bottom: -7px;
+} */
+
+.tags-container {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    margin: 0;
+}
+
+.tag {
+    color: gray;
+    border: none;
+    font-size: 12px;
+    margin-right: 8px;
+    background-color: lightgray;
+    padding: 5px;
+}
+
+.quill-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 8px; */
+    height: 40px;
+    padding-left: 50px;
+    border: 1px solid #ccc;
+    width: 98%;
+    background-color: white;
+}

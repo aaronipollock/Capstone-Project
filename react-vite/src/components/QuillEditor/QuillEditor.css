@@ -10,7 +10,7 @@
     width: 566px;
     height: 100px;
     background: white;
-    z-index: 1;
+    /* z-index: 1; */
   }
 
   .quill-title-input {
@@ -26,7 +26,7 @@
   }
 
   .editor-container {
-    height: calc(100vh - 245px);
+    height: calc(100vh - 345px);
     background-color: white;
     border-radius: 4px;
     box-sizing: border-box;
@@ -51,3 +51,90 @@
   .editor-button-update:hover {
     background-color: darkgreen;
   }
+
+  .add-tag-button {
+    width: 565px;
+    height: 40px;
+    cursor: pointer;
+    color: gray;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: lighter;
+    border: none
+  }
+
+.quill-tag {
+    background-color: lightgray;
+    border-radius: 6px;
+    margin: 3px;
+    padding: 8px;
+    font-size: 14px;
+    color: black;
+}
+
+.quill-tag-icon {
+  color: gray;
+  padding: 5px;
+}
+
+.quill-note-tags {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  width: 558px;
+  background-color: white;
+  padding: 3px;
+}
+
+.add-tag-button {
+  border: 1px solid #ccc;
+}
+
+.add-tag-button:hover {
+  background-color: lightgray;
+}
+
+.quill-tag-input {
+  width: 553px;
+}
+
+.upside-down-caret {
+  display: inline-block;
+  font-size: 14px;
+  color: gray;
+  margin-left: 3px;;
+}
+
+.tag-dropdown-toggle-button {
+  border: none;
+  background-color: lightgray;
+}
+
+.tag-dropdown-toggle-button:hover {
+  cursor: pointer;
+}
+
+.tag-dropdown-menu {
+  /* z-index: 1; */
+  position: absolute;
+  margin: -90px 90px;
+  /* background-color: white; */
+  width: 190px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.remove-tag-button {
+  display: flex;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+
+.delete-tag-button {
+  display: flex;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}

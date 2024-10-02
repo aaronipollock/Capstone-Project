@@ -13,11 +13,12 @@ note_routes = Blueprint('notes', __name__)
 @note_routes.route('/')
 @login_required
 def get_notes():
-    """Get current user's notes"""
+    """Get current user's notes with tags"""
 
     user_notes = Note.query.filter_by(user_id=current_user.id).all()
-    return {"notes": [note.to_dict() for note in user_notes]}
-    print(f"Fetched {len(notes)} notes from the database.")
+    notes_with_tags = [note.to_dict(include_tags=True) for note in user_notes]
+
+    return jsonify(notes_with_tags), 200
 
 @note_routes.route('/create', methods=['POST'])
 @login_required
@@ -29,10 +30,7 @@ def post_note():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     data = request.get_json()
-    # title = data.get('title')
-    # content = data.get('content')
     notebook_id = data.get('notebookId')
-    # user_id = current_user.id
     print(f"Received data: {data}")
     print(f"Notebook ID: {notebook_id}")
 

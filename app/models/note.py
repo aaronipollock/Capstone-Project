@@ -1,8 +1,13 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .notebook import notebook_notes
 from sqlalchemy import Table, Column, Integer, ForeignKey
 
+
+note_tags = db.Table('note_tags', db.Model.metadata,
+    Column('note_id', Integer, db.ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True),
+    Column('tag_id', Integer, db.ForeignKey(add_prefix_for_prod('tags.id')), primary_key=True)
+)
 
 class Note(db.Model):
     __tablename__ = 'notes'
@@ -20,8 +25,9 @@ class Note(db.Model):
 
     user = db.relationship('User', back_populates='notes')
     notebooks = db.relationship('Notebook', back_populates='notes', secondary=notebook_notes)
+    tags = db.relationship('Tag', secondary='note_tags', back_populates='notes')
 
-    def to_dict(self, include_notebooks=False):
+    def to_dict(self, include_notebooks=False, include_tags=False):
         note_dict = {
             'id': self.id,
             'title': self.title,
@@ -29,10 +35,15 @@ class Note(db.Model):
             'user_id': self.user_id,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            # 'notebooks': [notebook.to_dict() for notebook in self.notebooks]
         }
+
         if include_notebooks:
             note_dict['notebook'] = [notebook.to_dict(include_notes=False) for notebook in self.notebooks]
+
+
+        if include_tags:
+            note_dict['tags'] = [tag.to_dict() for tag in self.tags]
+
         return note_dict
 
 # notebook_notes = Table('notebook_notes', db.Model.metadata,

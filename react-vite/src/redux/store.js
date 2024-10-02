@@ -8,13 +8,15 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import notebookReducer from "./notebooks";
 import noteReducer from "./notes";
+import tagReducer from "./tags";
 
 const LOG_OUT = 'session/logout';
 
 const appReducer = combineReducers({
   session: sessionReducer,
   notebooks: notebookReducer,
-  notes: noteReducer
+  notes: noteReducer,
+  tags: tagReducer
 });
 
 const rootReducer = (state, action) => {

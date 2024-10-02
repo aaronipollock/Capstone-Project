@@ -2,17 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { thunkGetNotebookDetails } from "../../redux/notebooks";
-// import { thunkGetCurrentUsersNotes } from "../../redux/notes";
+import { thunkGetTagsForNote } from "../../redux/notes";
 import Sidebar from "../Sidebar";
 import OpenModalButton from "../OpenModalButton";
-// import DeleteNotebookDetailModal from "../DeleteNotebookDetailModal";
 import CreateNoteModal from "../CreateNoteModal";
-// import DeleteNoteModal  from "../DeleteNoteModal";
 import UpdateNotebookModal from "../UpdateNotebookModal";
 import DeleteNotebookModal from "../DeleteNotebookModal";
 import QuillEditor from '../QuillEditor';
 import 'quill/dist/quill.snow.css';
 import './NotebookDetails.css';
+import { useMemo } from 'react';
+import Tags from '../Tags'
+import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
+
 
 function NotebookDetails() {
     const { notebookId } = useParams();
@@ -26,11 +28,19 @@ function NotebookDetails() {
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
     const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
+    const notes = useMemo(() => (notebook ? notebook.notes : []), [notebook]);
+    const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
 
     useEffect(() => {
         const fetchNotebookDetails = async () => {
             try {
                 await dispatch(thunkGetNotebookDetails(notebookId));
+
+                if (notes.length > 0) {
+                    notes.forEach(note => {
+                        dispatch(thunkGetTagsForNote(note.id));
+                    });
+                }
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -39,9 +49,7 @@ function NotebookDetails() {
         };
 
         fetchNotebookDetails();
-    }, [dispatch, notebookId, noteUpdated]);
-
-    const notes = notebook ? notebook.notes : [];
+    }, [dispatch, notebookId, noteUpdated, notes]);
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
@@ -84,14 +92,54 @@ function NotebookDetails() {
     };
 
     const handleNoteUpdate = () => {
-        // This function can be passed down to QuillEditor to set noteUpdated to true after update
         setNoteUpdated(prev => !prev);
     }
 
     if (error) return <p>{error}</p>;
     if (!notebook) return <div className="blank-page"></div>;
-
     if (loading) return <div>Loading...</div>;
+
+    const handleTagsUpdate = (noteId, tagId, updatedTags, removeFromAll = false) => {
+        console.log(`Updating tags for noteId: ${noteId}, tagId: ${tagId}, removeFromAll: ${removeFromAll}`);
+
+        // Ensure tagsByNoteId[noteId] exists and has tags
+        const currentTags = tagsByNoteId[noteId] || [];
+        console.log('Current tags for note:', currentTags);
+
+        // Find the removed tag
+        const removedTag = currentTags.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+        console.log('Removed tag:', removedTag);
+
+        // Check if removedTag exists before proceeding
+        if (removedTag) {
+            if (removeFromAll) {
+                console.log(`Attempting to remove tag with id ${removedTag.id} from all notes`);
+                // If removeFromAll is true, remove the tag globally from all notes
+                dispatch(thunkDeleteTag(removedTag.id))
+                    .then(() => {
+                        console.log(`Tag with id ${removedTag.id} removed from all notes`);
+                        setNoteUpdated(prev => !prev); // Force re-render
+                    })
+                    .catch((error) => {
+                        console.error("Error removing tag from all notes:", error);
+                    });
+            } else {
+                console.log(`Attempting to remove tag with id ${removedTag.id} from note ${noteId}`);
+                // Otherwise, remove the tag from the specific note
+                dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
+                    .then(() => {
+                        console.log(`Tag with id ${removedTag.id} removed from note ${noteId}`);
+                        setNoteUpdated(prev => !prev); // Force re-render
+                        dispatch(thunkGetTagsForNote(noteId)); // Refresh tags for the note
+                    })
+                    .catch((error) => {
+                        console.error("Error removing tag from note:", error);
+                    });
+            }
+        } else {
+            console.error('No tag found to remove.');
+        }
+    };
 
     return (
         <div className="details-page-container">
@@ -151,7 +199,7 @@ function NotebookDetails() {
                 </section>
                 <section className='details-section3'>
                     <ul>
-                        {notes.map((note, index) => (
+                        {notes.map((note) => (
                             <div
                                 key={note.id}
                                 className={`details-container ${selectedNoteId === note.id ? 'selected' : ''}`}
@@ -159,23 +207,10 @@ function NotebookDetails() {
                             >
                                 <div className="details-item-title">{note.title}</div>
                                 <div className="details-item-content">{note.content}</div>
-                                <div className="details-item-action">
-                                    {/* <button
-                                            className="details-action-button"
-                                            onClick={() => toggleDropdown(index)}
-                                        >
-                                            <strong>...</strong>
-                                        </button> */}
-                                    <div className={`note-dropdown-menu ${dropdownIndex === index ? 'active' : ''}`}>
-                                        {/* <div className="note-dropdown-item">
-                                                <OpenModalButton
-                                                    className="delete-details-button"
-                                                    buttonText="Remove"
-                                                    modalComponent={<DeleteNotebookDetailModal noteId={note.id} onClose={handleModalClose} />}
-                                                />
-                                            </div> */}
-                                    </div>
-                                </div>
+                                <Tags
+                                    tags={tagsByNoteId[note.id] || []}
+                                    variant="default"
+                                />
                             </div>
                         ))}
                     </ul>
@@ -186,13 +221,13 @@ function NotebookDetails() {
                     <>
                         <QuillEditor
                             noteData={notes.find(note => note.id === selectedNoteId)}
-                            // noteId={selectedNoteId}
-                            // notebookId={notebookId}
                             initialContent={currentContent}
                             initialTitle={title}
                             onContentChange={handleContentChange}
                             onTitleChange={handleTitleChange}
+                            tags={tagsByNoteId[selectedNoteId] || []}
                             onNoteUpdate={handleNoteUpdate}
+                            onTagsUpdate={handleTagsUpdate}
                         />
                     </>
                 )}

@@ -160,3 +160,20 @@
 .icon {
     font-size: 20px;
 }
+
+.tag-modal-button {
+    border: none;
+    margin-top: 8px;
+    margin-left: 5px;
+    cursor: pointer;
+    width: 220px;
+    text-align: left;
+    padding-left: 7px;
+    display: flex;
+    align-items: center;
+}
+
+.tag-sidebar-icon {
+    margin-right: 8px;
+    font-size: 20px;;
+}

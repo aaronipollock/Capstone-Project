@@ -3,7 +3,7 @@ const CURRENT_USERS_NOTES = 'notes';
 const CREATE_NEW_NOTE = 'notes/create';
 const UPDATE_NOTE = 'notes/:noteId/edit';
 const DELETE_NOTE = 'notes/:noteId/delete';
-const FETCH_NOTES_ERROR = 'notes/error';
+// const SET_TAGS_FOR_NOTE = 'tags/notes/:noteId';
 
 //Action creators
 const fetchNotesError = (error) => ({
@@ -36,30 +36,33 @@ const updateNoteIdInStore = (note) => ({
     note
 })
 
+const setTagsForNote = (payload) => ({
+    type: 'SET_TAGS_FOR_NOTE',
+    payload
+})
+
 //Thunks
+
 export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
     try {
-        // Fetch notes from the API endpoint
         const res = await fetch('/api/notes/');
 
-        // Check if the response is OK (status in the range 200-299)
         if (res.ok) {
-            // Parse the JSON response
             const usersNotes = await res.json();
+            console.log('Notes fetched from backend:', usersNotes);
 
-            // Ensure the notes property exists in the response
-            if (usersNotes && Array.isArray(usersNotes.notes)) {
-                // Dispatch action to update the Redux store with the fetched notes
-                dispatch(currentUsersNotes(usersNotes.notes));
+            if (Array.isArray(usersNotes)) {
+                dispatch(currentUsersNotes(usersNotes));
+            } else {
+                console.error('Unexpected response structure:', usersNotes);
             }
         } else {
-            // Handle non-OK responses
             const error = await res.json();
-            dispatch(fetchNotesError(error));
+            console.error('Failed to fetch notes:', error);
         }
     } catch (err) {
-        // Catch and log any errors that occur during the fetch operation
-        dispatch(fetchNotesError(err));
+        console.error('An error occurred while fetching notes:', err);
+
     }
 };
 
@@ -87,6 +90,7 @@ export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dis
 
 export const thunkUpdateNote = (note) => async (dispatch) => {
     try {
+
         const res = await fetch(`/api/notes/${note.id}/edit`, {
             method: 'PUT',
             headers: {
@@ -143,9 +147,18 @@ export const thunkUpdateNoteId = (noteId, notebookId) => async (dispatch) => {
     }
 };
 
+export const thunkGetTagsForNote = (noteId) => async (dispatch) => {
+    const res = await fetch(`/api/tags/notes/${noteId}`);
+    if (res.ok) {
+        const tags = await res.json();
+        dispatch(setTagsForNote({ noteId, tags }));
+    }
+}
+
 // Initial state
 const initialState = {
     userNotes: [],
+    tagsByNoteId: {}
 }
 
 //Reducer
@@ -161,13 +174,6 @@ export default function noteReducer(state = initialState, action) {
                 ...state,
                 userNotes: [...state.userNotes, action.note],
             }
-        // case UPDATE_NOTE:
-        //     return {
-        //         ...state,
-        //         userNotes: state.userNotes.map((note) =>
-        //             note.id === action.note.id ? action.note : note
-        //         ),
-        //     };
         case UPDATE_NOTE: {
             const updatedNote = action.note;
             return {
@@ -187,7 +193,17 @@ export default function noteReducer(state = initialState, action) {
                 userNotes: state.userNotes.map(note =>
                     note.id === action.note.id ? action.note : note
                 )
+            }
+        case 'SET_TAGS_FOR_NOTE': {
+            const { noteId, tags } = action.payload;
+            return {
+                ...state,
+                tagsByNoteId: {
+                    ...state.tagsByNoteId,
+                    [noteId]: tags
+                }
             };
+        }
         default:
             return state;
     }
