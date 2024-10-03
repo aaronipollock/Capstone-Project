@@ -20,16 +20,16 @@ depends_on = None
 
 
 def upgrade():
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE notebooks SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE notes SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE notebook_notes SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE tags SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE note_tags SET SCHEMA {SCHEMA};")
-
     # if environment == "production":
-    #     op.execute(f"CREATE SCHEMA IF NOT EXISTS {SCHEMA};")
+    #     op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+    #     op.execute(f"ALTER TABLE notebooks SET SCHEMA {SCHEMA};")
+    #     op.execute(f"ALTER TABLE notes SET SCHEMA {SCHEMA};")
+    #     op.execute(f"ALTER TABLE notebook_notes SET SCHEMA {SCHEMA};")
+    #     op.execute(f"ALTER TABLE tags SET SCHEMA {SCHEMA};")
+    #     op.execute(f"ALTER TABLE note_tags SET SCHEMA {SCHEMA};")
+
+    if environment == "production":
+        op.execute(f"CREATE SCHEMA IF NOT EXISTS {SCHEMA};")
 
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -41,7 +41,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username'),
-    # schema=SCHEMA if environment == "production" else None
+    schema=SCHEMA if environment == "production" else None
     )
 
     op.create_table('notebooks',
@@ -53,7 +53,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('title'),
-    # schema=SCHEMA if environment == "production" else None
+    schema=SCHEMA if environment == "production" else None
     )
 
     op.create_table('notes',
@@ -65,7 +65,7 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    # schema=SCHEMA if environment == "production" else None
+    schema=SCHEMA if environment == "production" else None
     )
 
     op.create_table('notebook_notes',
@@ -74,7 +74,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['note_id'], ['notes.id'], ),
     sa.ForeignKeyConstraint(['notebook_id'], ['notebooks.id'], ),
     sa.PrimaryKeyConstraint('notebook_id', 'note_id'),
-    # schema=SCHEMA if environment == "production" else None
+    schema=SCHEMA if environment == "production" else None
     )
 
     op.create_table('tags',
@@ -85,7 +85,7 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    # schema=SCHEMA if environment == "production" else None
+    schema=SCHEMA if environment == "production" else None
     )
 
     op.create_table('note_tags',
@@ -94,7 +94,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
     sa.ForeignKeyConstraint(['note_id'], ['notes.id'], ),
     sa.PrimaryKeyConstraint('note_id', 'tag_id'),
-    # schema=SCHEMA if environment == "production" else None
+    schema=SCHEMA if environment == "production" else None
     )
 
 
