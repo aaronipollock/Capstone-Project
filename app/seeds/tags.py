@@ -1,6 +1,8 @@
 from app.models import db, Tag, Note, environment, SCHEMA, note_tags
 from datetime import datetime
 from sqlalchemy.sql import text
+from sqlalchemy.exc import ProgrammingError
+
 
 def seed_tags():
     tag1 = Tag(
@@ -123,10 +125,15 @@ def seed_tags():
     db.session.commit()
 
 def undo_tags():
-    if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.tags RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.note_tags RESTART IDENTITY CASCADE;")
-    else:
-        db.session.execute(text("DELETE FROM tags"))
-        db.session.execute(text("DELETE FROM note_tags"))
-    db.session.commit()
+    try:
+        if environment == "production":
+            db.session.execute(f"TRUNCATE table {SCHEMA}.tags RESTART IDENTITY CASCADE;")
+            db.session.execute(f"TRUNCATE table {SCHEMA}.note_tags RESTART IDENTITY CASCADE;")
+        else:
+            db.session.execute(text("DELETE FROM tags"))
+            db.session.execute(text("DELETE FROM note_tags"))
+        db.session.commit()
+    except ProgrammingError as e:
+        print(f"Error truncating tables: {e}")
+        db.session.rollback()
+
