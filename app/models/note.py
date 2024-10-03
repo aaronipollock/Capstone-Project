@@ -27,7 +27,7 @@ class Note(db.Model):
 
     user = db.relationship('User', back_populates='notes')
     notebooks = db.relationship('Notebook', back_populates='notes', secondary=notebook_notes)
-    tags = db.relationship('Tag', secondary='note_tags', back_populates='notes')
+    tags = db.relationship('Tag', secondary=note_tags, back_populates='notes')
 
     def to_dict(self, include_notebooks=False, include_tags=False):
         note_dict = {
