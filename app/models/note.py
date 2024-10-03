@@ -4,9 +4,11 @@ from .notebook import notebook_notes
 from sqlalchemy import Table, Column, Integer, ForeignKey
 
 
-note_tags = db.Table('note_tags', db.Model.metadata,
-    Column('note_id', Integer, db.ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True),
-    Column('tag_id', Integer, db.ForeignKey(add_prefix_for_prod('tags.id')), primary_key=True)
+note_tags = Table(
+    'note_tags', db.Model.metadata,
+    Column('note_id', Integer, ForeignKey(add_prefix_for_prod('notes.id')), primary_key=True),
+    Column('tag_id', Integer, ForeignKey(add_prefix_for_prod('tags.id')), primary_key=True),
+    schema=SCHEMA if environment == "production" else None
 )
 
 class Note(db.Model):
