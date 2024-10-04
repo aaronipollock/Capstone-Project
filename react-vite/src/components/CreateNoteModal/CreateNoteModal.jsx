@@ -48,7 +48,7 @@ function CreateNoteModal({ notebookId, prepopulatedContent }) {
             setErrors(serverResponse.errors);
         } else {
             closeModal();
-            navigate(location.pathname);
+            navigate('/notes');
         }
     };
 

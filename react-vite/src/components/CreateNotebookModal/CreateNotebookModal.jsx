@@ -38,7 +38,7 @@ function CreateNotebookModal() {
                 setErrors(serverResponse.errors);
             } else {
                 closeModal();
-                navigate(location.pathname);
+                navigate('/notebooks');
             }
         } catch (error) {
             setErrors({ server: "Something went wrong. Please try again." })
