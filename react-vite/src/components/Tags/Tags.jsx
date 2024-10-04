@@ -1,5 +1,5 @@
 import './Tags.css';
-import { FaTag } from 'react-icons/fa';
+import { FiTag } from "react-icons/fi";
 import { PiCaretDown } from 'react-icons/pi';
 import { useState, useEffect } from 'react';
 
@@ -34,7 +34,7 @@ function Tags({ tags, variant = 'default', onRemoveTag, onDeleteTag }) {
                 tags.map((tag, index) => (
                     variant === 'quill' ? (
                         <span key={tag.id} className="quill-tag">
-                            <span className='quill-tag-icon'><FaTag /></span>
+                            <span className='quill-tag-icon'><FiTag className="quill-tag-icon" /></span>
                             {tag.tag_name}
                             <span className='upside-downcaret'>
                                 <button

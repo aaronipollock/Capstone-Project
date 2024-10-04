@@ -19,14 +19,31 @@ function LoginFormPage() {
   const [errors, setErrors] = useState({});
 
   const demoLogIn = async () => {
-    await dispatch(
+    const serverResponse = await dispatch(
       thunkLogin({
         email: "demo@aa.io",
         password: "password",
       })
     );
-    navigate("/users/current")
-  }
+
+    if (!serverResponse.errors) {
+      let attempts = 0;
+
+      const checkSessioin = setInterval(() => {
+        if (sessionUser && sessionUser.notes) {
+          clearInterval(checkSessioin);
+          navigate("/users/current");
+        } else if (attempts >= 10) {
+          clearInterval(checkSessioin);
+          setErrors({ server: "Seed data failed to load. Please try again."});
+        } else {
+          attempts++;
+        }
+      }, 500);
+    } else {
+      setErrors(serverResponse.errors);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
