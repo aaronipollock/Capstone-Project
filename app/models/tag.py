@@ -15,7 +15,7 @@ class Tag(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    notes = db.relationship('Note', secondary='note_tags', back_populates='tags')
+    notes = db.relationship('Note', secondary=note_tags, back_populates='tags')
     user = db.relationship('User', back_populates='tags')
 
     def to_dict(self):
