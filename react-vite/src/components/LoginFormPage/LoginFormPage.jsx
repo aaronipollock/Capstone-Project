@@ -30,7 +30,7 @@ function LoginFormPage() {
       let attempts = 0;
 
       const checkSessioin = setInterval(() => {
-        if (sessionUser && sessionUser.notes) {
+        if (sessionUser && sessionUser.notebooks) {
           clearInterval(checkSessioin);
           navigate("/users/current");
         } else if (attempts >= 10) {
