@@ -13,8 +13,8 @@ function TagsModal() {
 
     const [loading, setLoading] = useState(true);
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [sortedTags, setSortedTags] = useState([...tags]);
-    const [ setSortOrder ] = useState('A-Z');
+    const [sortedTags, setSortedTags] = useState([]);
+    const [ sortOrder, setSortOrder ] = useState('A-Z');
 
     useEffect(() => {
         const fetchTags = async () => {
@@ -50,7 +50,7 @@ function TagsModal() {
     };
 
     const handleSort = (order) => {
-        const sorted = [...tags].sort((a, b) => {
+        const sorted = [...sortedTags].sort((a, b) => {
             if (order === 'A-Z') {
                 return a.tag_name.localeCompare(b.tag_name);
             } else {
