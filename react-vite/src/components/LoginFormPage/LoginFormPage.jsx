@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { NavLink } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-// import { FaStickyNote } from "react-icons/fa";
 import { ImQuill } from "react-icons/im";
 import { FaAsterisk } from "react-icons/fa";
 import { FaCloud } from "react-icons/fa";
@@ -26,24 +25,16 @@ function LoginFormPage() {
       })
     );
 
-    if (!serverResponse.errors) {
-      let attempts = 0;
-
-      const checkSessioin = setInterval(() => {
-        if (sessionUser && sessionUser.notebooks) {
-          clearInterval(checkSessioin);
-          navigate("/users/current");
-        } else if (attempts >= 10) {
-          clearInterval(checkSessioin);
-          setErrors({ server: "Seed data failed to load. Please try again."});
-        } else {
-          attempts++;
-        }
-      }, 500);
-    } else {
+    if (serverResponse.errors) {
       setErrors(serverResponse.errors);
     }
   };
+
+  useEffect(() => {
+    if (sessionUser && sessionUser.tags) {
+      navigate("/users/current");
+    }
+  }, [sessionUser, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
