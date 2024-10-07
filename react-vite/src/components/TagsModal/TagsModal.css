@@ -96,7 +96,8 @@
     padding: 8px 12px;
     cursor: pointer;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
+    width: 135px;
 }
 
 .dropdown-item:hover {

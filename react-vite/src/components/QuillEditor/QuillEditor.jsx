@@ -49,8 +49,6 @@ const QuillEditor = ({
 
   const { closeModal } = useModal();
 
-  // const [dropdownIndex, setDropdownIndex] = useState(null);
-
   // Update title if the note title changes
 
   useEffect(() => {
@@ -281,27 +279,31 @@ const QuillEditor = ({
         onRemoveTag={handleRemoveTag}  // This removes the tag from the current note
         onDeleteTag={handleDeleteTag}  // This removes the tag from all notes
       />
-      <div>
-        {isInput ? (
-          <input
-            ref={inputRef}
-            className='quill-tag-input'
-            type="text"
-            placeholder="Type to add..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleInputKeyPress}
-            autoFocus
-          />
-        ) : (
-          <button onClick={handleTagClick} className="add-tag-button">Add Tag</button>
-        )}
-      </div>
-      <button onClick={handleUpdateClick} className="editor-button-update" disabled={isLoading}>
-        {isLoading ? 'Updating...' : 'Update Note'}
-      </button>
-      {
-        errors &&
+      {noteData && (
+        <>
+
+          <div>
+            {isInput ? (
+              <input
+                ref={inputRef}
+                className='quill-tag-input'
+                type="text"
+                placeholder="Type to add..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleInputKeyPress}
+                autoFocus
+              />
+            ) : (
+              <button onClick={handleTagClick} className="add-tag-button">Add Tag</button>
+            )}
+          </div>
+          <button onClick={handleUpdateClick} className="editor-button-update" disabled={isLoading}>
+            {isLoading ? 'Updating...' : 'Update Note'}
+          </button>
+        </>
+      )}
+      {errors &&
         Object.keys(errors).map((key) => (
           <p key={key} className="error-message">
             {errors[key]}

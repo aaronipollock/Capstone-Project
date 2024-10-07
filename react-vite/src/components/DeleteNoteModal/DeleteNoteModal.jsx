@@ -14,6 +14,8 @@ function DeleteNoteModal({ noteId }) {
     const currentUser = useSelector((state) => state.session.user);
     const { closeModal } = useModal();
 
+
+
     const handleCancelClick = (e) => {
         e.preventDefault();
         closeModal();
@@ -21,6 +23,9 @@ function DeleteNoteModal({ noteId }) {
 
     const handleDeleteClick = async (e) => {
         e.preventDefault();
+
+        console.log("Deleting note with ID:", noteId);
+        console.log("Note object:", note);
 
         if (!note) {
             setErrors({ notebook: "Note not found." });
@@ -44,7 +49,7 @@ function DeleteNoteModal({ noteId }) {
 
     return (
         <form className="delete-modal-container" onSubmit={handleDeleteClick}>
-            <div className="main-delete-text">Delete note?</div>
+            <div className="main-delete-text">Are you sure you want to delete this note?</div>
             {errors.notebook && <div className="error-text">{errors.notebook}</div>}
             {errors.user && <div className="error-text">{errors.user}</div>}
             <div className="delete-notebook-buttons">

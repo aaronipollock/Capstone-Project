@@ -5,7 +5,7 @@
   }
 
   .quill-toolbar {
-    border: none;
+    border: .5px solid #ccc;
     border-radius: 4px 4px 0 0;
     width: 566px;
     height: 100px;
@@ -17,24 +17,24 @@
     font-size: 1.5rem;
     margin-top: 0px;
     padding: 45px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     width: 566px;
     height: 100px;
     box-sizing: border-box;
     outline: none;
+    border: 1px solid #ccc;
   }
 
   .editor-container {
     height: calc(100vh - 345px);
     background-color: white;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     box-sizing: border-box;
     overflow: auto;
     width: 566px;
     flex-grow: 1;
     padding: 45px;
-    border: none;
+    border: .5px solid #ccc;
     font-size: 1.0rem;
   }
 
@@ -44,8 +44,8 @@
     cursor: pointer;
     color: white;
     background-color: #419C14;
-    border-radius: 5px;
     font-weight: lighter;
+    border: none;
   }
 
   .editor-button-update:hover {
@@ -58,7 +58,6 @@
     cursor: pointer;
     color: white;
     background-color: rgb(252, 187, 67);
-    border-radius: 5px;
     font-weight: lighter;
     border: none
   }
@@ -87,7 +86,7 @@
 }
 
 .add-tag-button {
-  border: 1px solid #ccc;
+  border: .5px solid #ccc;
 }
 
 .add-tag-button:hover {
@@ -123,7 +122,7 @@
   /* background-color: white; */
   width: 190px;
   background-color: white;
-  border: 1px solid #ccc;
+  border: .5px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
 }

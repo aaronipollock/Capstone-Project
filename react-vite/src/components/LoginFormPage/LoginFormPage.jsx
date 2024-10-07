@@ -17,18 +17,23 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  const demoLogIn = async () => {
-    const serverResponse = await dispatch(
-      thunkLogin({
-        email: "demo@aa.io",
-        password: "password",
-      })
-    );
+  // const demoLogIn = async () => {
+  //   const serverResponse = await dispatch(
+  //     thunkLogin({
+  //       email: "demo@aa.io",
+  //       password: "password",
+  //     })
+  //   );
 
-    if (serverResponse.errors) {
-      setErrors(serverResponse.errors);
-    }
-  };
+  //   if (serverResponse.errors) {
+  //     setErrors(serverResponse.errors);
+  //   }
+  // };
+
+  const fillDemoCredentials = () => {
+    setEmail("demo@aa.io");
+    setPassword("password");
+  }
 
   useEffect(() => {
     if (sessionUser && sessionUser.tags) {
@@ -92,7 +97,7 @@ function LoginFormPage() {
             <p className="signup-from-login-text">Don&apos;t have an account?</p>
             <NavLink to="/signup" className="signup-link">Sign up</NavLink>
             <p className="signup-from-login-text">or</p>
-            <NavLink to='/users/current' className="signup-link" onClick={demoLogIn}>Log in as Demo User</NavLink>
+            <NavLink to='#' className="signup-link" onClick={fillDemoCredentials}>Log in as Demo User</NavLink>
           </div>
         </form>
       </div>

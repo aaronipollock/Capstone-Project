@@ -14,6 +14,7 @@ import './NotebookDetails.css';
 import { useMemo } from 'react';
 import Tags from '../Tags'
 import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
+import DeleteNoteModal from '../DeleteNoteModal';
 
 
 function NotebookDetails() {
@@ -35,12 +36,6 @@ function NotebookDetails() {
         const fetchNotebookDetails = async () => {
             try {
                 await dispatch(thunkGetNotebookDetails(notebookId));
-
-                if (notes.length > 0) {
-                    notes.forEach(note => {
-                        dispatch(thunkGetTagsForNote(note.id));
-                    });
-                }
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -49,12 +44,25 @@ function NotebookDetails() {
         };
 
         fetchNotebookDetails();
-    }, [dispatch, notebookId, noteUpdated, notes]);
+    }, [dispatch, notebookId])
+
+    useEffect(() => {
+        if (notebook?.notes?.length > 0) {
+            notebook.notes.forEach(note => {
+                dispatch(thunkGetTagsForNote(note.id));
+            });
+        }
+    }, [dispatch, notebook?.notes]);
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
+
+    useEffect(() => {
+        console.log("dropdownIndex updated:", dropdownIndex);  // This will log the new dropdownIndex value after re-render
+    }, [dropdownIndex]);
+
 
     const closeDropdown = () => {
         setDropdownIndex(null);
@@ -100,35 +108,28 @@ function NotebookDetails() {
     if (loading) return <div>Loading...</div>;
 
     const handleTagsUpdate = (noteId, tagId, updatedTags, removeFromAll = false) => {
-        console.log(`Updating tags for noteId: ${noteId}, tagId: ${tagId}, removeFromAll: ${removeFromAll}`);
 
         // Ensure tagsByNoteId[noteId] exists and has tags
         const currentTags = tagsByNoteId[noteId] || [];
-        console.log('Current tags for note:', currentTags);
 
         // Find the removed tag
         const removedTag = currentTags.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
-        console.log('Removed tag:', removedTag);
 
         // Check if removedTag exists before proceeding
         if (removedTag) {
             if (removeFromAll) {
-                console.log(`Attempting to remove tag with id ${removedTag.id} from all notes`);
                 // If removeFromAll is true, remove the tag globally from all notes
                 dispatch(thunkDeleteTag(removedTag.id))
                     .then(() => {
-                        console.log(`Tag with id ${removedTag.id} removed from all notes`);
                         setNoteUpdated(prev => !prev); // Force re-render
                     })
                     .catch((error) => {
                         console.error("Error removing tag from all notes:", error);
                     });
             } else {
-                console.log(`Attempting to remove tag with id ${removedTag.id} from note ${noteId}`);
                 // Otherwise, remove the tag from the specific note
                 dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
                     .then(() => {
-                        console.log(`Tag with id ${removedTag.id} removed from note ${noteId}`);
                         setNoteUpdated(prev => !prev); // Force re-render
                         dispatch(thunkGetTagsForNote(noteId)); // Refresh tags for the note
                     })
@@ -168,7 +169,7 @@ function NotebookDetails() {
                             <strong>...</strong>
                         </button>
                         <div className={`details-dropdown-menu ${dropdownIndex === 'notebook' ? 'active' : ''}`}>
-                            <div className="dropdown-item">
+                            <div className="details-dropdown-item">
                                 {notebook && (
                                     <OpenModalButton
                                         className="details-add-note-button"
@@ -211,26 +212,54 @@ function NotebookDetails() {
                                     tags={tagsByNoteId[note.id] || []}
                                     variant="default"
                                 />
+                                {selectedNoteId === note.id && (
+                                        <div className="detail-dropdown">
+                                            <button
+                                                className="detail-action-button"
+                                                onClick={() => toggleDropdown(note.id)}
+                                            >
+                                                <strong>...</strong>
+                                            </button>
+                                            {dropdownIndex === note.id && (
+                                                <div className="detail-dropdown-menu active">
+                                                    <div className="detail-dropdown-item">
+                                                        {note && (
+                                                            <OpenModalButton
+                                                                className="remove-note-button"
+                                                                buttonText="Remove note from notebook"
+                                                                modalComponent={<DeleteNoteModal noteId={note.id} notebookId={notebook.id} />}
+                                                                onButtonClick={closeDropdown}
+                                                            />
+                                                        )}
+                                                        {note && (
+                                                            <OpenModalButton
+                                                                className="delete-note-button"
+                                                                buttonText="Delete note"
+                                                                modalComponent={<DeleteNoteModal noteId={note.id} />}
+                                                                onButtonClick={closeDropdown}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                             </div>
                         ))}
                     </ul>
                 </section>
             </div>
             <section className="details-editor-section">
-                {selectedNoteId && (
-                    <>
-                        <QuillEditor
-                            noteData={notes.find(note => note.id === selectedNoteId)}
-                            initialContent={currentContent}
-                            initialTitle={title}
-                            onContentChange={handleContentChange}
-                            onTitleChange={handleTitleChange}
-                            tags={tagsByNoteId[selectedNoteId] || []}
-                            onNoteUpdate={handleNoteUpdate}
-                            onTagsUpdate={handleTagsUpdate}
-                        />
-                    </>
-                )}
+                <QuillEditor
+                    noteData={notes.find(note => note.id === selectedNoteId)}
+                    initialContent={selectedNoteId ? currentContent : ""}
+                    initialTitle={selectedNoteId ? title : ""}
+                    onContentChange={handleContentChange}
+                    onTitleChange={handleTitleChange}
+                    tags={tagsByNoteId[selectedNoteId] || []}
+                    onNoteUpdate={handleNoteUpdate}
+                    onTagsUpdate={handleTagsUpdate}
+                />
             </section>
         </div>
     );

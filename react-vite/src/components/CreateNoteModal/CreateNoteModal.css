@@ -55,6 +55,7 @@ textarea {
     border-radius: 5px;
     color: white;
     background-color: #419C14;
+    cursor: pointer;
 }
 
 .create-note-button:hover {

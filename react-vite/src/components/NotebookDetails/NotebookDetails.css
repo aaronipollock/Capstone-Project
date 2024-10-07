@@ -161,19 +161,13 @@
 .details-dropdown-menu.active {
     display: block;
     width: 175px;
-    top: -100px;
+    top: -150px;
     right: -100px;
 }
 
-/* .dopdown-item {
-    width: 100px;
-    color: blue;
-    background-color: pink;
-} */
-
 .details-action-button {
     position: absolute;
-    top: 10px;
+    top: -5px;
     right: 15px;
     border: none;
     border-radius: 5px;
@@ -241,4 +235,44 @@
     margin-left: 14px;
     margin-top: 10px;
     background-color: pink;
+}
+
+.detail-dropdown {
+    position: relative;  /* Ensure it's relative to handle dropdown positioning */
+    /* width: 190px;
+    margin-top: 50px;
+    font-size: 15px; */
+}
+
+.detail-action-button {
+    position: absolute;
+    top: -100px;
+    right: 10px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.detail-action-button:hover {
+    background-color: lightgray;
+}
+
+.detail-dropdown-menu {
+    display: none;
+    /* position: absolute; */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    top: 100%;
+    margin-left: 300px;
+    padding: 10px;
+}
+
+.detail-dropdown-menu.active {
+    display: block !important;
 }

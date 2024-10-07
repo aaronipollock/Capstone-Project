@@ -93,11 +93,15 @@ def update_note(note_id):
 def delete_note(note_id):
     """Delete a note by ID"""
 
+    print("Attempting to delete note with ID: {note.id}")
+
     note = Note.query.get(note_id)
     if note is None:
+        print(f"Note with ID {note_id} not found")
         return {'errors': {'message': 'Note not found'}}, 404
 
     if note.user_id != current_user.id:
+        print(f"User not authorized to delete note with ID {note_id}")
         return {'errors': {'message': 'You are not authorized'}}, 403
 
     db.session.delete(note)
