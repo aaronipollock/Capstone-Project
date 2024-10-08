@@ -259,20 +259,31 @@
 }
 
 .detail-dropdown-menu {
-    display: none;
-    /* position: absolute; */
+    display: block !important;
+    position: absolute;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    width: 300px;
+    width: 220px;
     text-align: left;
     border: 1px solid #ccc;
     border-radius: 5px;
     top: 100%;
-    margin-left: 300px;
+    margin-top: -80px;
+    margin-left: 290px;
     padding: 10px;
 }
 
 .detail-dropdown-menu.active {
-    display: block !important;
+    display: block;
+}
+
+.remove-note-button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.remove-note-button:hover {
+    background-color: #ccc;
 }

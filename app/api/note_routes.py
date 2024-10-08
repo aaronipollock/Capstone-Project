@@ -121,3 +121,19 @@ def update_note_id(note_id):
     db.session.commit()
 
     return jsonify(note.to_dict())
+
+@note_routes.route('/<int:note_id>/notebooks/<int:notebook_id>/remove', methods=['DELETE'])
+@login_required
+def remove_note_from_notebook(note_id, notebook_id):
+    """Remove a note from a notebook"""
+    note = Note.query.get(note_id)
+    notebook = Notebook.query.get(notebook_id)
+
+    if not note or not notebook:
+        return jsonify({'error': 'Notebook or note not found'}), 404
+
+    if note in notebook.notes:
+        notebook.notes.remove(note)
+        db.session.commit()
+
+    return jsonify({'message': 'Note removed from notebook'})

@@ -1,0 +1,73 @@
+.remove-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    padding: 20px;
+    padding-left: 30px;
+    margin: auto;
+    height: 270px;
+    width: 510px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.main-remove-text {
+    margin-top: 5px;
+    font-weight: 550;
+}
+
+.remove-title-text {
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+.remove-note-title-text {
+    margin-top: 5px;
+    height: 20px;
+}
+
+input {
+    height: 38px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    width: 97%;
+    padding-left: 10px;
+}
+
+.remove-note-buttons {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px
+}
+
+.cancel-remove-note-button {
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.cancel-remove-note-button:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.confirm-remove-note-button {
+    height: 40px;
+    width: 100px;
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.confirm-remove-note-button:hover {
+    background-color: rgb(185, 0, 0);
+    cursor: pointer;
+}
+.trash-text {
+    margin-top: 80px;
+}

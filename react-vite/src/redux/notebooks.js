@@ -3,7 +3,10 @@ const CURRENT_USERS_NOTEBOOKS = 'notebooks';
 const CREATE_NEW_NOTEBOOK = 'notebooks/create';
 const UPDATE_NOTEBOOK = 'notebooks/:notebookId/edit';
 const DELETE_NOTEBOOK = 'notebooks/:notebookId/delete';
-const NOTEBOOK_DETAILS = 'notebook/notes';
+// const NOTEBOOK_DETAILS = 'notebook/notes';
+// Define the constant for the action type
+export const NOTEBOOK_DETAILS = 'NOTEBOOK_DETAILS';
+
 const SET_NOTEBOOK_ERRORS = 'notebooks/SET_NOTEBOOK_ERRORS';
 
 
@@ -116,7 +119,7 @@ export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
         const error = await res.json()
         return { errors: error };
     }
-}
+};
 
 //Inital state
 const initialState = {
@@ -158,7 +161,7 @@ export default function notebookReducer(state = initialState, action) {
                 ...state,
                 notebookDetails: {
                     ...state.notebookDetails,
-                    [action.payload.id]: action.payload
+                    [action.payload.id]: action.payload,
                 },
             };
         default:

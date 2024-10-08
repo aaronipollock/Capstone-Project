@@ -15,7 +15,7 @@ import { useMemo } from 'react';
 import Tags from '../Tags'
 import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
 import DeleteNoteModal from '../DeleteNoteModal';
-
+import RemoveNoteModal from "../RemoveNoteModal";
 
 function NotebookDetails() {
     const { notebookId } = useParams();
@@ -31,6 +31,7 @@ function NotebookDetails() {
     const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
     const notes = useMemo(() => (notebook ? notebook.notes : []), [notebook]);
     const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
+
 
     useEffect(() => {
         const fetchNotebookDetails = async () => {
@@ -53,16 +54,17 @@ function NotebookDetails() {
             });
         }
     }, [dispatch, notebook?.notes]);
+    
+    const sortedNotes = useMemo(() => {
+        if (!notebook || !notebook.notes) return [];
+        return [...notebook.notes].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }, [notebook]);
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
+        console.log("Toggling dropdown, current index:", dropdownIndex);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
-
-    useEffect(() => {
-        console.log("dropdownIndex updated:", dropdownIndex);  // This will log the new dropdownIndex value after re-render
-    }, [dropdownIndex]);
-
 
     const closeDropdown = () => {
         setDropdownIndex(null);
@@ -71,7 +73,12 @@ function NotebookDetails() {
     // Detect clicks outside dropdown and close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.target.closest('.details-dropdown-menu') && !event.target.closest('.details-action-button')) {
+            if (
+                !event.target.closest('.details-dropdown-menu') &&
+                !event.target.closest('.details-action-button') &&
+                !event.target.closest('.detail-dropdown-menu') &&
+                !event.target.closest('.detail-action-button')
+            ) {
                 setDropdownIndex(null);
             }
         };
@@ -83,7 +90,7 @@ function NotebookDetails() {
     }, []);
 
     const handleNoteClick = (noteId) => {
-        const selectedNote = notes.find(note => note.id === noteId);
+        const selectedNote = sortedNotes.find(note => note.id === noteId);
         if (selectedNote) {
             setSelectedNoteId(noteId);
             setCurrentContent(selectedNote.content || "");
@@ -141,6 +148,12 @@ function NotebookDetails() {
             console.error('No tag found to remove.');
         }
     };
+
+    if (loading) return <div>Loading...</div>;
+
+    if (!notebook || !notebookId) {
+        return <div>Loading or missing data...</div>;
+    }
 
     return (
         <div className="details-page-container">
@@ -222,15 +235,17 @@ function NotebookDetails() {
                                             </button>
                                             {dropdownIndex === note.id && (
                                                 <div className="detail-dropdown-menu active">
+                                                    {console.log("Dropdown is visible for note:", note.id)}
                                                     <div className="detail-dropdown-item">
                                                         {note && (
                                                             <OpenModalButton
                                                                 className="remove-note-button"
                                                                 buttonText="Remove note from notebook"
-                                                                modalComponent={<DeleteNoteModal noteId={note.id} notebookId={notebook.id} />}
+                                                                modalComponent={<RemoveNoteModal noteId={note.id} notebookId={notebookId} />}
                                                                 onButtonClick={closeDropdown}
                                                             />
                                                         )}
+
                                                         {note && (
                                                             <OpenModalButton
                                                                 className="delete-note-button"

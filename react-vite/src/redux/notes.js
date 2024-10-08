@@ -1,9 +1,11 @@
+import { removeNoteFromNotebook } from './notebooksSlice'
+
 //Action types
 const CURRENT_USERS_NOTES = 'notes';
 const CREATE_NEW_NOTE = 'notes/create';
 const UPDATE_NOTE = 'notes/:noteId/edit';
 const DELETE_NOTE = 'notes/:noteId/delete';
-// const SET_TAGS_FOR_NOTE = 'tags/notes/:noteId';
+const REMOVE_NOTE_FROM_NOTEBOOK = 'notes/:noteId/notebooks/:notebookId/remove';
 
 //Action creators
 // const fetchNotesError = (error) => ({
@@ -155,6 +157,18 @@ export const thunkGetTagsForNote = (noteId) => async (dispatch) => {
     }
 }
 
+export const thunkRemoveNoteFromNotebook = (notebookId, noteId) => async (dispatch) => {
+    const res = await fetch(`/api/notes/${noteId}/notebooks/${notebookId}/remove`, {
+        method: 'DELETE'
+    });
+
+    if (res.ok) {
+        dispatch(removeNoteFromNotebook(notebookId, noteId));
+    } else {
+        console.error("Error removing tag from note:", await res.text());
+    }
+}
+
 // Initial state
 const initialState = {
     userNotes: [],
@@ -186,6 +200,15 @@ export default function noteReducer(state = initialState, action) {
             return {
                 ...state,
                 userNotes: state.userNotes.filter(note => note.id !== action.noteId)
+            }
+        case REMOVE_NOTE_FROM_NOTEBOOK:
+            const { notebookId, noteId } = action.payload;
+            return {
+                ...state,
+                notesByNotebookId: {
+                    ...state.notesByNotebookId,
+                    [notebookId]: state.notesByNotebookId[notebookId]?.filter(note => note.id !== action.noteId)
+                }
             }
         case 'UPDATE_NOTE_ID':
             return {

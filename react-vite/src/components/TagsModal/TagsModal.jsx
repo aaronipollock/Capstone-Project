@@ -47,6 +47,7 @@ function TagsModal() {
 
     const toggleDropdown = () => {
         setDropdownVisible(prev => !prev);
+        console.log(sortOrder)
     };
 
     const handleSort = (order) => {
