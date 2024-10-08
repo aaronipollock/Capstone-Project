@@ -28,10 +28,10 @@ function NotebookDetails() {
     const [title, setTitle] = useState("");
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
-    const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
-    const notes = useMemo(() => (notebook ? notebook.notes : []), [notebook]);
+    const notebook = useSelector(state => state.notebooks?.notebookDetails?.[notebookId]);
     const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
 
+    const notes = useMemo(() => notebook?.notes || [], [notebook]);
 
     useEffect(() => {
         const fetchNotebookDetails = async () => {
@@ -54,10 +54,15 @@ function NotebookDetails() {
             });
         }
     }, [dispatch, notebook?.notes]);
-    
+
+
+
     const sortedNotes = useMemo(() => {
         if (!notebook || !notebook.notes) return [];
-        return [...notebook.notes].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        console.log("NOTEBOOK.NOTES:", notebook.notes);  // Check if notes have a valid created_at field
+        const sorted = [...notebook.notes].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        console.log("Sorted notes:", sorted);
+        return sorted;
     }, [notebook]);
 
     // Only one dropdown open at a time
@@ -213,7 +218,7 @@ function NotebookDetails() {
                 </section>
                 <section className='details-section3'>
                     <ul>
-                        {notes.map((note) => (
+                        {sortedNotes.map((note) => (
                             <div
                                 key={note.id}
                                 className={`details-container ${selectedNoteId === note.id ? 'selected' : ''}`}
