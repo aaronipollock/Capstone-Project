@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { thunkGetNotebookDetails } from "../../redux/notebooks";
-import { thunkGetTagsForNote } from "../../redux/notes";
+import { thunkGetTagsForNote, thunkUpdateNote } from "../../redux/notes";
 import Sidebar from "../Sidebar";
 import OpenModalButton from "../OpenModalButton";
 import CreateNoteModal from "../CreateNoteModal";
@@ -28,7 +28,7 @@ function NotebookDetails() {
     const [title, setTitle] = useState("");
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
-    const notebook = useSelector(state => state.notebooks?.notebookDetails?.[notebookId]);
+    const notebook = useSelector(state => state.notebooks?.notesByNotebookId?.[notebookId] || { notes: []});
     const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
 
     const notes = useMemo(() => notebook?.notes || [], [notebook]);
@@ -44,7 +44,9 @@ function NotebookDetails() {
             }
         };
 
-        fetchNotebookDetails();
+        if (notebookId) {
+            fetchNotebookDetails();
+        }
     }, [dispatch, notebookId])
 
     useEffect(() => {
@@ -53,21 +55,17 @@ function NotebookDetails() {
                 dispatch(thunkGetTagsForNote(note.id));
             });
         }
-    }, [dispatch, notebook?.notes]);
+    }, [dispatch, notebook?.notes, noteUpdated]);
 
 
 
     const sortedNotes = useMemo(() => {
         if (!notebook || !notebook.notes) return [];
-        console.log("NOTEBOOK.NOTES:", notebook.notes);  // Check if notes have a valid created_at field
-        const sorted = [...notebook.notes].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        console.log("Sorted notes:", sorted);
-        return sorted;
+        return [...notebook.notes].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
     }, [notebook]);
 
     // Only one dropdown open at a time
     const toggleDropdown = (index) => {
-        console.log("Toggling dropdown, current index:", dropdownIndex);
         setDropdownIndex(dropdownIndex === index ? null : index);
     };
 
@@ -111,8 +109,36 @@ function NotebookDetails() {
         setTitle(newTitle);
     };
 
+    // const handleNoteUpdate = () => {
+    //     setNoteUpdated(prev => !prev);
+    // }
+    const stripHtmlTags = (html) => {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        return div.textContent || div.innerText || "";
+    };
+
     const handleNoteUpdate = () => {
-        setNoteUpdated(prev => !prev);
+        if (selectedNoteId) {
+            const updatedNoteData = {
+                id: selectedNoteId,
+                title,
+                content: stripHtmlTags(currentContent),
+            };
+
+            dispatch(thunkUpdateNote(updatedNoteData))
+                .then((response) => {
+                    if (response.success) {
+                        console.log("Note updated successfully:", response.note);
+                        dispatch(thunkGetNotebookDetails(notebookId));
+                    } else {
+                        console.error('Failed to update note:', response.error);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error in note update:", error);
+                })
+        }
     }
 
     if (error) return <p>{error}</p>;
@@ -250,7 +276,6 @@ function NotebookDetails() {
                                                                 onButtonClick={closeDropdown}
                                                             />
                                                         )}
-
                                                         {note && (
                                                             <OpenModalButton
                                                                 className="delete-note-button"

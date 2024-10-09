@@ -10,6 +10,8 @@ import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
 import { thunkGetTagsForNote } from "../../redux/notes";
 import OpenModalButton from "../OpenModalButton";
 import DeleteNoteModal from '../DeleteNoteModal';
+import { useMemo } from 'react';
+
 
 
 function Notes(noteId) {
@@ -34,6 +36,13 @@ function Notes(noteId) {
             });
         }
     }, [dispatch, notes, noteUpdated]);
+
+    const sortedNotes = useMemo(() => {
+        if (!notes || notes.length === 0) return [];
+        return [...notes].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    }, [notes]);
+
+    console.log("SORTEDNOTES:", sortedNotes)
 
     const toggleDropdown = (index) => {
         setDropdownIndex(dropdownIndex === index ? null : index);
@@ -72,7 +81,7 @@ function Notes(noteId) {
         // Find the removed tag
         const removedTag = currentTags.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
 
-        // Check if removedTag exists before proceeding
+        // Check if removedTag exists
         if (removedTag) {
             if (removeFromAll) {
                 // If removeFromAll is true, remove the tag globally from all notes
@@ -112,7 +121,7 @@ function Notes(noteId) {
                             <p className="text-notes">Notes</p>
                         </section>
                         <section className="notes-section2">
-                            {!notes.length ? (
+                            {sortedNotes.length === 0 ? (
                                 <p>No notes available</p>
                             ) : (
                                 <>
@@ -125,7 +134,7 @@ function Notes(noteId) {
                             )}
                         </section>
                         <section className='notes-section3'>
-                            {notes.map(note => (
+                            {sortedNotes.map(note => (
                                 <div
                                     key={note.id}
                                     className={`note-container ${selectedNoteId === note.id ? 'selected' : ''}`}

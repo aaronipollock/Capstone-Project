@@ -10,7 +10,7 @@ function UpdateNotebookModal({ notebookId }) {
 
     const dispatch = useDispatch();
     // const navigate = useNavigate();
-    const notebook = useSelector((state) => state.notebooks.notebookDetails[notebookId]);
+    const notebook = useSelector((state) => state.notebooks.notesByNotebookId[notebookId]);
     const [title, setTitle] = useState(notebook ? notebook.title : "");
     const [errors, setErrors] = useState({});
     const currentUser = useSelector((state) => state.session.user);

@@ -10,7 +10,12 @@ const notebooksSlice = createSlice({
     name: 'notebooks',
     initialState,
     reducers: {
-        setNotebooks: (state, action) => action.payload,
+        setNotebooks: (state, action) => {
+            const notebooks = action.payload;
+            notebooks.forEach(notebook => {
+                state.notesByNotebookId[notebook.id] = notebook.notes;
+            });
+        },
         dumpNotebooks: () => [],
         removeNoteFromNotebook: (state, action) => {
             const { notebookId, noteId } = action.payload;
@@ -22,8 +27,15 @@ const notebooksSlice = createSlice({
                 },
             };
         },
+        updateNoteInNotebook: (state, action) => {
+            const { notebookId, note } = action.payload;
+            const notebookNotes = state.notesByNotebookId[notebookId] || [];
+            state.notesByNotebookId[notebookId] = notebookNotes.map(n =>
+                n.id === note.id ? note : n
+            );
+        }
     }
 });
 
-export const { setNotebooks, dumpNotebooks, removeNoteFromNotebook } = notebooksSlice.actions;
+export const { setNotebooks, dumpNotebooks, removeNoteFromNotebook, updateNoteInNotebook } = notebooksSlice.actions;
 export default notebooksSlice.reducer;

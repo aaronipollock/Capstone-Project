@@ -6,7 +6,7 @@ import './DeleteNotebookModal.css'
 
 function DeleteNotebookModal({ notebookId }) {
     const dispatch = useDispatch();
-    const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
+    const notebook = useSelector(state => state.notebooks.notesByNotebookId[notebookId]);
     // const currentUser = useSelector(state => state.session.user);
     const { closeModal } = useModal();
     const [error, setError] = useState(null);

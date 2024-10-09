@@ -29,10 +29,7 @@ function UserPage() {
 
     const getRecentNotes = () => {
         if (!Array.isArray(notes) || notes.length === 0) return [];
-
-        return notes
-            .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-            .slice(0, 4);
+        return [...notes].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)).slice(0, 4);
     };
 
     // Only one dropdown open at a time

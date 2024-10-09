@@ -31,7 +31,7 @@ const deleteNotebook = (notebookId) => ({
     notebookId,
 })
 
-const notebookDetails = (notebook) => ({
+const notesByNotebookId = (notebook) => ({
     type: NOTEBOOK_DETAILS,
     payload: notebook,
 })
@@ -113,7 +113,7 @@ export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
     });
     if (res.ok) {
         const data = await res.json();
-        dispatch(notebookDetails(data));
+        dispatch(notesByNotebookId(data));
         return data;
     } else {
         const error = await res.json()
@@ -124,7 +124,7 @@ export const thunkGetNotebookDetails = (notebookId) => async (dispatch) => {
 //Inital state
 const initialState = {
     userNotebooks: [],
-    notebookDetails: {},
+    notesByNotebookId: {},
     error: null
 };
 
@@ -159,8 +159,8 @@ export default function notebookReducer(state = initialState, action) {
             console.log("Tags in notes slice:", state.notes?.tags);
             return {
                 ...state,
-                notebookDetails: {
-                    ...state.notebookDetails,
+                notesByNotebookId: {
+                    ...state.notesByNotebookId,
                     [action.payload.id]: action.payload,
                 },
             };

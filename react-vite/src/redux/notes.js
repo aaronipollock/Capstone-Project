@@ -1,3 +1,4 @@
+// import { thunkGetNotebookDetails } from './notebooks';
 import { removeNoteFromNotebook } from './notebooksSlice'
 
 //Action types
@@ -23,10 +24,10 @@ const createNewNote = (note) => ({
     note,
 })
 
-const updateNote = (note) => ({
-    type: UPDATE_NOTE,
-    note,
-})
+// const updateNote = (note) => ({
+//     type: UPDATE_NOTE,
+//     note,
+// })
 
 const deleteNote = (noteId) => ({
     type: DELETE_NOTE,
@@ -69,30 +70,39 @@ export const thunkGetCurrentUsersNotes = () => async (dispatch) => {
 };
 
 export const thunkCreateNewNote = ({ title, content, notebookId }) => async (dispatch) => {
-    const res = await fetch('/api/notes/create', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, content, notebookId })
-    });
+    try {
 
-    if (!res.ok) {
-        const error = await res.json();
-        return { errors: error };
+        const res = await fetch('/api/notes/create', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title, content, notebookId })
+        });
+
+        if (!res.ok) {
+            const error = await res.json();
+            return { errors: error };
+        }
+
+        const newNote = await res.json();
+
+        dispatch({
+            type: 'notebooks/updateNoteInNotebook',
+            payload: {
+                notebookId,
+                note: newNote.note,
+            }
+        });
+
+        return { note: newNote.note };
+    } catch (err) {
+        return { errors: err.message };
     }
-
-    const newNote = await res.json();
-
-    dispatch(createNewNote(newNote.note));
-    dispatch(thunkGetCurrentUsersNotes());
-    return { note: newNote.note };
-
 };
 
 export const thunkUpdateNote = (note) => async (dispatch) => {
     try {
-
         const res = await fetch(`/api/notes/${note.id}/edit`, {
             method: 'PUT',
             headers: {
@@ -100,15 +110,22 @@ export const thunkUpdateNote = (note) => async (dispatch) => {
             },
             body: JSON.stringify(note),
         });
+
         if (!res.ok) {
             const errorData = await res.json();
             throw new Error(errorData.message || 'Failed to update note');
         }
 
         const updatedNote = await res.json();
+        const notebookId = updatedNote.notebookId;
 
-        dispatch(updateNote(updatedNote));
-        dispatch(thunkGetCurrentUsersNotes());
+        dispatch({
+            type: 'notebooks/updateNoteInNotebook',
+            payload: {
+                notebookId,
+                note: updatedNote
+            }
+        });
 
         return { success: true, note: updatedNote };
     } catch (error) {
@@ -192,17 +209,32 @@ export default function noteReducer(state = initialState, action) {
             const updatedNote = action.note;
             return {
                 ...state,
-                userNote: state.userNotes.map(note =>
-                    note.id === updatedNote.id ? updatedNote : note),
+                // userNotes: state.userNotes.map(note =>
+                //     note.id === updatedNote.id ? updatedNote : note),
+                notesByNotebookId: {
+                    ...state.notesByNotebookId,
+                    [updatedNote.notebookId]: {
+                        ...state.notesByNotebookId[updatedNote.notebookId],
+                        notes: state.notesByNotebookId[updatedNote.notebookId].notes.map(note =>
+                            note.id === updatedNote.id ? updatedNote : note
+                        ),
+                    },
+                },
             }
         }
+        // case 'UPDATE_NOTE': {
+        //     const updatedNote = action.payload;
+        //     return {
+        //         ...state,
+        //     };
+        // }
         case DELETE_NOTE:
             return {
                 ...state,
                 userNotes: state.userNotes.filter(note => note.id !== action.noteId)
             }
         case REMOVE_NOTE_FROM_NOTEBOOK:
-            const { notebookId, noteId } = action.payload;
+            const { notebookId } = action.payload;
             return {
                 ...state,
                 notesByNotebookId: {
@@ -225,6 +257,21 @@ export default function noteReducer(state = initialState, action) {
                     ...state.tagsByNoteId,
                     [noteId]: tags
                 }
+            };
+        }
+        case 'UPDATE_NOTE_IN_NOTEBOOK': {
+            const { notebookId, note } = action.payload;
+            return {
+                ...state,
+                notesByNotebookId: {
+                    ...state.notesByNotebookId,
+                    [notebookId]: {
+                        ...state.notesByNotebookId[notebookId],
+                        notes: state.notesByNotebookId[notebookId].notes.map(n =>
+                            n.id === note.id ? note : n
+                        ),
+                    },
+                },
             };
         }
         default:

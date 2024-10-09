@@ -14,7 +14,7 @@ function RemoveNoteModal({ noteId, notebookId }) {
     const { closeModal } = useModal();
 
     const notes = useSelector((state) => state.notes.userNotes);
-    const notebook = useSelector(state => state.notebooks.notebookDetails[notebookId]);
+    const notebook = useSelector(state => state.notebooks.notesByNotebookId[notebookId]);
     const note = notes?.find((n) => n.id === noteId) || notebook?.notes?.find(n => n.id === noteId);
 
     const [errors, setErrors] = useState({});
