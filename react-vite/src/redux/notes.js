@@ -233,7 +233,7 @@ export default function noteReducer(state = initialState, action) {
                 ...state,
                 userNotes: state.userNotes.filter(note => note.id !== action.noteId)
             }
-        case REMOVE_NOTE_FROM_NOTEBOOK:
+        case REMOVE_NOTE_FROM_NOTEBOOK: {
             const { notebookId } = action.payload;
             return {
                 ...state,
@@ -242,6 +242,7 @@ export default function noteReducer(state = initialState, action) {
                     [notebookId]: state.notesByNotebookId[notebookId]?.filter(note => note.id !== action.noteId)
                 }
             }
+        }
         case 'UPDATE_NOTE_ID':
             return {
                 ...state,

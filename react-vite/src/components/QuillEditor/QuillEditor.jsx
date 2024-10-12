@@ -72,7 +72,7 @@ const QuillEditor = ({
     if (initialTitle && initialTitle !== title) {
       setTitle(initialTitle);
     }
-  }, [initialTitle]);
+  }, [initialTitle, title]);
 
   // Update content when the initialContent changes
   useEffect(() => {
