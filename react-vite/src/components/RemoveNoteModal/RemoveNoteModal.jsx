@@ -77,7 +77,7 @@ function RemoveNoteModal({ noteId, notebookId }) {
 
     return (
         <form className="remove-modal-container" onSubmit={handleRemoveClick}>
-            <div className="main-remove-text">Are you sure you want to remove this note from your notebook?</div>
+            <div className="main-remove-text">Art thou certain thou wouldst sever this note from thy folio?</div>
             {errors.notebook && <div className="error-text">{errors.notebook}</div>}
             {errors.user && <div className="error-text">{errors.user}</div>}
             {errors.server && <div className="error-text">{errors.server}</div>}
@@ -93,7 +93,7 @@ function RemoveNoteModal({ noteId, notebookId }) {
                     type='submit'
                     className="confirm-remove-note-button"
                 >
-                    Remove
+                    Sever
                 </button>
             </div>
         </form>

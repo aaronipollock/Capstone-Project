@@ -162,7 +162,7 @@ function Notes(noteId) {
                                                         {note && (
                                                             <OpenModalButton
                                                                 className="delete-note-button"
-                                                                buttonText="Delete note"
+                                                                buttonText="Foresake note"
                                                                 modalComponent={<DeleteNoteModal noteId={note.id} />}
                                                                 onButtonClick={closeDropdown}
                                                             />

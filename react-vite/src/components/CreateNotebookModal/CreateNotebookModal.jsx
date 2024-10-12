@@ -53,8 +53,8 @@ function CreateNotebookModal() {
 
     return (
         <div className="create-notebook-modal-container">
-            <p className="main-text">Create new notebook</p>
-            <p className="useful-text">Notebooks are useful for grouping notes around a common topic. They can be private or shared.</p>
+            <p className="main-text">Create new folio</p>
+            <p className="useful-text">Folios serve thee well to gather notes about a common matter. They may be kept in secret or shared amongst others.</p>
             <form className="create-notebook" onSubmit={handleCreateClick}>
                 <label className="title-text">
                     Title
@@ -62,7 +62,7 @@ function CreateNotebookModal() {
                         <input
                             type="text"
                             value={title}
-                            placeholder="Notebook title"
+                            placeholder="Folio title"
                             onChange={(e) => {
                                 setTitle(e.target.value);
                             }}

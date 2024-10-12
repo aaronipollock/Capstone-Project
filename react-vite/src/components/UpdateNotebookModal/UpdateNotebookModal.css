@@ -49,6 +49,7 @@ input {
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .update-cancel-button:hover {
@@ -59,13 +60,15 @@ input {
     height: 40px;
     width: 100px;
     color: white;
-    background-color: gray;
+    background-color:  rgb(190, 79, 190);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .update-continue-button:hover {
-    background-color: blue;
+    background-color: rgb(122, 50, 122;
 }
+
 .update-error-message {
     color: red;
     margin-top: 40px;

@@ -19,10 +19,10 @@ const currentUsersNotes = (notes) => ({
     notes,
 })
 
-const createNewNote = (note) => ({
-    type: CREATE_NEW_NOTE,
-    note,
-})
+// const createNewNote = (note) => ({
+//     type: CREATE_NEW_NOTE,
+//     note,
+// })
 
 // const updateNote = (note) => ({
 //     type: UPDATE_NOTE,

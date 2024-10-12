@@ -1,5 +1,6 @@
 /* TODO: Add sitewide styles */
 html {
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: "Garamond", "Times New Roman", serif;
     font-weight: 100;
 }

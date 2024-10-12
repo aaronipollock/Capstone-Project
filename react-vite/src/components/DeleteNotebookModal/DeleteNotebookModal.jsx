@@ -34,12 +34,12 @@ function DeleteNotebookModal({ notebookId }) {
 
     return (
         <div className="delete-notebook-modal-container">
-            <p>Are you sure you want to delete the notebook: {notebook.title}?</p>
-            <p>Any notes in the notebook will be deleted, as well. This cannot be undone.</p>
+            <p>Art thou certain thou wouldst expunge the folio: <i>{notebook.title}</i>?</p>
+            <p>All notes within the folio shall be expunged likewise. This deed cannot be undone.</p>
             {error && <p className="error-message">{error}</p>}
             <div className="delete-notebook-buttons">
                 <button onClick={closeModal} className="cancel-delete-notebook-button">Cancel</button>
-                <button onClick={handleDeleteClick} className="confirm-delete-notebook-button">Delete</button>
+                <button onClick={handleDeleteClick} className="confirm-delete-notebook-button">Expunge</button>
             </div>
         </div>
     );

@@ -53,7 +53,7 @@ function Tags({ tags, variant = 'default', onRemoveTag, onDeleteTag }) {
                                             closeDropdown();
                                         }}
                                     >
-                                        Remove tag
+                                        Banish mark
                                     </button>
                                     <button
                                         className='delete-tag-button'
@@ -62,7 +62,7 @@ function Tags({ tags, variant = 'default', onRemoveTag, onDeleteTag }) {
                                             closeDropdown();
                                         }}
                                     >
-                                        Remove tag from all notes...
+                                        Banish mark from all notes...
                                     </button>
                                 </div>
                             )}

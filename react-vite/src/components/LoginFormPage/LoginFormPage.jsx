@@ -67,7 +67,7 @@ function LoginFormPage() {
       <div className="login-form-container">
         <ImQuill className="sticky-note-icon" />
         <h1 className="login-label">Log in</h1>
-        <p className="sub-login-label">to continue to your Note2be account.</p>
+        <p className="sub-login-label">to continue to thy Note2be account.</p>
         {/* {Object.values(errors).length > 0 &&
           Object.values(errors).map((message, index) => <p key={index} className="error-message">{message}</p>)} */}
         {errors.server && <p className="error-message">{errors.server}</p>}
@@ -94,7 +94,7 @@ function LoginFormPage() {
           {errors.password && <p className="error-message">{errors.password}</p>}
           <button type="submit">Continue</button>
           <div className="signup-from-login">
-            <p className="signup-from-login-text">Don&apos;t have an account?</p>
+            <p className="signup-from-login-text">Hold&apos;st thou no account?</p>
             <NavLink to="/signup" className="signup-link">Sign up</NavLink>
             <p className="signup-from-login-text">or</p>
             <NavLink to='#' className="signup-link" onClick={fillDemoCredentials}>Log in as Demo User</NavLink>

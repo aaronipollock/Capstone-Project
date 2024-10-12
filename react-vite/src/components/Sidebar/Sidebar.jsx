@@ -22,7 +22,7 @@ function Sidebar() {
             <div>
                 <OpenModalButton
                     className="button notebook"
-                    buttonText="+Notebook"
+                    buttonText="+Folio"
                     modalComponent={<CreateNotebookModal />}
                 />
             </div>
@@ -62,7 +62,7 @@ function Sidebar() {
                 {/* </Link> */}
                 <Link to="/notebooks" className="link-menu-button">
                     <PiNotebookBold className="icon" />
-                    <span>Notebooks</span>
+                    <span>Folios</span>
                     {/* <button className="menu-button notebooks">Notebooks</button> */}
                 </Link>
                 <div>
@@ -70,7 +70,7 @@ function Sidebar() {
                         className="tag-modal-button"
                         buttonText={(
                             <span>
-                                <FiTag className="tag-sidebar-icon" /> Tags
+                                <FiTag className="tag-sidebar-icon" />Marks
                             </span>
                         )}
                         modalComponent={<TagsModal />}

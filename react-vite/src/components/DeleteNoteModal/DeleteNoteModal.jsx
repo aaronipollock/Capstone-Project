@@ -49,7 +49,7 @@ function DeleteNoteModal({ noteId }) {
 
     return (
         <form className="delete-modal-container" onSubmit={handleDeleteClick}>
-            <div className="main-delete-text">Are you sure you want to delete this note?</div>
+            <div className="main-delete-text">Art thou certain thou wouldst foresake this note to oblivion?</div>
             {errors.notebook && <div className="error-text">{errors.notebook}</div>}
             {errors.user && <div className="error-text">{errors.user}</div>}
             <div className="delete-notebook-buttons">
@@ -64,7 +64,7 @@ function DeleteNoteModal({ noteId }) {
                     type='submit'
                     className="confirm-delete-notebook-button"
                 >
-                    Delete
+                    Foresake
                 </button>
             </div>
         </form>

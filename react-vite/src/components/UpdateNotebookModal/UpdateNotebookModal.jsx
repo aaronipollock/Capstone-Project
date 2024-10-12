@@ -72,7 +72,7 @@ function UpdateNotebookModal({ notebookId }) {
 
     return (
         <form className="update-notebook-modal-container" onSubmit={handleContinueClick}>
-            <div className="main-update-text">Rename notebook</div>
+            <div className="main-update-text">Rename folio</div>
             {errors.notebook && <div className="update-error-text">{errors.notebook}</div>}
             {errors.user && <div className="update-error-text">{errors.user}</div>}
             <label className="update-title-text">

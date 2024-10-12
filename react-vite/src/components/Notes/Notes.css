@@ -169,7 +169,7 @@ html, body {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         display: none;
         /* z-index: 1; */
-        width: 100px;
+        width: 120px;
     }
 
     .note-dropdown-menu.active {
@@ -182,7 +182,6 @@ html, body {
 
     .note-action-button:hover {
         background-color: lightgray;
-
     }
 
     .delete-note-button {
@@ -190,6 +189,7 @@ html, body {
         border: none;
         color: black;
         cursor: pointer;
+        width: 115px;
     }
 
     .delete-note-button:hover {

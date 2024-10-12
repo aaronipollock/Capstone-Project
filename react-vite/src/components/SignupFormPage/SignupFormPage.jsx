@@ -69,7 +69,7 @@ function SignupFormPage() {
       <div className="signup-page-left">
         <ImQuill className="signup-sticky-note-icon" />
         <h1 className="signup-label">Welcome to Note2be!</h1>
-        <p className="sub-signup-label">Sign up and start taking notes.</p>
+        <p className="sub-signup-label">Enlist thyself and begin thy scribings.</p>
         {errors.server && <p>{errors.server}</p>}
         <form className="signup-form" onSubmit={handleSubmit}>
           <label>
@@ -146,7 +146,7 @@ function SignupFormPage() {
           {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
           <button type="submit">Continue</button>
           <div className="login-from-signup">
-            <p className="login-from-signup-text">Already have an account?</p>
+            <p className="login-from-signup-text">Hold&apos;st thou an account already?</p>
             <NavLink to="/login" className="login-link">Log in</NavLink>
           </div>
         </form>
@@ -157,8 +157,8 @@ function SignupFormPage() {
           <FaHourglass className="hourglass-icon" />
           <IoBusiness className="business-icon" />
         </div>
-        <div className="signup-page-right-text1">Work. School. Life.</div>
-        <div className="signup-page-right-text2">Remember everything</div>
+        <div className="signup-page-right-text1">Post. Academy. Life.</div>
+        <div className="signup-page-right-text2">Recall all things.</div>
         <div className="bottom-icons">
           <FaHeart className="heart-icon" />
           <IoMdSchool className="school-icon" />

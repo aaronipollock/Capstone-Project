@@ -66,9 +66,9 @@ function TagsModal() {
     return (
         <div className="tag-list-modal">
             <div className="tag-list-modal-content" ref={modalRef}>
-                <h2>Your Tags</h2>
+                <h2>Thy Marks</h2>
                 <div className="num-of-tags-container">
-                    <p className="num-of-tags">{tags.length} Tags</p>
+                    <p className="num-of-tags">{tags.length} Marks</p>
                     <button className="tags-sort-icon-button" onClick={toggleDropdown}>
                         <FaSortAmountDownAlt />
                     </button>
@@ -85,13 +85,13 @@ function TagsModal() {
                 </div>
                 <ul className="tag-list-ul">
                     {loading ? (
-                        <p>Loading tags...</p>
+                        <p>Loading marks...</p>
                     ) : sortedTags.length > 0 ? (
                         sortedTags.map(tag => (
                             <li className="tag-list-li" key={tag.id}>{tag.tag_name}</li>
                         ))
                     ) : (
-                        <p>No tags available</p>
+                        <p>No marks at hand</p>
                     )}
                 </ul>
                 <button className="tag-list-close-button" onClick={closeModal}>Close</button>

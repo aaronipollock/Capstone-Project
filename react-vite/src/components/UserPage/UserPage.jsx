@@ -67,8 +67,8 @@ function UserPage() {
             <div className="user-page-container">
                 <section className="home-page-section1">
                     <div>
-                        <p className="ready">Ready to start taking notes?</p>
-                        <h1 className="h1-user-page">Your Home</h1>
+                        <p className="ready">Art thou prepared to begin thy scribings?</p>
+                        <h1 className="h1-user-page">Thy Home</h1>
                     </div>
                 </section>
                 <section className='home-page-section2'>
@@ -77,7 +77,7 @@ function UserPage() {
                             <span className='recent-notes-text'>Recent Notes</span>
                         </div>
                         <div className='header-right'>
-                            <span className='scratch-pad-text'>Scratch Pad</span>
+                            <span className='scratch-pad-text'>Musings</span>
                             <button
                                 className="scratch-pad-action-button"
                                 onClick={() => toggleDropdown('scratch-pad')}

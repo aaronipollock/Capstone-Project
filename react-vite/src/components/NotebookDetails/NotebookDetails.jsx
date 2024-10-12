@@ -13,7 +13,7 @@ import 'quill/dist/quill.snow.css';
 import './NotebookDetails.css';
 import { useMemo } from 'react';
 import Tags from '../Tags'
-import { thunkDeleteTag, thunkRemoveTagFromNote } from '../../redux/tags';
+import { thunkDeleteTag, thunkRemoveTagFromNote, thunkAddTagToNote } from '../../redux/tags';
 import DeleteNoteModal from '../DeleteNoteModal';
 import RemoveNoteModal from "../RemoveNoteModal";
 
@@ -28,7 +28,7 @@ function NotebookDetails() {
     const [title, setTitle] = useState("");
     const [noteUpdated, setNoteUpdated] = useState(false); // State to track note update
 
-    const notebook = useSelector(state => state.notebooks?.notesByNotebookId?.[notebookId] || { notes: []});
+    const notebook = useSelector(state => state.notebooks?.notesByNotebookId?.[notebookId] || { notes: [] });
     const tagsByNoteId = useSelector(state => state.notes?.tagsByNoteId || {})
 
     const notes = useMemo(() => notebook?.notes || [], [notebook]);
@@ -47,7 +47,7 @@ function NotebookDetails() {
         if (notebookId) {
             fetchNotebookDetails();
         }
-    }, [dispatch, notebookId])
+    }, [dispatch, notebookId, noteUpdated])
 
     useEffect(() => {
         if (notebook?.notes?.length > 0) {
@@ -56,8 +56,6 @@ function NotebookDetails() {
             });
         }
     }, [dispatch, notebook?.notes, noteUpdated]);
-
-
 
     const sortedNotes = useMemo(() => {
         if (!notebook || !notebook.notes) return [];
@@ -150,41 +148,67 @@ function NotebookDetails() {
         // Ensure tagsByNoteId[noteId] exists and has tags
         const currentTags = tagsByNoteId[noteId] || [];
 
+        updatedTags = Array.isArray(updatedTags) ? updatedTags : [];
+
+        console.log('Updated Tags:', updatedTags);
+        console.log('Current Tags:', currentTags);
+
+
+        const addedTags = updatedTags.filter(updatedTag => !currentTags.some(currentTag => currentTag.id === updatedTag.id));
+
         // Find the removed tag
-        const removedTag = currentTags.find(tag => !updatedTags.some(updatedTag => updatedTag.id === tag.id));
+        const removedTags = currentTags.filter(currentTag => !updatedTags.some(updatedTag => updatedTag.id === currentTag.id));
+
+        if (addedTags.length > 0) {
+            addedTags.forEach(tag => {
+                dispatch(thunkAddTagToNote(noteId, tag.id))
+                    .then(() => {
+                        setNoteUpdated(prev => !prev);
+                        dispatch(thunkGetTagsForNote(noteId));
+                    })
+                    .catch((error) => {
+                        console.error("Error adding tag to note:", error);
+                    });
+            });
+        }
 
         // Check if removedTag exists before proceeding
-        if (removedTag) {
-            if (removeFromAll) {
-                // If removeFromAll is true, remove the tag globally from all notes
-                dispatch(thunkDeleteTag(removedTag.id))
-                    .then(() => {
-                        setNoteUpdated(prev => !prev); // Force re-render
-                    })
-                    .catch((error) => {
-                        console.error("Error removing tag from all notes:", error);
-                    });
-            } else {
-                // Otherwise, remove the tag from the specific note
-                dispatch(thunkRemoveTagFromNote(noteId, removedTag.id))
-                    .then(() => {
-                        setNoteUpdated(prev => !prev); // Force re-render
-                        dispatch(thunkGetTagsForNote(noteId)); // Refresh tags for the note
-                    })
-                    .catch((error) => {
-                        console.error("Error removing tag from note:", error);
-                    });
-            }
-        } else {
-            console.error('No tag found to remove.');
+        if (removedTags.length > 0) {
+            removedTags.forEach(tag => {
+                if (removeFromAll) {
+                    // If removeFromAll is true, remove the tag globally from all notes
+                    dispatch(thunkDeleteTag(tag.id))
+                        .then(() => {
+                            setNoteUpdated(prev => !prev); // Force re-render
+                            dispatch(thunkGetTagsForNote(noteId));
+                        })
+                        .catch((error) => {
+                            console.error("Error removing tag from all notes:", error);
+                        });
+                } else {
+                    // Otherwise, remove the tag from the specific note
+                    dispatch(thunkRemoveTagFromNote(noteId, tag.id))
+                        .then(() => {
+                            setNoteUpdated(prev => !prev); // Force re-render
+                            dispatch(thunkGetTagsForNote(noteId)); // Refresh tags for the note
+                        })
+                        .catch((error) => {
+                            console.error("Error removing tag from note:", error);
+                        });
+                }
+            });
+        }
+
+        if (addedTags.length === 0 && removedTags.length === 0) {
+            console.error('No tag changes detected.');
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    // if (loading) return <div>Loading...</div>;
 
-    if (!notebook || !notebookId) {
-        return <div>Loading or missing data...</div>;
-    }
+    // if (!notebook || !notebookId) {
+    //     return <div>Loading or missing data...</div>;
+    // }
 
     return (
         <div className="details-page-container">
@@ -225,7 +249,7 @@ function NotebookDetails() {
                                 {notebook && (
                                     <OpenModalButton
                                         className="details-rename-notebook-button"
-                                        buttonText="Rename notebook"
+                                        buttonText="Rename folio"
                                         modalComponent={<UpdateNotebookModal notebookId={notebookId} />}
                                         onButtonClick={closeDropdown}
                                     />
@@ -233,7 +257,7 @@ function NotebookDetails() {
                                 {notebook && (
                                     <OpenModalButton
                                         className="details-delete-notebook-button"
-                                        buttonText="Delete notebook"
+                                        buttonText="Expunge folio"
                                         modalComponent={<DeleteNotebookModal notebookId={notebookId} />}
                                         onButtonClick={closeDropdown}
                                     />
@@ -257,38 +281,38 @@ function NotebookDetails() {
                                     variant="default"
                                 />
                                 {selectedNoteId === note.id && (
-                                        <div className="detail-dropdown">
-                                            <button
-                                                className="detail-action-button"
-                                                onClick={() => toggleDropdown(note.id)}
-                                            >
-                                                <strong>...</strong>
-                                            </button>
-                                            {dropdownIndex === note.id && (
-                                                <div className="detail-dropdown-menu active">
-                                                    {console.log("Dropdown is visible for note:", note.id)}
-                                                    <div className="detail-dropdown-item">
-                                                        {note && (
-                                                            <OpenModalButton
-                                                                className="remove-note-button"
-                                                                buttonText="Remove note from notebook"
-                                                                modalComponent={<RemoveNoteModal noteId={note.id} notebookId={notebookId} />}
-                                                                onButtonClick={closeDropdown}
-                                                            />
-                                                        )}
-                                                        {note && (
-                                                            <OpenModalButton
-                                                                className="delete-note-button"
-                                                                buttonText="Delete note"
-                                                                modalComponent={<DeleteNoteModal noteId={note.id} />}
-                                                                onButtonClick={closeDropdown}
-                                                            />
-                                                        )}
-                                                    </div>
+                                    <div className="detail-dropdown">
+                                        <button
+                                            className="detail-action-button"
+                                            onClick={() => toggleDropdown(note.id)}
+                                        >
+                                            <strong>...</strong>
+                                        </button>
+                                        {dropdownIndex === note.id && (
+                                            <div className="detail-dropdown-menu active">
+                                                {console.log("Dropdown is visible for note:", note.id)}
+                                                <div className="detail-dropdown-item">
+                                                    {note && (
+                                                        <OpenModalButton
+                                                            className="remove-note-button"
+                                                            buttonText="Sever note from notebook"
+                                                            modalComponent={<RemoveNoteModal noteId={note.id} notebookId={notebookId} />}
+                                                            onButtonClick={closeDropdown}
+                                                        />
+                                                    )}
+                                                    {note && (
+                                                        <OpenModalButton
+                                                            className="delete-note-button"
+                                                            buttonText="Foresake note"
+                                                            modalComponent={<DeleteNoteModal noteId={note.id} />}
+                                                            onButtonClick={closeDropdown}
+                                                        />
+                                                    )}
                                                 </div>
-                                            )}
-                                        </div>
-                                    )}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </ul>

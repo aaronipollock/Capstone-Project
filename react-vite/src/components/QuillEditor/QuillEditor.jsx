@@ -295,11 +295,11 @@ const QuillEditor = ({
                 autoFocus
               />
             ) : (
-              <button onClick={handleTagClick} className="add-tag-button">Add Tag</button>
+              <button onClick={handleTagClick} className="add-tag-button">Add Mark</button>
             )}
           </div>
           <button onClick={handleUpdateClick} className="editor-button-update" disabled={isLoading}>
-            {isLoading ? 'Updating...' : 'Update Note'}
+            {isLoading ? 'Amending...' : 'Amend Note'}
           </button>
         </>
       )}

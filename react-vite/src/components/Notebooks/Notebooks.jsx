@@ -61,30 +61,30 @@ function Notebooks() {
                 <Sidebar />
                 <div className="main-content">
                     <section className='section1'>
-                        <p className="text-notebooks">Notebooks</p>
+                        <p className="text-notebooks">Folios</p>
                     </section>
                     <section className='section2'>
                         {!notebooks.length ? (
-                            <p>No notebooks available</p>
+                            <p>No folios at hand</p>
                         ) : (
                             <>
                                 {notebooks.length > 1 ? (
-                                    <p>{notebooks.length} notebooks</p>
+                                    <p>{notebooks.length} folios</p>
                                 ) : (
-                                    <p>1 notebook</p>
+                                    <p>1 folio</p>
                                 )}
                             </>
                         )}
                         <OpenModalButton
                             className="new-notebook-button"
-                            buttonText="New Notebook"
+                            buttonText="New Folio"
                             modalComponent={<CreateNotebookModal />}
                         />
                     </section>
                     <section className='section3'>
                         <p className="title-title">Title</p>
                         <p>Created by</p>
-                        <p>Updated</p>
+                        <p>Amended</p>
                         <p>Shared with</p>
                         <p>Actions</p>
                     </section>
